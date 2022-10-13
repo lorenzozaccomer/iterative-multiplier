@@ -33,7 +33,7 @@ architecture tb_adder of testbench is
 	  A_sum  : in std_logic_vector(N-1 downto 0);
 	  B_sum  : in std_logic_vector(N-1 downto 0);
 	  C_in	 : in std_logic;							-- carry in
-      Sum	 : out std_logic_vector(N-1 downto 0); 		-- final result
+      Sum	 : out std_logic_vector(N+2 downto 0); 		-- final result
 	  C_out	 : out std_logic							-- carry out
 	  );
 	end component adder;

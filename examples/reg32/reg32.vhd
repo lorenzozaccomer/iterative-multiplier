@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
  -- interface 
 entity reg32 is
  port (	
-    CLK, rst_n, load : in std_logic;
+		CLK, rst_n, load : in std_logic;
 		D : in std_logic_vector(31 downto 0);
 		Q : out std_logic_vector(31 downto 0) );
 end reg32;

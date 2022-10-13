@@ -1,0 +1,79 @@
+m255
+K3
+13
+cModel Technology
+dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\multiplier4
+Eadder
+Z0 w1665653722
+Z1 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\adder
+Z5 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder.vhd
+Z6 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder.vhd
+l0
+L9
+V58_R<n:[a@c8^4WXEZ^iz2
+!s100 cJ?C_l9N18RBUk7haa>gh1
+Z7 OP;C;10.1a;51
+32
+!i10b 1
+Z8 !s108 1665653727.237000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder.vhd|
+Z10 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder.vhd|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+Abehavior
+R1
+R2
+R3
+DEx4 work 5 adder 0 22 58_R<n:[a@c8^4WXEZ^iz2
+l20
+L19
+VSHo8KKiHD]fC9Lf6eHS]=0
+!s100 HkO6N@91Y[@:VUIRW1=na2
+R7
+32
+!i10b 1
+R8
+R9
+R10
+R11
+R12
+Etestbench
+Z13 w1665653264
+R1
+R2
+R3
+R4
+Z14 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder_testbench.vhd
+Z15 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder_testbench.vhd
+l0
+L11
+VdhK<n`W6eSXzME9B]ho@Z0
+R7
+32
+Z16 !s108 1665653282.453000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder_testbench.vhd|
+Z18 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/adder/adder_testbench.vhd|
+R11
+R12
+!s100 C7L6=I>Wk7`lZaPCS:SjJ2
+!i10b 1
+Atb_adder
+R1
+R2
+R3
+DEx4 work 9 testbench 0 22 dhK<n`W6eSXzME9B]ho@Z0
+l37
+L18
+V@<HRA_UOljXFkfTz9H<Uf0
+R7
+32
+R16
+R17
+R18
+R11
+R12
+!s100 [jXI]Y222GjB^NMA8LNKX0
+!i10b 1

@@ -9,6 +9,8 @@ use ieee.numeric_std.all;
 
 -- interface
 entity testbench is
+	generic(
+	  N 	: integer := 4 );
 end testbench;
 
 
@@ -20,15 +22,15 @@ architecture tb_multiplier of testbench is
 	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	signal RST : std_logic;
 	
-	signal A_SIG: std_logic_vector(3 downto 0);
-	signal B_SIG: std_logic_vector(3 downto 0);
-	signal R_SIG: std_logic_vector(7 downto 0);
+	signal A_SIG: std_logic_vector(N-1 downto 0);
+	signal B_SIG: std_logic_vector(N-1 downto 0);
+	signal R_SIG: std_logic_vector(2*N-1 downto 0);
 
 	component multiplier is
 	port( 
-	  A   : in std_logic_vector(3 downto 0);
-	  B   : in std_logic_vector(3 downto 0);
-	  P   : out std_logic_vector(7 downto 0)  );
+	  A   : in std_logic_vector(N-1 downto 0);
+	  B   : in std_logic_vector(N-1 downto 0);
+	  P   : out std_logic_vector(2*N-1 downto 0)  );
 	end component multiplier;
       
 begin
@@ -37,7 +39,8 @@ begin
 	port map(
 		A	=> A_SIG,
 		B	=> B_SIG,
-		P	=> R_SIG	);
+		P	=> R_SIG	
+		);
 	
 	process is
 	begin

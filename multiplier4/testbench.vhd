@@ -28,7 +28,7 @@ architecture tb_multiplier of testbench is
 	port( 
 	  A   : in std_logic_vector(3 downto 0);
 	  B   : in std_logic_vector(3 downto 0);
-	  R   : out std_logic_vector(7 downto 0)  );
+	  P   : out std_logic_vector(7 downto 0)  );
 	end component multiplier;
       
 begin
@@ -37,7 +37,7 @@ begin
 	port map(
 		A	=> A_SIG,
 		B	=> B_SIG,
-		R	=> R_SIG	);
+		P	=> R_SIG	);
 	
 	process is
 	begin

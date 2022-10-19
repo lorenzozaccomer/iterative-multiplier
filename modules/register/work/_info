@@ -4,7 +4,7 @@ K3
 cModel Technology
 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\modules\shift_register
 Ereg
-Z0 w1665678197
+Z0 w1666172893
 Z1 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
 Z2 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
 Z3 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\modules\register
@@ -15,7 +15,7 @@ L8
 VT_UiDEnUY@6dEQ:UWVbjO2
 Z6 OP;C;10.1a;51
 32
-Z7 !s108 1665678220.088000
+Z7 !s108 1666174089.963000
 Z8 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/register/reg.vhd|
 Z9 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/register/reg.vhd|
 Z10 o-work work -2002 -explicit -O0
@@ -39,7 +39,7 @@ R11
 !s100 Gadab<G<i`ainCEFEmeJK3
 !i10b 1
 Etestbench
-Z12 w1665678429
+Z12 w1666174338
 Z13 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 R1
 R2
@@ -53,7 +53,7 @@ VdhK<n`W6eSXzME9B]ho@Z0
 R6
 32
 !i10b 1
-Z16 !s108 1665678432.912000
+Z16 !s108 1666174362.023000
 Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/register/reg_testbench.vhd|
 Z18 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/register/reg_testbench.vhd|
 R10

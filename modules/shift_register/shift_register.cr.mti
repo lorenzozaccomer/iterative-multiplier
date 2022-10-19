@@ -1,10 +1,10 @@
-{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/shift_register/shift.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/shift_register/shift.vhd}
+{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/shift_register/shift_testbench.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/shift_register/shift_testbench.vhd}
 Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity shift
--- Compiling architecture behavior of shift
+-- Compiling entity testbench
+-- Compiling architecture shift_testbench of testbench
 
 } {} {}}

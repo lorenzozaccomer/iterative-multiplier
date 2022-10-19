@@ -22,10 +22,12 @@ architecture behavior of shift is
 	begin
 		process(CLK, RST_N)
 		begin
-			if RST_N = '0' and SH_ENABLE = '0' then
-				Q <= (others => '0');
-			elsif SH_ENABLE = '1' and rising_edge(CLK) then
-				Q <= std_logic_vector(shift_left(unsigned(D), 1));
+			if rising_edge(CLK) then
+				if RST_N = '0' then
+					Q <= (others => '0');
+				elsif SH_ENABLE = '1' then
+					Q <= std_logic_vector(shift_left(unsigned(D), 1));
+				end if;
 			end if;
 		end process;
 end behavior;

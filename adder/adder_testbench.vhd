@@ -55,6 +55,7 @@ begin
 		A_SIG <= "0000";
 		B_SIG <= "0000";
 		wait for 10 ns;
+		C_in_SIG <= '0';
 		A_SIG <= "0001";
 		B_SIG <= "0001";
 		wait for 10 ns;

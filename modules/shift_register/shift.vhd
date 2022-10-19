@@ -23,9 +23,9 @@ architecture behavior of shift is
 		process(CLK, RST_N)
 		begin
 			if rising_edge(CLK) then
-				if RST_N = '0' then
+				if RST_N = '0' then			-- clear
 					Q <= (others => '0');
-				elsif SH_ENABLE = '1' then
+				elsif SH_ENABLE = '1' then	-- shift
 					Q <= std_logic_vector(shift_left(unsigned(D), 1));
 				end if;
 			end if;

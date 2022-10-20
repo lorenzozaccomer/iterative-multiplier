@@ -1,3 +1,3 @@
 # progetto-calcolatori
 
-Repository nel quale sono presenti alcuni esempi, pescati dall'internet, per imparare il linguaggio VHDL.
+Repository dedicato al progetto "Moltiplicatore" scritto in linguaggio VHDL per il corso di Calcolatori Elettronici aa 2021/2022

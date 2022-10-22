@@ -10,7 +10,7 @@ use ieee.numeric_std.all;
 -- interface
 entity testbench is
 	generic(
-	  N 	: integer := 4 );
+	  N 	: integer := 8);
 end testbench;
 
 
@@ -44,15 +44,21 @@ begin
 	
 	process is
 	begin
-		A_SIG <= "0000";
-		B_SIG <= "0000";
+		-- A_SIG <= "0000000";
+		-- B_SIG <= "0000000";
 		wait for 10 ns;
-		A_SIG <= "0001";
-		B_SIG <= "0001";
+		A_SIG <= "10101010";
+		B_SIG <= "11010101";
 		wait for 10 ns;
-		A_SIG <= "1011";
-		B_SIG <= "0010";
-		wait for 10 ns;
+		-- A_SIG <= "1011";
+		-- B_SIG <= "0010";
+		-- wait for 10 ns;
+		-- A_SIG <= "1010";
+		-- B_SIG <= "0101";
+		-- wait for 10 ns;
+		-- A_SIG <= "1011";
+		-- B_SIG <= "1010";
+		-- wait for 10 ns;
 	end process;
 	
 end tb_multiplier;

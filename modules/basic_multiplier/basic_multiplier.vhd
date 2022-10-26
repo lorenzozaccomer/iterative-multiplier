@@ -7,7 +7,7 @@ use ieee.numeric_std.all;
 
 entity multiplier is
 	generic(
-	  N 	: integer := 8);
+	  N 	: integer := 4);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
       P		: out std_logic_vector(2*N-1 downto 0) 	-- final result

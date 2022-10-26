@@ -62,6 +62,9 @@ begin
 		A_SIG <= "1011";
 		B_SIG <= "0010";
 		wait for 10 ns;
+		A_SIG <= "1111";
+		B_SIG <= "1111";
+		wait for 10 ns;
 	end process;
 	
 end tb_adder;

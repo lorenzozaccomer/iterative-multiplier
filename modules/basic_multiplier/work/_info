@@ -2,25 +2,62 @@ m255
 K3
 13
 cModel Technology
-dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici
-Emultiplier
-Z0 w1666465765
+dC:\Modeltech_pe_edu_10.1a\examples
+Ebasic_multiplier
+Z0 w1666773860
 Z1 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
 Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
-Z4 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\multiplier4
-Z5 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/multiplier.vhd
-Z6 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/multiplier.vhd
+Z4 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\modules\basic_multiplier
+Z5 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/basic_multiplier.vhd
+Z6 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/basic_multiplier.vhd
+l0
+L8
+VMYWL6kbdGA<`=C^I6iAU73
+Z7 OP;C;10.1a;51
+32
+Z8 !s108 1666773920.970000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/basic_multiplier.vhd|
+Z10 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/basic_multiplier.vhd|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+!s100 RX?zR;20^mIAAamdA1U<I0
+!i10b 1
+Abehavior
+R1
+R2
+R3
+DEx4 work 16 basic_multiplier 0 22 MYWL6kbdGA<`=C^I6iAU73
+l19
+L18
+V0@La_U[J]2H:dbVS8<85@1
+!s100 WO7c=l>9@RkPlM6k67eC:1
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!i10b 1
+Emultiplier
+Z13 w1666772222
+R1
+R2
+R3
+R4
+R5
+R6
 l0
 L8
 VGj_RdDJZ<K:0P07X`;P]E2
-Z7 OP;C;10.1a;51
+R7
 32
-Z8 !s108 1666465807.181000
-Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/multiplier.vhd|
-Z10 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/multiplier.vhd|
-Z11 o-work work -2002 -explicit -O0
-Z12 tExplicit 1
+Z14 !s108 1666773360.204000
+R9
+R10
+R11
+R12
 !s100 :^CZ1b9EXQK?`bIon3AY:2
 !i10b 1
 Abehavior
@@ -31,66 +68,67 @@ DEx4 work 10 multiplier 0 22 Gj_RdDJZ<K:0P07X`;P]E2
 l19
 L18
 V9z@c?e[Fe<^IhGJJC7=gG3
-!s100 URC>VH>0J[Wk>zh4[8=Ok2
 R7
 32
-R8
+R14
 R9
 R10
 R11
 R12
+!s100 URC>VH>0J[Wk>zh4[8=Ok2
 !i10b 1
 Etestbench
-Z13 w1666465797
+Z15 w1666773908
 R1
 R2
 R3
 R4
-Z14 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/testbench.vhd
-Z15 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/testbench.vhd
+Z16 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/bm_testbench.vhd
+Z17 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/bm_testbench.vhd
 l0
 L11
-VdhK<n`W6eSXzME9B]ho@Z0
-!s100 C7L6=I>Wk7`lZaPCS:SjJ2
+V1LE>4@mQ2e0iQ60TPE`Ai1
+!s100 EAiBRX@FJXFb`T2Y`NRU=2
 R7
 32
 !i10b 1
-Z16 !s108 1666465807.360000
-Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/testbench.vhd|
-Z18 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/testbench.vhd|
+Z18 !s108 1666773921.595000
+Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/bm_testbench.vhd|
+Z20 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/bm_testbench.vhd|
+R11
+R12
+Atb_basic_multiplier
+R1
+R2
+R3
+DEx4 work 9 testbench 0 22 1LE>4@mQ2e0iQ60TPE`Ai1
+l36
+L18
+V7A_P^17DDm2oPoJRD?K_D1
+!s100 Ck;@SY6<BiccSA11gf85j0
+R7
+32
+!i10b 1
+R18
+R19
+R20
 R11
 R12
 Atb_multiplier
 R1
 R2
 R3
-DEx4 work 9 testbench 0 22 dhK<n`W6eSXzME9B]ho@Z0
+Z21 DEx4 work 9 testbench 0 22 dhK<n`W6eSXzME9B]ho@Z0
 l36
 L18
 VWMjcjS@XHP5>CXfKEXCbI1
+R7
+32
+R19
+R11
+R12
+w1666772218
+Z22 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/modules/basic_multiplier/bm_testbench.vhd|
+!s108 1666773366.454000
 !s100 Yzz:mB2n<51DZ<U`IN8iY1
-R7
-32
-!i10b 1
-R16
-R17
-R18
-R11
-R12
-As
-R2
-R3
-DEx4 work 9 testbench 0 22 LKLzM[nGj7kz[LKUSeW4e0
-l22
-L10
-V5QKUZ_jF=nEU3:05igBND2
-R7
-32
-R17
-R11
-R12
-w1665589307
-Z19 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/multiplier4/testbench.vhd|
-!s108 1665589320.994000
-!s100 AMgb@FGNN2ez@Cbj]gTXg1
 !i10b 1

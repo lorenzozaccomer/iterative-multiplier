@@ -1,0 +1,156 @@
+m255
+K3
+13
+cModel Technology
+dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\test\reg
+Eadder
+Z0 w1666864062
+Z1 DPx4 work 28 constants_components_package 0 22 =Ca<bAA^cR4_BJR450YcI3
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dC:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier
+Z6 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd
+Z7 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd
+l0
+L70
+V1A:gc:VFCRl8kRTE[VLQl0
+!s100 ]iRclaJJ]g2^EL[PIiQNU0
+Z8 OP;C;10.1a;51
+32
+!i10b 1
+Z9 !s108 1666864073.001000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd|
+Z11 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd|
+Z12 o-work work -2002 -explicit -O0
+Z13 tExplicit 1
+Abehavior
+R1
+R2
+R3
+R4
+DEx4 work 5 adder 0 22 1A:gc:VFCRl8kRTE[VLQl0
+l86
+L82
+Z14 VDB=^Ko7=2P8>5N=Mbf]?F1
+!s100 hFW`CzEfO??Pf`gjBAncM2
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Ebasic_multiplier
+Z15 w1666864062
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+l0
+L132
+V:zi7VDflmVAza2d6b[Nlk3
+!s100 92mNb5FB5Vb3635hV]Fnn3
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Abehavior
+R1
+R2
+R3
+R4
+DEx4 work 16 basic_multiplier 0 22 :zi7VDflmVAza2d6b[Nlk3
+l143
+L142
+V0@La_U[J]2H:dbVS8<85@1
+!s100 W[HZbR5iYZ>2lP]H86F^P1
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Pcomponent_package
+R3
+R4
+R15
+R5
+R6
+R7
+l0
+L8
+V33HbHe<2hQoFBIPCKoYmj0
+!s100 P7A=LNHCX<CNB;z;R5JjM1
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Pconstants_components_package
+R15
+R5
+R6
+R7
+l0
+L52
+V=Ca<bAA^cR4_BJR450YcI3
+!s100 eU0AKZHlDRGYmSzN72d:g0
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Ereg
+R15
+R1
+R3
+R4
+R5
+R6
+R7
+l0
+L101
+VUEM0_CW`dlWSJk7;X9KS70
+!s100 4>1UPbG`4b[kQLYYJhbc83
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13
+Abehavior
+R1
+R3
+R4
+DEx4 work 3 reg 0 22 UEM0_CW`dlWSJk7;X9KS70
+l112
+L111
+VSb7LKhka7jXz?GZjhG2oT3
+!s100 LCGJTNI[9ROMQ`F=U66W?1
+R8
+32
+!i10b 1
+R9
+R10
+R11
+R12
+R13

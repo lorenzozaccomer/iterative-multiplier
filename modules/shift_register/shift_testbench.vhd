@@ -7,8 +7,7 @@ use ieee.numeric_std.all;
 
 -- interface
 entity testbench is
-	generic(
-	  N 	: integer := 4);
+	generic(N 	: integer := 4);
 end testbench;
 
 -- architecture
@@ -21,7 +20,8 @@ architecture shift_testbench of testbench is
 
 	-- signals for DUT
 	signal CLK, RST, SH_ENABLE: std_logic;
-	signal D, Q: std_logic_vector(N-1 downto 0);
+	signal D: std_logic_vector(N-1 downto 0);
+	signal Q: std_logic_vector(N-1 downto 0);
 	
 	-- DUT declaration
 	component shift is
@@ -60,9 +60,9 @@ architecture shift_testbench of testbench is
 		SH_ENABLE <= '1';
 		wait for 1 ns;
 		SH_ENABLE <= '0';
-		wait for 8 ns;
+		wait for 3 ns;
 		SH_ENABLE <= '1';
-		wait for 7 ns;
+		wait;
 	end process shift_process;
 	
 	process is

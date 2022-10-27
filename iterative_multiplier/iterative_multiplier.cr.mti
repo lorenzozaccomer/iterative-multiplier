@@ -1,0 +1,19 @@
+{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package component_package
+-- Compiling package constants_components_package
+-- Loading package NUMERIC_STD
+-- Loading package constants_components_package
+-- Compiling entity adder
+-- Compiling architecture behavior of adder
+-- Compiling entity reg
+-- Compiling architecture behavior of reg
+-- Compiling entity basic_multiplier
+-- Compiling architecture behavior of basic_multiplier
+-- Compiling entity shift
+-- Compiling architecture behavior of shift
+
+} {} {}}

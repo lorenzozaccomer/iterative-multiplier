@@ -9,8 +9,7 @@ use ieee.numeric_std.all;	-- needed to shift op
 -- use ieee.std_logic_usigned.all;
 
 entity shift is
-	generic(
-	  N 	: integer := 4 );
+	generic(N 	: integer := 4);
 	port( 
 		CLK, RST, SH_ENABLE: in std_logic;
 		D: in std_logic_vector(N-1 downto 0);
@@ -26,7 +25,8 @@ architecture behavior of shift is
 				if RST = '1' then			-- clear
 					Q <= (others => '0');
 				elsif SH_ENABLE = '1' then	-- shift
-					Q <= std_logic_vector(shift_left(unsigned(D), 1));
+					Q <= std_logic_vector(shift_left(unsigned(D), 1)) 
+						after 1 ns;
 				end if;
 			end if;
 		end process;

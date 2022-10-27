@@ -1,4 +1,13 @@
-{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd}
+{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_Multiplier.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_Multiplier.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity TEST_Multiplier
+-- Compiling architecture b of TEST_Multiplier
+
+} {} {}} {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/components.vhd}
 Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -16,4 +25,35 @@ Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 
 -- Compiling entity shift
 -- Compiling architecture behavior of shift
 
-} {} {}}
+} {} {}} {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd} {0 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity testbench
+-- Compiling architecture tb_TEST_multiplier of testbench
+** Warning: [4] C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(19): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+** Warning: [4] C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(20): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(38): Labels do not match: 'TEST_Multiplier' and 'basic_multiplier'.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(51): (vcom-1484) Unknown formal identifier "A".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(52): (vcom-1484) Unknown formal identifier "B".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(53): (vcom-1484) Unknown formal identifier "P".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(66): Illegal target for signal assignment.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(66): (vcom-1136) Unknown identifier "A_SIG".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(67): Illegal target for signal assignment.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(67): (vcom-1136) Unknown identifier "B_SIG".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(69): Illegal target for signal assignment.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(69): (vcom-1136) Unknown identifier "A_SIG".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(70): Illegal target for signal assignment.
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(70): (vcom-1136) Unknown identifier "B_SIG".
+
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/iterative_multiplier/TEST_testbench.vhd(86): VHDL Compiler exiting
+
+} {11.0 13.0 14.0 15.0 16.0 17.0 18.0 20.0 21.0 23.0 24.0 26.0 27.0 29.0 30.0 31.0} {}}

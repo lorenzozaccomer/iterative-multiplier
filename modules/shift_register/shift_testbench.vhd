@@ -20,13 +20,13 @@ architecture shift_testbench of testbench is
 	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 
 	-- signals for DUT
-	signal CLK, RST_N, SH_ENABLE: std_logic;
+	signal CLK, RST, SH_ENABLE: std_logic;
 	signal D, Q: std_logic_vector(N-1 downto 0);
 	
 	-- DUT declaration
 	component shift is
 	port(
-		CLK, RST_N, SH_ENABLE : in std_logic;
+		CLK, RST, SH_ENABLE : in std_logic;
 		D : in std_logic_vector(N-1 downto 0);
 		Q : out std_logic_vector(N-1 downto 0)
 	);
@@ -37,7 +37,7 @@ architecture shift_testbench of testbench is
 	DUT : shift
 	port map(
 		CLK => CLK,
-		RST_N => RST_N,
+		RST => RST,
 		SH_ENABLE => SH_ENABLE,
 		D => D,
 		Q => Q
@@ -46,11 +46,11 @@ architecture shift_testbench of testbench is
 	-- RESET
 	reset_process : process
 	begin
-		RST_N <= '1';
+		RST <= '0';
 		wait for 1 ns;
-		RST_N <= '0';
+		RST <= '1';
 		wait for 3 ns;
-		RST_N <= '1';
+		RST <= '0';
 		wait;
 	end process reset_process;		
 	

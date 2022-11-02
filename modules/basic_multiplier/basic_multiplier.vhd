@@ -10,7 +10,8 @@ entity basic_multiplier is
 	  N 	: integer := 2);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-      P		: out std_logic_vector(2*N-1 downto 0) 	-- final result
+      P		: out std_logic_vector(2*N-1 downto 0); 	-- final result
+	  DONE_BY_BM : out std_logic							-- basic multiplier has done the operation
 	  );
 end entity;
 
@@ -18,4 +19,5 @@ end entity;
 architecture behavior of basic_multiplier is
   begin
     P <= std_logic_vector(unsigned(A) * unsigned(B));
+	DONE_BY_BM <= '1';
 end behavior;

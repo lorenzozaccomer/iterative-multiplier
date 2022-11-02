@@ -9,8 +9,7 @@ use ieee.numeric_std.all;
 
 -- interface
 entity testbench is
-	generic(
-	  N 	: integer := 2);
+	generic(N 	: integer := 2);
 end testbench;
 
 
@@ -25,12 +24,14 @@ architecture tb_basic_multiplier of testbench is
 	signal A_SIG: std_logic_vector(N-1 downto 0);
 	signal B_SIG: std_logic_vector(N-1 downto 0);
 	signal R_SIG: std_logic_vector(2*N-1 downto 0);
+	signal DONE_SIG: std_logic;
 
 	component basic_multiplier is
 	port( 
 	  A   : in std_logic_vector(N-1 downto 0);
 	  B   : in std_logic_vector(N-1 downto 0);
-	  P   : out std_logic_vector(2*N-1 downto 0)  );
+	  P   : out std_logic_vector(2*N-1 downto 0);
+	  DONE_BY_BM : out std_logic);
 	end component basic_multiplier;
       
 begin
@@ -39,7 +40,8 @@ begin
 	port map(
 		A	=> A_SIG,
 		B	=> B_SIG,
-		P	=> R_SIG	
+		P	=> R_SIG,
+		DONE_BY_BM => DONE_SIG
 		);
 	
 	process is

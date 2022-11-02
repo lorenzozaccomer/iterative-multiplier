@@ -3,6 +3,9 @@
 
 # Simulation files
 *.dbs
+*.dat
+*.psm
+*.prw
 
 # Object files
 *.o

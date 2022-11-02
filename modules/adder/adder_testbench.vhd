@@ -9,8 +9,7 @@ use ieee.numeric_std.all;
 
 -- interface
 entity testbench is
-	generic(
-	  N 	: integer := 4 );
+	generic(N 	: integer := 4);
 end testbench;
 
 
@@ -27,6 +26,7 @@ architecture tb_adder of testbench is
 	signal R_SIG: std_logic_vector(N-1 downto 0);
 	signal C_in_SIG: std_logic;
 	signal C_out_SIG: std_logic;
+	signal DONE_SIG: std_logic;
 
 	component adder is
 	port( 
@@ -34,6 +34,7 @@ architecture tb_adder of testbench is
 	  B_sum  : in std_logic_vector(N-1 downto 0);
 	  C_in	 : in std_logic;							-- carry in
       Sum	 : out std_logic_vector(N-1 downto 0); 		-- final result
+	  Done_AD : out std_logic;
 	  C_out	 : out std_logic							-- carry out
 	  );
 	end component adder;
@@ -46,7 +47,8 @@ begin
 		B_sum	=> B_SIG,
 		C_in	=> C_in_SIG,
 		C_out	=> C_out_SIG,
-		Sum		=> R_SIG
+		Sum		=> R_SIG,
+		Done_AD => DONE_SIG
 		);
 	
 	process is

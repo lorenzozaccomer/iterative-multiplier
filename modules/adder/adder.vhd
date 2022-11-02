@@ -13,7 +13,8 @@ entity adder is
       A_sum, B_sum	: in std_logic_vector(N-1 downto 0); 	-- operands
 	  C_in			: in std_logic;							-- carry in
       Sum			: out std_logic_vector(N-1 downto 0); 	-- final result
-	  C_out			: out std_logic							-- carry out
+	  C_out			: out std_logic;						-- carry out
+	  Done_AD	 	: out std_logic							-- adder has done the operation
 	  );
 end entity;
 
@@ -29,4 +30,5 @@ architecture behavior of adder is
 				
 	Sum <= Sum_int(N downto 1);
 	C_out <= Sum_int(N+1);
+	Done_AD <= '1';
 end behavior;

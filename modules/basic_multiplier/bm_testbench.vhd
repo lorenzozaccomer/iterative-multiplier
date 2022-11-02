@@ -31,7 +31,7 @@ architecture tb_basic_multiplier of testbench is
 	  A   : in std_logic_vector(N-1 downto 0);
 	  B   : in std_logic_vector(N-1 downto 0);
 	  P   : out std_logic_vector(2*N-1 downto 0);
-	  DONE_BY_BM : out std_logic);
+	  Done_BM : out std_logic);
 	end component basic_multiplier;
       
 begin
@@ -41,7 +41,7 @@ begin
 		A	=> A_SIG,
 		B	=> B_SIG,
 		P	=> R_SIG,
-		DONE_BY_BM => DONE_SIG
+		Done_BM => DONE_SIG
 		);
 	
 	process is

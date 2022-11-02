@@ -15,35 +15,35 @@ Z7 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/class
 l0
 L48
 V1A:gc:VFCRl8kRTE[VLQl0
-!s100 1::SKZU5>gO7TKdXak5fb3
 Z8 OP;C;10.1a;51
 32
-!i10b 1
 Z9 !s108 1666885436.908000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_components.vhd|
 Z11 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_components.vhd|
 Z12 o-work work -2002 -explicit -O0
 Z13 tExplicit 1
+!s100 1::SKZU5>gO7TKdXak5fb3
+!i10b 1
 Abehavior
 R1
 R2
 R3
 R4
-Z14 DEx4 work 5 adder 0 22 1A:gc:VFCRl8kRTE[VLQl0
+DEx4 work 5 adder 0 22 1A:gc:VFCRl8kRTE[VLQl0
 l64
 L60
-Z15 VDB=^Ko7=2P8>5N=Mbf]?F1
-!s100 Hz:TalG<@>X:6bZoz6[I52
+VDB=^Ko7=2P8>5N=Mbf]?F1
 R8
 32
-!i10b 1
 R9
 R10
 R11
 R12
 R13
+!s100 Hz:TalG<@>X:6bZoz6[I52
+!i10b 1
 Ebasic_multiplier
-Z16 w1666885416
+Z14 w1666885416
 R1
 R2
 R3
@@ -54,54 +54,54 @@ R7
 l0
 L80
 V:zi7VDflmVAza2d6b[Nlk3
-!s100 SY@3SQd_:QBOdW1V0[>^k3
 R8
 32
-!i10b 1
 R9
 R10
 R11
 R12
 R13
+!s100 SY@3SQd_:QBOdW1V0[>^k3
+!i10b 1
 Abehavior
 R1
 R2
 R3
 R4
-Z17 DEx4 work 16 basic_multiplier 0 22 :zi7VDflmVAza2d6b[Nlk3
+DEx4 work 16 basic_multiplier 0 22 :zi7VDflmVAza2d6b[Nlk3
 l91
 L90
-Z18 V0@La_U[J]2H:dbVS8<85@1
-!s100 El_l]h]DaUMhak@P92o9n1
+V0@La_U[J]2H:dbVS8<85@1
 R8
 32
-!i10b 1
 R9
 R10
 R11
 R12
 R13
+!s100 El_l]h]DaUMhak@P92o9n1
+!i10b 1
 Pcomponent_package
 R3
 R4
-R16
+R14
 R5
 R6
 R7
 l0
 L8
 VIWSS6gYd3mkf>=HF:>XCD0
-!s100 Ld3CGE[dRbzPBNbHUQIV70
 R8
 32
-!i10b 1
 R9
 R10
 R11
 R12
 R13
+!s100 Ld3CGE[dRbzPBNbHUQIV70
+!i10b 1
 Pconstants_components_package
-Z19 w1666879285
+Z15 w1666879285
 R5
 R6
 R7
@@ -110,15 +110,15 @@ L42
 V=Ca<bAA^cR4_BJR450YcI3
 R8
 32
-Z20 !s108 1666884765.807000
+Z16 !s108 1666884765.807000
 R10
-Z21 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_components.vhd|
+R11
 R12
 R13
 !s100 6SSJfefHeD?L_l9WllC_S1
 !i10b 1
 Ereg
-R19
+R15
 R1
 R3
 R4
@@ -130,9 +130,9 @@ L91
 VUEM0_CW`dlWSJk7;X9KS70
 R8
 32
-R20
+R16
 R10
-R21
+R11
 R12
 R13
 !s100 o]i[>OPgg[Kj[kWmioBPh2
@@ -147,66 +147,66 @@ L101
 VgfT=D<i4X@J5LzfPJ0zOD0
 R8
 32
-R20
+R16
 R10
-R21
+R11
 R12
 R13
 !s100 SEMmHS96SK0V;6n`i`eLR2
 !i10b 1
 Etest_multiplier
-Z22 w1666885370
+Z17 w1667382142
 R2
 R3
 R4
 R5
-Z23 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd
-Z24 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd
+Z18 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd
+Z19 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd
 l0
 L9
 VVjgMn`B6eLVlfieD7Q?8j1
+!s100 5229kz2Weo?YS]L]adlSS1
 R8
 32
-Z25 !s108 1666885434.403000
-Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd|
-Z27 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd|
+!i10b 1
+!s108 1667382162.914000
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd|
+!s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd|
 R12
 R13
-!s100 5229kz2Weo?YS]L]adlSS1
-!i10b 1
 Ab
 R2
 R3
 R4
 DEx4 work 15 test_multiplier 0 22 VjgMn`B6eLVlfieD7Q?8j1
-l36
+l45
 L21
-V`Q?kE:EHcAdeHG5b385_21
+Vh^X@:]do>j`ofX3hP0oFa2
 R8
 32
-R25
-R26
-R27
+!s108 1667381995.742000
+R20
+!s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd|
 R12
 R13
-!s100 L0Odmz>dcPQM>O12HVS:o2
+!s100 0j>IaTaWRRXYiO8WlhjC?3
 !i10b 1
 Etestbench
-Z28 w1666885341
+Z21 w1667379995
 R2
 R3
 R4
 R5
-Z29 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd
-Z30 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd
+Z22 8C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd
+Z23 FC:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd
 l0
 L10
 VdhK<n`W6eSXzME9B]ho@Z0
 R8
 32
-Z31 !s108 1666885435.934000
-Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd|
-Z33 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd|
+Z24 !s108 1667380006.710000
+Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd|
+Z26 !s107 C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd|
 R12
 R13
 !s100 cQ8bQ^m`JC0h6Iab5<SYJ2
@@ -218,13 +218,13 @@ R4
 DEx4 work 9 testbench 0 22 dhK<n`W6eSXzME9B]ho@Z0
 l35
 L16
-VRZM>[YT9zETdomAZjMX?]2
+VQ9=JJDM_R[5TjH6iUh6[X3
 R8
 32
-R31
-R32
-R33
+R24
+R25
+R26
 R12
 R13
-!s100 `Po;XdFOObYJcUAfL1_B@2
+!s100 z2LTi@jicJ6^R;;=_Q1LC0
 !i10b 1

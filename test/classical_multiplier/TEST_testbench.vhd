@@ -47,7 +47,7 @@ begin
 		B_CM <= "0011";
 		wait for 10 ns;
 		A_CM <= "1011";
-		B_CM <= "1010";
+		B_CM <= "0010";
 		wait for 10 ns;
 		-- A_CM <= "0011";
 		-- B_CM <= "0111";

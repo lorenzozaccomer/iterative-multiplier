@@ -1,1 +1,37 @@
+{C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_components.vhd} {1 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_components.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package component_package
+-- Loading package NUMERIC_STD
+-- Loading package constants_components_package
+-- Compiling entity adder
+-- Compiling architecture behavior of adder
+-- Compiling entity basic_multiplier
+-- Compiling architecture behavior of basic_multiplier
 
+} {} {}} {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd} {0 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity TEST_Multiplier
+-- Compiling architecture b of TEST_Multiplier
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd(60): No feasible entries for subprogram "TO_INTEGER".
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd(60): near ";": syntax error
+** Error: C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_Multiplier.vhd(69): VHDL Compiler exiting
+
+} {9.0 12.0} {}} {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd} {2 {vcom -work work -2002 -explicit {C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd}
+Model Technology ModelSim PE Student Edition vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity testbench
+-- Compiling architecture tb_TEST_multiplier of testbench
+** Warning: [4] C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd(18): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+** Warning: [4] C:/Users/lorenzo uni/Desktop/repositories/calcolatori-elettronici/test/classical_multiplier/TEST_testbench.vhd(19): (vcom-1207) An abstract literal and an identifier must have a separator between them.
+
+} {} {}}

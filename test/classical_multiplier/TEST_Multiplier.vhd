@@ -27,11 +27,21 @@ architecture b of TEST_Multiplier is
 		  );
 	end component;
 	
+	component adder is
+		port(
+		  A_sum, B_sum	: in std_logic_vector(3 downto 0); 	-- operands
+		  C_in			: in std_logic;							-- carry in
+		  Sum 			: out std_logic_vector(3 downto 0); 	-- final result
+		  C_out			: out std_logic							-- carry out
+		  );
+	end component;
+	
 	signal mL , mH , nL, nH: std_logic_vector (1 downto 0);
 	signal mL_nL ,mH_nL ,mL_nH,mH_nH  :std_logic_vector (3 downto 0);
 	signal mH_nH2: std_logic_vector (5 downto 0);
 	
-	signal first,second,third,fourth,answer : integer;	
+	signal first,second,third,fourth,answer : std_logic_vector (3 downto 0);
+	signal c1, c2, c3, c4 : std_logic;		
 	
 	begin
 	mL <= A_CM(1 downto 0);
@@ -44,17 +54,18 @@ architecture b of TEST_Multiplier is
 	m02 :basic_multiplier port map(mL,nH,mL_nH);
 	m03 :basic_multiplier port map(mH,nH,mH_nH);
 
-	mH_nH2(3 downto 0) <= mH_nH(3 downto 0);
+	-- mH_nH2(3 downto 0) <= mH_nH(3 downto 0);
 
-	first <= to_integer(unsigned(mL_nL));
-	second <= to_integer(unsigned(mH_nL));
-	third <= to_integer(unsigned(mL_nH));
+	a1 : adder port map(mL_nL, mH_nL, '0', first, c1);
+	first <= to_integer(unsigned(mH_nL));;
+	-- second <= to_integer(unsigned(mH_nL));
+	-- third <= to_integer(unsigned(mL_nH));
 
-	fourth <= to_integer(shift_left(unsigned(mH_nH2),3));
+	-- fourth <= to_integer(shift_left(unsigned(mH_nH2),3));
 
-	answer <= first+(second+third)*256+fourth;
+	answer <= first;
 
-	P_CM <=std_logic_vector(to_signed(answer,8));
+	P_CM(3 downto 0) <= answer;
 end b;
 	
 	

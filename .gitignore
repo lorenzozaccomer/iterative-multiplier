@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Simulation files
+*.dbs
+
 # Object files
 *.o
 *.ko

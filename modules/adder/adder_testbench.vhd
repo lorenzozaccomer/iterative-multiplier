@@ -16,10 +16,10 @@ end testbench;
 -- architecture
 architecture tb_adder of testbench is
 
-	-- constant CLK_SEMIPERIOD0 : time := 25ns;
-	-- constant CLK_SEMIPERIOD1 : time := 25ns;
-	-- constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
-	-- signal RST : std_logic;
+	constant CLK_SEMIPERIOD0 : time := 25ns;
+	constant CLK_SEMIPERIOD1 : time := 25ns;
+	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
+	signal RST : std_logic;
 	
 	signal A_SIG: std_logic_vector(N-1 downto 0);
 	signal B_SIG: std_logic_vector(N-1 downto 0);

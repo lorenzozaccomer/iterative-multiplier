@@ -13,6 +13,12 @@
 /basic_multiplier/work/
 /register/work/
 /shift_register/work/
+test/adder/work/
+test/basic_multiplier/work/
+test/classical_multiplier/work/
+test/reg/work/
+test/reg32/work/
+test/shifter/work/
 
 # Object files
 *.o

@@ -8,6 +8,7 @@
 *.prw
 
 # Simulation folder
+/iterative_multiplier/work/
 /standard_multiplier/work/
 /adder/work/
 /basic_multiplier/work/

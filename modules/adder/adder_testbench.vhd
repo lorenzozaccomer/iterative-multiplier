@@ -9,15 +9,15 @@ use ieee.numeric_std.all;
 
 -- interface
 entity testbench is
-	generic(N 	: integer := 4);
+	generic(N	: integer := 4);
 end testbench;
 
 
 -- architecture
 architecture tb_adder of testbench is
 
-	constant CLK_SEMIPERIOD0 : time := 25ns;
-	constant CLK_SEMIPERIOD1 : time := 25ns;
+	constant CLK_SEMIPERIOD0 : time := 25 ns;
+	constant CLK_SEMIPERIOD1 : time := 25 ns;
 	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	signal RST : std_logic;
 	

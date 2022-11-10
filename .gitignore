@@ -7,6 +7,13 @@
 *.psm
 *.prw
 
+# Simulation folder
+/standard_multiplier/work/
+/adder/work/
+/basic_multiplier/work/
+/register/work/
+/shift_register/work/
+
 # Object files
 *.o
 *.ko

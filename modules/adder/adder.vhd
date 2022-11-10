@@ -7,8 +7,7 @@ use ieee.numeric_std.all;
 
 
 entity adder is
-	generic(
-	  N 	: integer := 4 );
+	generic(N 	: integer := 4);
 	port(
       A_sum, B_sum	: in std_logic_vector(N-1 downto 0); 	-- operands
 	  C_in			: in std_logic;							-- carry in
@@ -30,5 +29,5 @@ architecture behavior of adder is
 				
 	Sum <= Sum_int(N downto 1);
 	C_out <= Sum_int(N+1);
-	Done_AD <= '1';
+	-- Done_AD <= '1';
 end behavior;

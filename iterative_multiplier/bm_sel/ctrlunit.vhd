@@ -37,7 +37,6 @@ architecture behavior of ctrlunit is
 	process(state, CALC, DATAIN, BM_SHIFT, INT_CNT)
 	begin
 		case state is
-		
 			when INIT_BM =>
 				if CALC /= '0'	then
 					nextstate <= INIT_BM;
@@ -46,51 +45,37 @@ architecture behavior of ctrlunit is
 				else
 					nextstate <= NEW_OPERAND_BM;
 				end if;
-
 			when NEW_OPERAND_BM =>
 				nextstate <= RESET_BM;
-				
 			when RESET_BM =>
 				nextstate <= PRODUCT;
-				
 			when PRODUCT =>
 				if BM_SHIFT = "00" then
 					nextstate <= SUM_BM;
 				else
 					nextstate <= SHIFT_PRODUCT;
-					
 			when SHIFT_PRODUCT =>
 				nextstate <= SUM_BM;
-				
 			when ACC_BM =>
 				nextstate <= INC_BM;
-				
 			when INC_BM =>
 				if BM_SHIFT = "010" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= NEW_OPA;
-					
 			when NEW_OPA =>
 				nextstate <= PRODUCT;
-				
 			when WAIT_BM =>
 				if INT_CNT = "100" then
 					nextstate <= SUBPRODUCT;
 				else
 					nextstate <= NEW_PRODUCT_BM;
-					
 			when NEW_PRODUCT_BM =>
 				nextstate <= NEW_OPERAND_BM;
-				
+			when SUBPRODUCT =>
+				nextstate <= INIT_BM;
 			when others =>
 				nextstate <= INIT_BM;
-			
-			
-			
-	
-	
-	
-	
-	
+		end case;
+	end process;
 end behavior;

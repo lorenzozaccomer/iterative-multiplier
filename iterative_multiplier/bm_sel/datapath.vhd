@@ -39,3 +39,7 @@ entity datapath is
 		BM_SHIFT:			in std_logic				
 		);
 end datapath;
+
+architecture struct of datapath is
+	component reg4 is
+	

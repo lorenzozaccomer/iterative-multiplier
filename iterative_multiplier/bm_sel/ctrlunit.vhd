@@ -18,23 +18,27 @@ entity ctrlunit is
 		CALC:				in std_logic;
 		DATAIN:				in std_logic;
 			-- control outputs
-		loadOPA:			out std_logic;
-		loadOPB:			out std_logic;
+		selOPA:				out std_logic;
+		selOPB:				out std_logic;
 		selRA_BM:			out std_logic;
-		loadRB_BM:			out std_logic;
 		selRB_BM:			out std_logic;
-		loadTEMP_BM:		out std_logic;
 		selTEMP_BM:			out std_logic;
-		loadOPR:			out std_logic;
 		selOPR:				out std_logic;
-		loadACC:			out std_logic;
 		selACC:				out std_logic;
-		loadSUM:			out std_logic;
 		selSUM:				out std_logic;
 		selINC:				out std_logic;
-		loadINC:			out std_logic;
 		selSH:				out std_logic;
+		
+		loadOPA:			out std_logic;
+		loadOPB:			out std_logic;
+		loadRB_BM:			out std_logic;
+		loadTEMP_BM:		out std_logic;
+		loadOPR:			out std_logic;
+		loadACC:			out std_logic;
+		loadSUM:			out std_logic;
+		loadINC:			out std_logic;
 		loadSH:				out std_logic;
+		loadOUT:			out std_logic;
 		OK:					out std_logic;
 			-- status signals
 		INT_CNT:			in std_logic_vector(Q downto 0);
@@ -81,7 +85,7 @@ architecture behavior of ctrlunit is
 			when ACC_BM =>
 				nextstate <= INC_BM;
 			when INC_BM =>
-				if INT_CNT <= "010" then
+				if INT_CNT <= "0010" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= NEW_OPA;
@@ -89,7 +93,7 @@ architecture behavior of ctrlunit is
 			when NEW_OPA =>
 				nextstate <= PRODUCT;
 			when WAIT_BM =>
-				if INT_CNT = "100" then
+				if INT_CNT = "0100" then
 					nextstate <= SUBPRODUCT;
 				else
 					nextstate <= NEW_PRODUCT_BM;
@@ -105,17 +109,17 @@ architecture behavior of ctrlunit is
 	
 		-- OUTPUTS
 		loadOPA		<= '1' when state=NEW_OPERAND_BM or
-							state=NEW_OPA or
-							state=PRODUCT else '0';
-							
-		loadOPB 	<= '1' when state=NEW_OPERAND_BM or 
-								state=PRODUCT else '0';
-								
+							state=NEW_OPA else '0';
+		selOPA		<= '1' when state=PRODUCT else '0';
+		
+		loadOPB 	<= '1' when state=NEW_OPERAND_BM else '0';
+		selOPB		<= '1' when state=PRODUCT else '0';
+		
 		selRA_BM	<= '1' when state=SAVE_OPA or
 								state=NEW_PRODUCT_BM else '0';
 								
-		loadRB_BM	<= '1' when state=NEW_PRODUCT_BM else '0';
-		selRB_BM	<= '1' when state=NEW_OPERAND_BM or
+		loadRB_BM	<= '1' when state=WAIT_BM else '0';
+		selRB_BM	<= '1' when state=WAIT_BM or
 							state=NEW_PRODUCT_BM else '0';
 		
 		loadTEMP_BM <= '1' when state=SAVE_OPA or
@@ -152,4 +156,5 @@ architecture behavior of ctrlunit is
 		selSH		<= '1' when state=INC_BM or
 							state=INIT_BM else '0';
 		loadSH		<= '1' when state=INC_BM else '0';
+		loadOUT		<= '1' when state=SUBPRODUCT else '0';
 end behavior;

@@ -16,22 +16,21 @@ end testbench;
 -- architecture
 architecture tb_basic_multiplier of testbench is
 
-	constant CLK_SEMIPERIOD0 : time := 25ns;
-	constant CLK_SEMIPERIOD1 : time := 25ns;
+	constant CLK_SEMIPERIOD0 : time := 25 ns;
+	constant CLK_SEMIPERIOD1 : time := 25 ns;
 	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	signal RST : std_logic;
 	
 	signal A_SIG: std_logic_vector(N-1 downto 0);
 	signal B_SIG: std_logic_vector(N-1 downto 0);
 	signal R_SIG: std_logic_vector(2*N-1 downto 0);
-	signal DONE_SIG: std_logic;
 
 	component basic_multiplier is
 	port( 
-	  A   : in std_logic_vector(N-1 downto 0);
-	  B   : in std_logic_vector(N-1 downto 0);
-	  P   : out std_logic_vector(2*N-1 downto 0);
-	  Done_BM : out std_logic);
+		A   : in std_logic_vector(N-1 downto 0);
+		B   : in std_logic_vector(N-1 downto 0);
+		P   : out std_logic_vector(2*N-1 downto 0)
+		);
 	end component basic_multiplier;
       
 begin
@@ -40,8 +39,7 @@ begin
 	port map(
 		A	=> A_SIG,
 		B	=> B_SIG,
-		P	=> R_SIG,
-		Done_BM => DONE_SIG
+		P	=> R_SIG
 		);
 	
 	process is

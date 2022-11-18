@@ -27,7 +27,7 @@ entity ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selINC_CNT:			out std_logic_vector(Q-1 downto 0);
-		selSH_BM:				out std_logic_vector(Q-1 downto 0);
+		selSH_BM:			out std_logic_vector(Q-1 downto 0);
 		
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;

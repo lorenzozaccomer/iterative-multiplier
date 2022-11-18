@@ -129,8 +129,8 @@ architecture behavior of ctrlunit is
 		loadTEMP_BM <= '1' when state=SAVE_OPA or
 							state=NEW_PRODUCT_BM or
 							state=SHIFT_OPA else '0';
-		selTEMP_BM	<=  "00" when state=NEW_OPA or 
-						"01" when state=NEW_OPERAND_BM or
+		selTEMP_BM	<=  "00" when state=NEW_OPA else 
+						"01" when state=NEW_OPERAND_BM else
 						"10" when state=SHIFT_OPA else "11";
 							
 		loadOPR 	<= '1' when state=PRODUCT or
@@ -155,7 +155,7 @@ architecture behavior of ctrlunit is
 
 		loadINC_CNT	<= '1' when state=INC_BM else '0';
 		selINC_CNT	<= 	"00" when state=INC_BM else
-						"01"state=INIT_BM else "11";
+						"01" when state=INIT_BM else "11";
 		
 		selSH_BM	<= 	"00" when state=INC_BM else
 						"01" when state=INIT_BM else "11";

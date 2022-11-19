@@ -60,6 +60,27 @@ package components_package is
 		  );
 	end component;
 	
+	
+	component notport is
+		port (
+				A               : in  std_logic;
+				Y               : out std_logic
+			 );
+	end component;
+	
+	
+	component mux4N is
+		generic(N 	: integer := 8);
+		port (
+		sel: 	in std_logic_vector(1 downto 0);
+		IN0: 	in std_logic_vector(N-1 downto 0);
+		IN1: 	in std_logic_vector(N-1 downto 0);
+		IN2: 	in std_logic_vector(N-1 downto 0);
+		IN3: 	in std_logic_vector(N-1 downto 0);
+		Y:		out std_logic_vector(N-1 downto 0)
+		);
+	end component;
+	
 end components_package;
 ----------------------------------------------------------------------
 
@@ -205,34 +226,33 @@ end behavior;
 ----------------------------------------------------------------------
 
 
--- ----------------------------------------------------------------------
--- library ieee;
--- use ieee.std_logic_1164.all;
--- use ieee.numeric_std.all;
--- use work.constants_components_pkg.all;
+----------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.constants_components_pkg.all;
 
--- library ieee;
--- use ieee.std_logic_1164.all;
--- entity mux4N is
-	-- generic(N 	: integer := 8);
-	-- port (
-	-- sel: 	in std_logic_vector(1 downto 0);
-	-- IN0: 	in std_logic_vector(N-1 downto 0);
-	-- IN1: 	in std_logic_vector(N-1 downto 0);
-	-- IN2: 	in std_logic_vector(N-1 downto 0);
-	-- IN3: 	in std_logic_vector(N-1 downto 0);
-	-- Y:		out std_logic_vector(N-1 downto 0)
-	-- );
--- end mux2x8;
--- architecture behavior of mux4N is
--- begin
-	-- with sel select
-        -- Y <= I0 after Tmux when "00",
-             -- I1 after Tmux when "01",
-             -- I2 after Tmux when "10",
-             -- I3 after Tmux when others;
--- end behavior;
--- ----------------------------------------------------------------------
+entity mux4N is
+	generic(N 	: integer := 8);
+	port (
+	sel: 	in std_logic_vector(1 downto 0);
+	IN0: 	in std_logic_vector(N-1 downto 0);
+	IN1: 	in std_logic_vector(N-1 downto 0);
+	IN2: 	in std_logic_vector(N-1 downto 0);
+	IN3: 	in std_logic_vector(N-1 downto 0);
+	Y:		out std_logic_vector(N-1 downto 0)
+	);
+end mux4N;
+
+architecture behavior of mux4N is
+begin
+	with sel select
+        Y <= I0 after Tmux when "00",
+             I1 after Tmux when "01",
+             I2 after Tmux when "10",
+             I3 after Tmux when others;
+end behavior;
+----------------------------------------------------------------------
 
 
 

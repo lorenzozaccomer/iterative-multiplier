@@ -26,7 +26,7 @@ entity ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selINC_CNT:			out std_logic_vector(Q-1 downto 0);
-		selSH_BM:			out std_logic_vector(Q-1 downto 0);
+		selSHIFT_BM:			out std_logic_vector(Q-1 downto 0);
 		selR_PM:			out std_logic;
 		
 		loadOPA:			out std_logic;
@@ -37,12 +37,12 @@ entity ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadINC_CNT:		out std_logic;
-		loadSH_BM:			out std_logic;
+		loadSHIFT_BM:			out std_logic;
 		loadOUT:			out std_logic;
 		loadR_PM:			out std_logic;
 		OK:					out std_logic;
 			-- status signals
-		INT_CNT:			in std_logic_vector(Q+1 downto 0);
+		INT_CNT:			in std_logic_vector(Q downto 0);
 		BM_SHIFT:			in std_logic				
 		);
 end ctrlunit;
@@ -86,7 +86,7 @@ architecture behavior of ctrlunit is
 			when ACC_BM =>
 				nextstate <= INC_BM;
 			when INC_BM =>
-				if INT_CNT <= "0010" then
+				if INT_CNT <= "010" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= SHIFT_OPA;
@@ -96,7 +96,7 @@ architecture behavior of ctrlunit is
 			when NEW_OPA =>
 				nextstate <= PRODUCT;
 			when WAIT_BM =>
-				if INT_CNT = "0100" then
+				if INT_CNT = "100" then
 					nextstate <= SUBPRODUCT;
 				else
 					nextstate <= NEW_PRODUCT_BM;
@@ -112,15 +112,19 @@ architecture behavior of ctrlunit is
 	
 		-- OUTPUTS
 		loadOPA		<= 	'1' when state=NEW_OPERAND_BM or
-							state=NEW_OPA else '0';
-		selOPA		<= 	'1' when state=PRODUCT else '0';
+							state=NEW_OPA else 
+						'0';
+		selOPA		<= 	'1' when state=PRODUCT else 
+						'0';
 		
-		loadOPB 	<= 	'1' when state=NEW_OPERAND_BM else '0';
+		loadOPB 	<= 	'1' when state=NEW_OPERAND_BM else 
+						'0';
 		selOPB		<= 	'1' when state=PRODUCT else 
 						'0';
 		
 		selRA_BM	<= 	'1' when state=SAVE_OPA or 
-								 state=NEW_PRODUCT_BM else '0';
+							state=NEW_PRODUCT_BM else 
+						'0';
 								
 		loadRB_BM	<= 	'1' when state=WAIT_BM else '0';
 		selRB_BM	<= 	'0' when state=WAIT_BM or else
@@ -130,39 +134,52 @@ architecture behavior of ctrlunit is
 							state=NEW_PRODUCT_BM or
 							state=SHIFT_OPA else '0';
 		selTEMP_BM	<=  '1' when state=NEW_OPA or 
-								 state=NEW_OPERAND_BM else
+							state=NEW_OPERAND_BM else
 						'0' when state=SHIFT_OPA;
 							
 		loadOPR 	<= 	'1' when state=PRODUCT or
 							state=SHIFT_PRODUCT or
 							state=NEW_OPA or 
 							state=RESET_BM else '0';
-		selOPR		<=  '0' when state=SHIFT_PRODUCT else
-						'1' when state=SUM_BM;
+		selOPR		<=  "00" when state=SHIFT_PRODUCT else
+						"01" when state=SUM_BM else
+						"10" when state=RESET_BM or 
+							 state=NEW_OPA else 
+						"11";
 							
 		loadACC_BM	<= 	'1' when state=ACC_BM or
 							state=RESET_BM or
 							state=SHIFT_ACC else '0';
-							
-		selACC_BM	<=  '0' when state=SHIFT_ACC else
-						'1' when state=NEW_PRODUCT_BM or
-								 state=SUM_BM or
-								 state=SUBPRODUCT;
+		selACC_BM	<=  "00" when state=SHIFT_ACC else
+						"01" when state=NEW_PRODUCT_BM or
+								  state=SUM_BM or
+								  state=SUBPRODUCT else
+						"10" when state=RESET_BM else
+						"11";
 								
 		loadSUM 	<= 	'1' when state=SUM_BM or
 							state=RESET_BM else '0';
-		selSUM		<= 	'1' when state=ACC_BM else '0';
+		selSUM		<= 	'1' when state=ACC_BM else 
+						'0' when state=RESET_BM;
 
 		loadINC_CNT	<= 	'1' when state=INC_BM or 
-								state=INIT_BM else '0';
-		selINC_CNT	<= 	'1' when state=INC_BM else '0';
+								state=INIT_BM else 
+						'0';
+		selINC_CNT	<= 	'1' when state=INC_BM else 
+						'0';
 		
-		selSH_BM	<= 	'0' when state=INC_BM else
-						'1' when state=INIT_BM;
-		loadSH_BM	<= 	'1' when state=INC_BM else '0';
+		loadSHIFT_BM<= 	'1' when state=INC_BM or 
+							state=INIT_BM else 
+						'0';
+		selSHIFT_BM	<= 	'0' when state=INIT_BM or
+							state=RESET_BM else
+						'1' when state=INC_BM;
 		
-		loadR_PM	<= 	'1' when state=NEW_PRODUCT_BM else '0';
-		selR_PM		<= 	'1' when state=SUBPRODUCT else '0';
+		loadR_PM	<= 	'1' when state=NEW_PRODUCT_BM else 
+						'0';
+		selR_PM		<= 	'1' when state=SUBPRODUCT else 
+						'0';
 		
-		loadOUT		<= 	'1' when state=SUBPRODUCT else '0';
+		loadOUT		<= 	'1' when state=SUBPRODUCT else 
+						'0';
 end behavior;

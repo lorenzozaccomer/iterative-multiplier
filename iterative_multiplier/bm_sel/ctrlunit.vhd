@@ -16,17 +16,18 @@ entity ctrlunit is
 		CLK, RST:			in std_logic;
 			-- control inputs
 		START:				in std_logic;
+		DATAIN:				in std_logic;
 			-- control outputs
 		selOPA:				out std_logic;
 		selOPB:				out std_logic;
-		selRA_BM:			out std_logic_vector(Q-1 downto 0);
-		selRB_BM:			out std_logic_vector(Q-1 downto 0);
-		selTEMP_BM:			out std_logic_vector(Q-1 downto 0);
+		selRA_BM:			out std_logic;
+		selRB_BM:			out std_logic;
+		selTEMP_BM:			out std_logic;
 		selOPR:				out std_logic_vector(Q-1 downto 0);
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
-		selINC_CNT:			out std_logic_vector(Q-1 downto 0);
-		selSHIFT_BM:			out std_logic_vector(Q-1 downto 0);
+		selINC_CNT:			out std_logic;
+		selSHIFT_BM:		out std_logic;
 		selR_PM:			out std_logic;
 		
 		loadOPA:			out std_logic;
@@ -37,7 +38,7 @@ entity ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadINC_CNT:		out std_logic;
-		loadSHIFT_BM:			out std_logic;
+		loadSHIFT_BM:		out std_logic;
 		loadOUT:			out std_logic;
 		loadR_PM:			out std_logic;
 		OK:					out std_logic;
@@ -62,7 +63,9 @@ architecture behavior of ctrlunit is
 	begin
 		case state is
 			when INIT_BM =>
-				if START /= '0'	then
+				if START /= '1'	then
+					nextstate <= INIT_BM;
+				elsif DATAIN /= '1' then
 					nextstate <= INIT_BM;
 				else
 					nextstate <= NEW_OPERAND_BM;
@@ -111,75 +114,78 @@ architecture behavior of ctrlunit is
 	end process;
 	
 		-- OUTPUTS
-		loadOPA		<= 	'1' when state=NEW_OPERAND_BM or
-							state=NEW_OPA else 
+		loadOPA		<= 	'1'  when state=NEW_OPERAND_BM or
+							 state=NEW_OPA else 
 						'0';
-		selOPA		<= 	'1' when state=PRODUCT else 
-						'0';
-		
-		loadOPB 	<= 	'1' when state=NEW_OPERAND_BM else 
-						'0';
-		selOPB		<= 	'1' when state=PRODUCT else 
+		selOPA		<= 	'1'  when state=PRODUCT else 
 						'0';
 		
-		selRA_BM	<= 	'1' when state=SAVE_OPA or 
-							state=NEW_PRODUCT_BM else 
+		loadOPB 	<= 	'1'  when state=NEW_OPERAND_BM else 
+						'0';
+		selOPB		<= 	'1'  when state=PRODUCT else 
+						'0';
+		
+		selRA_BM	<= 	'1'  when state=SAVE_OPA or 
+							 state=NEW_PRODUCT_BM else 
 						'0';
 								
-		loadRB_BM	<= 	'1' when state=WAIT_BM else '0';
-		selRB_BM	<= 	'0' when state=WAIT_BM or else
-					<=	'1' when state=NEW_OPERAND_BM;
+		loadRB_BM	<= 	'1'  when state=WAIT_BM else 
+						'0';
+		selRB_BM	<= 	'0'  when state=WAIT_BM or else
+					<=	'1'  when state=NEW_OPERAND_BM;
 		
-		loadTEMP_BM <= 	'1' when state=SAVE_OPA or
-							state=NEW_PRODUCT_BM or
-							state=SHIFT_OPA else '0';
-		selTEMP_BM	<=  '1' when state=NEW_OPA or 
-							state=NEW_OPERAND_BM else
-						'0' when state=SHIFT_OPA;
+		loadTEMP_BM <= 	'1'  when state=SAVE_OPA or
+							 state=NEW_PRODUCT_BM or
+							 state=SHIFT_OPA else '0';
+		selTEMP_BM	<=  '1'  when state=NEW_OPA or 
+							 state=NEW_OPERAND_BM else
+						'0'  when state=SHIFT_OPA;
 							
-		loadOPR 	<= 	'1' when state=PRODUCT or
-							state=SHIFT_PRODUCT or
-							state=NEW_OPA or 
-							state=RESET_BM else '0';
+		loadOPR 	<= 	'1'  when state=PRODUCT or
+							 state=SHIFT_PRODUCT or
+							 state=NEW_OPA or 
+							 state=RESET_BM else '0';
 		selOPR		<=  "00" when state=SHIFT_PRODUCT else
 						"01" when state=SUM_BM else
 						"10" when state=RESET_BM or 
 							 state=NEW_OPA else 
 						"11";
 							
-		loadACC_BM	<= 	'1' when state=ACC_BM or
-							state=RESET_BM or
-							state=SHIFT_ACC else '0';
+		loadACC_BM	<= 	'1'  when state=ACC_BM or
+							 state=RESET_BM or
+							 state=SHIFT_ACC else '0';
 		selACC_BM	<=  "00" when state=SHIFT_ACC else
 						"01" when state=NEW_PRODUCT_BM or
-								  state=SUM_BM or
-								  state=SUBPRODUCT else
+							 state=SUM_BM or
+							 state=SUBPRODUCT else
 						"10" when state=RESET_BM else
 						"11";
 								
-		loadSUM 	<= 	'1' when state=SUM_BM or
-							state=RESET_BM else '0';
-		selSUM		<= 	'1' when state=ACC_BM else 
-						'0' when state=RESET_BM;
+		loadSUM 	<= 	'1'  when state=SUM_BM or
+							 state=RESET_BM else '0';
+		selSUM		<= 	'1'  when state=ACC_BM else 
+						'0'  when state=RESET_BM;
 
-		loadINC_CNT	<= 	'1' when state=INC_BM or 
-								state=INIT_BM else 
+		loadINC_CNT	<= 	'1'  when state=INC_BM or 
+							 state=INIT_BM else 
 						'0';
-		selINC_CNT	<= 	'1' when state=INC_BM else 
-						'0';
-		
-		loadSHIFT_BM<= 	'1' when state=INC_BM or 
-							state=INIT_BM else 
-						'0';
-		selSHIFT_BM	<= 	'0' when state=INIT_BM or
-							state=RESET_BM else
-						'1' when state=INC_BM;
-		
-		loadR_PM	<= 	'1' when state=NEW_PRODUCT_BM else 
-						'0';
-		selR_PM		<= 	'1' when state=SUBPRODUCT else 
+		selINC_CNT	<= 	'1'  when state=INC_BM else 
 						'0';
 		
-		loadOUT		<= 	'1' when state=SUBPRODUCT else 
+		loadSHIFT_BM<= 	'1'  when state=INC_BM or 
+							 state=INIT_BM else 
+						'0';
+		selSHIFT_BM	<= 	'0'  when state=INIT_BM or
+							 state=RESET_BM else
+						'1'  when state=INC_BM;
+		
+		loadR_PM	<= 	'1'  when state=NEW_PRODUCT_BM else 
+						'0';
+		selR_PM		<= 	'1'  when state=SUBPRODUCT else 
+						'0';
+		
+		loadOUT		<= 	'1'  when state=SUBPRODUCT else 
+						'0';
+		OK			<=  '1'  when state=SUBPRODUCT else
 						'0';
 end behavior;

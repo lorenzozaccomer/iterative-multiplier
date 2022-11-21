@@ -44,7 +44,7 @@ package components_package is
 	end component;
 	
 	
-	component adderN_NC is
+	component adderNotCOut is
 		generic(N 	: integer := 4);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -137,7 +137,7 @@ use work.constants_components_pkg.all;
 
 -- adder without carries
 
-entity adderN_NC is
+entity adderNotCOut is
 	generic(N 	: integer := 4);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -146,7 +146,7 @@ entity adderN_NC is
 end entity;
 
 
-architecture behavior of adderN_NC is
+architecture behavior of adderNotCOut is
 	begin
 	S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;

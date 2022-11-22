@@ -67,6 +67,26 @@ package components_package is
 				Y               : out std_logic
 			 );
 	end component;
+		
+
+	component mux is
+		port (
+		sel: 	in std_logic;
+		I0: 	in std_logic;
+		I1: 	in std_logic;
+		Y:		out std_logic
+		);
+	end component;
+
+	component mux2N is
+		generic(N 	: integer := 8);
+		port (
+		sel: 	in std_logic;
+		I0: 	in std_logic_vector(N-1 downto 0);
+		I1: 	in std_logic_vector(N-1 downto 0);
+		Y:		out std_logic_vector(N-1 downto 0)
+		);
+	end component;
 	
 	
 	component mux4N is
@@ -84,11 +104,11 @@ package components_package is
 	
 	component reg is
 		port(
-			CLK:	in std_logic;
-			RST:	in std_logic;
-			LOAD:	in std_logic;
-			D : 	in std_logic;
-			Q : 	out std_logic
+		CLK:	in std_logic;
+		RST:	in std_logic;
+		LOAD:	in std_logic;
+		D : 	in std_logic;
+		Q : 	out std_logic
 		);
 	end component;
 	
@@ -156,7 +176,6 @@ entity adderNotCOut is
 	  );
 end entity;
 
-
 architecture behavior of adderNotCOut is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
@@ -169,6 +188,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use work.constants_components_package.all;
+
 
 entity notport is
     port (
@@ -190,8 +210,31 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.constants_components_package.all;
 
+
+entity mux is
+	port (
+	sel: 	in std_logic;
+	I0: 	in std_logic;
+	I1: 	in std_logic;
+	Y:		out std_logic
+	);
+end mux;
+
+architecture behavior of mux is
+begin
+	with sel select
+		Y <= 	I0 when '0', 
+				I1 when others;
+end behavior;
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.constants_components_package.all;
+
+
 entity mux2N is
 	generic(N 	: integer := 8);
 	port (
@@ -216,6 +259,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.constants_components_package.all;
+
 
 entity mux4N is
 	generic(N 	: integer := 8);
@@ -247,6 +291,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.constants_components_package.all;
+
 
 entity BasicMultiplier is
 	generic(

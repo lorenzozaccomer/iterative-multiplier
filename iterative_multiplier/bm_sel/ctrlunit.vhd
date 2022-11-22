@@ -13,11 +13,13 @@ entity ctrlunit is
 		Q 	: integer := 2;
 		M 	: integer := 4);
 	port(
-		CLK, RST:			in std_logic;
-			-- control inputs
-		START:				in std_logic;
-		DATAIN:				in std_logic;
-			-- control outputs
+		CLK					in std_logic;
+		RST:				in std_logic;
+			-- control signals to/from extern
+		START:				in std_logic;	-- the module can go ahead
+		DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
+		READY:				out std_logic;	-- the modules can do another operation
+			-- control singals to datapath
 		selOPA:				out std_logic;
 		selOPB:				out std_logic;
 		selRA_BM:			out std_logic;
@@ -41,8 +43,7 @@ entity ctrlunit is
 		loadSHIFT_BM:		out std_logic;
 		loadOUT:			out std_logic;
 		loadR_PM:			out std_logic;
-		OK:					out std_logic;
-			-- status signals
+			-- status signals from datapath
 		INT_CNT:			in std_logic_vector(Q downto 0);
 		BM_SHIFT:			in std_logic				
 		);
@@ -107,7 +108,8 @@ architecture behavior of ctrlunit is
 			when NEW_PRODUCT_BM =>
 				nextstate <= NEW_OPERAND_BM;
 			when SUBPRODUCT =>
-				nextstate <= INIT_BM;
+				if DONE = '1' then
+					nextstate <= INIT_BM;
 			when others =>
 				nextstate <= INIT_BM;
 		end case;
@@ -186,6 +188,8 @@ architecture behavior of ctrlunit is
 		
 		loadOUT		<= 	'1'  when state=SUBPRODUCT else 
 						'0';
-		OK			<=  '1'  when state=SUBPRODUCT else
+						
+						
+		READY		<=  '1'	 when state=SUBPRODUCT else
 						'0';
 end behavior;

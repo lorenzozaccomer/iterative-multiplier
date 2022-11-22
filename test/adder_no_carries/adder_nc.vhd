@@ -17,12 +17,11 @@ end entity;
 
 architecture behavior of adder is
 
-	signal Sum_int : std_logic_vector(N downto 0);
-
+	signal A_int, B_int : std_logic_vector(N downto 0);
+	
 	begin
-	Sum_int <= std_logic_vector( 
-				unsigned('0' & A_sum) + 
-				unsigned('0' & B_sum)	);
-				
-	Sum <= Sum_int;
+	A_int <= '0' & A_sum;
+	B_int <= '0' & B_sum;
+	
+	Sum <= std_logic_vector(unsigned(A_int) + unsigned(B_int));
 end behavior;

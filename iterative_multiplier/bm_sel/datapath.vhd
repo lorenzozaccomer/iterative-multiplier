@@ -40,7 +40,7 @@ package datapath_package is
 			loadINC_CNT:		in std_logic;
 			loadSHIFT_BM:		in std_logic;
 			loadOUT:			in std_logic;
-			loadR_PM:			in std_logic;
+			loadRPM:			in std_logic;
 				-- status signals from datapath
 			INT_CNT:			out std_logic_vector(Q downto 0);
 			BM_SHIFT:			out std_logic							
@@ -81,6 +81,7 @@ entity bmseldp is
 		
 		loadOPA:			in std_logic;
 		loadOPB:			in std_logic;
+		loadRA_BM:			in std_logic;
 		loadRB_BM:			in std_logic;
 		loadTEMP_BM:		in std_logic;
 		loadOPR:			in std_logic;
@@ -89,7 +90,7 @@ entity bmseldp is
 		loadINC_CNT:		in std_logic;
 		loadSHIFT_BM:		in std_logic;
 		loadOUT:			in std_logic;
-		loadR_PM:			in std_logic;
+		loadRPM:			in std_logic;
 			-- status signals from datapath
 		INT_CNT:			out std_logic_vector(Q downto 0);
 		BM_SHIFT:			out std_logic							
@@ -99,7 +100,9 @@ end entity;
 architecture struct of bmseldp is
 	
 		-- signals
-	signal bm_shift_in, bm_shift_out: 	std_logic;
+	signal bm_shift_in:					std_logic;
+	signal bm_shift_out: 				std_logic;
+	signal notport_out:					std_logic;
 		
 	signal opa_in, opa_out:				std_logic_vector(Q-1 downto 0);
 	signal opb_in, opb_out:				std_logic_vector(Q-1 downto 0);
@@ -107,21 +110,29 @@ architecture struct of bmseldp is
 	signal inc_cnt_in, inc_cnt_out: 	std_logic_vector(Q downto 0);
 	
 	signal temp_bm_in, temp_bm_out: 	std_logic_vector(M-1 downto 0);
+	signal ra_bm_in, ra_bm_out:			std_logic_vector(M-1 downto 0);
 	signal rb_bm_in, rb_bm_out:			std_logic_vector(M-1 downto 0);
 	signal shift_rb_bm:					std_logic_vector(M-1 downto 0);
 	
 	signal add_cnt_out:					std_logic_vector(M downto 0);
+	signal shift_temp_bm_out:				std_logic_vector(M downto 0);
 	
 	signal accbm_in, accbm_out:			std_logic_vector(2*M-1 downto 0);
 	signal rout_in, rout_out:			std_logic_vector(2*M-1 downto 0);
 	signal opr_in, opr_out:				std_logic_vector(2*M-1 downto 0);
 	
 	signal add_opr_out:					std_logic_vector(2*M downto 0);
+	signal add_subproduct_out:			std_logic_vector(2*M downto 0);
 	signal shift_opr:					std_logic_vector(2*M downto 0);
+	signal r_out_bm:					std_logic_vector(2*M downto 0);
+	signal shift_acc_bm_out:					std_logic_vector(2*M downto 0);
+	signal sum_bm_in, sum_bm_out:		std_logic_vector(2*M downto 0);
+	signal rpm_in, rpm_out:				std_logic_vector(2*M downto 0);
 	
 	begin
 		-- REGISTERS
 	REG_BM_SHIFT:	reg port map(CLK, RST, loadSHIFT_BM, bm_shift_in, bm_shift_out);
+	
 	REG_OPA:		regN generic map(Q) port map(CLK, RST, loadOPA, opa_in, opa_out);
 	REG_OPB:		regN generic map(Q) port map(CLK, RST, loadOPB, opb_in, opb_out);	
 	
@@ -133,36 +144,40 @@ architecture struct of bmseldp is
 	REG_SUM:		regN generic map(2*M) port map(CLK, RST, loadSUM, sum_bm_in, sum_bm_out);
 	REG_ACC_BM:		regN generic map(2*M) port map(CLK, RST, loadACC_BM, accbm_in, accbm_out);
 	REG_OPR:		regN generic map(2*M) port map(CLK, RST, loadOPR, opr_in, opr_out);
-	REG_PM:			regN generic map(2*M) port map(CLK, RST, load_RPM, rpm_in, rpm_out);
+	REG_PM:			regN generic map(2*M) port map(CLK, RST, loadRPM, rpm_in, rpm_out);
 	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, add_subproduct_out, r_out_bm);
 	
 		-- MUXS
+	MUX_SHIFT_BM:	mux port map(selSHIFT_BM, '0', notport_out, bm_shift_in);		
+	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, (others=>'0'), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, (others=>'0'), opb_out, opb_in);				
-	MUX_INC_CNT:	mux2N generic map(Q) port map(selINC_CNT, (others=>'0'), add_inc_cnt_out, inc_cnt_in); 	
+	MUX_INC_CNT:	mux2N generic map(Q) port map(selINC_CNT, (others=>'0'), inc_cnt_out, inc_cnt_in); 	
 	MUX_RA_BM:		mux2N generic map(M) port map(selRA_BM, (others=>'0'), ra_bm_out, ra_bm_in);		
 	MUX_RB_BM:		mux2N generic map(M) port map(selRB_BM, shift_rb_bm, rb_bm_out(Q-1,0), rb_bm_in);	
-	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, shift_temp_bm, temp_bm_out(Q-1,0), opa_in);
-	MUX_SHIFT_BM:	mux2N generic map(Q) port map(selSHIFT_BM, '0', notport_out, bm_shift_in);		
+	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, shift_temp_bm_out, temp_bm_out(Q-1,0), opa_in);
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selR_PM, (others=>'0'), rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, (others=>'0'), sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, shift_opr, opr_out, (others=>'0'), (others=>'0'), opr_in);
-	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, shift_acc_bm, accbm_out, (others=>'0'), (others=>'0'), accbm_in);
+	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, shift_acc_bm_out, accbm_out, (others=>'0'), (others=>'0'), accbm_in);
 	
 		-- ADDERS
-	ADD_INC_CNT:	adderNotCOut port map(inc_cnt_out, "001", add_inc_cnt_out);						-- INC_CNT
-	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		-- SUM_BUM = ACC_BM + OPR
-	ADD_SUBPRD:		adderNotCOut generic map(2*M) port map(rpm_out, accbm_out, add_subproduct_out);	-- ROUT = RPM + ACC
+	-- needed to increment INC_CNT
+	ADD_INC_CNT:	adderNotCOut port map(inc_cnt_in, "001", inc_cnt_out);		
+	-- SUM_BUM = ACC_BM + OPR	
+	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
+	-- ROUT = RPM + ACC
+	ADD_SUBPRD:		adderNotCOut generic map(2*M) port map(rpm_out, accbm_out, add_subproduct_out);	
 	
 		-- LOGIC PORTS
-	NOTPORT1:	notport port map(inc_cnt_out, notport_out);
+	NOTPORT1:		notport port map(bm_shift_in, notport_out);
 	
 		-- SHIFTERS
 	SHIFT1_RB_BM:	leftshiftN generic map(M,Q) port map(rb_bm_in, shift_rb_bm);
 	SHIFT2_OPR:		leftshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
-	SHIFT3_TEMP_BM:	leftshiftN generic map(M,Q) port map(temp_bm_out, shift_temp_bm);
-	SHIFT_ACC_BM:	leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
+	SHIFT3_TEMP_BM:	leftshiftN generic map(M,Q) port map(temp_bm_out, shift_temp_bm_out);
+	SHIFT_ACC_BM:	leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm_out);
 	
 		-- PRODUCT
 	PRODUCT:	BasicMultiplier port map(opa_out, opb_out, opr_in(M-1,0));

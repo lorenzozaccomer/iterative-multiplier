@@ -56,7 +56,7 @@ package components_package is
 		generic(N 	: integer := 2);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-		  P		: out std_logic_vector(2*N-1 downto 0); 	-- final result
+		  P		: out std_logic_vector(2*N-1 downto 0) 	-- final result
 		  );
 	end component;
 	
@@ -81,13 +81,24 @@ package components_package is
 		);
 	end component;
 	
+	
+	component reg is
+		port(
+			CLK:	in std_logic;
+			RST:	in std_logic;
+			LOAD:	in std_logic;
+			D : 	in std_logic;
+			Q : 	out std_logic
+		);
+	end component;
+	
 end components_package;
 ----------------------------------------------------------------------
 
 
 
 ----------------------------------------------------------------------
-package constants_components_pkg is
+package constants_components_package is
     constant Tadd           : time := 4 ns;
     constant Tcomp          : time := 5 ns;
     constant Tmux           : time := 2 ns;
@@ -95,7 +106,7 @@ package constants_components_pkg is
     constant TRsu           : time := 1 ns;
     constant Tshift         : time := 0 ns;
     constant Tlogic         : time := 0.4 ns;
-end constants_components_pkg;
+end constants_components_package;
 ----------------------------------------------------------------------
 
 
@@ -104,7 +115,7 @@ end constants_components_pkg;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 -- adder with carry out and without carry in
 
@@ -133,7 +144,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 -- adder without carries
 
@@ -148,7 +159,7 @@ end entity;
 
 architecture behavior of adderNotCOut is
 	begin
-	S <= std_logic_vector(unsigned(A) + unsigned(B));
+		S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;
 ----------------------------------------------------------------------
 
@@ -157,7 +168,7 @@ end behavior;
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 entity notport is
     port (
@@ -177,7 +188,7 @@ end s;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -189,12 +200,13 @@ entity mux2N is
 	I1: 	in std_logic_vector(N-1 downto 0);
 	Y:		out std_logic_vector(N-1 downto 0)
 	);
-end mux2x8;
+end mux2N;
+
 architecture behavior of mux2N is
 begin
 	with sel select
-	Y <= 	I0 when '0', 
-			I1 when others;
+		Y <= 	I0 when '0', 
+				I1 when others;
 end behavior;
 ----------------------------------------------------------------------
 
@@ -203,7 +215,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 entity mux4N is
 	generic(N 	: integer := 8);
@@ -234,7 +246,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 entity BasicMultiplier is
 	generic(
@@ -258,7 +270,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 
 entity leftshiftN is
@@ -282,7 +294,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 
 entity rightshiftN is
@@ -307,7 +319,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
 
 
 entity regN is
@@ -339,7 +351,40 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_pkg.all;
+use work.constants_components_package.all;
+
+
+entity reg is
+	port(
+		CLK:	in std_logic;
+		RST:	in std_logic;
+		LOAD:	in std_logic;
+		D : 	in std_logic;
+		Q : 	out std_logic
+	);
+end reg;
+
+architecture behavior of regN is
+	begin
+	process(CLK, RST)
+	begin
+		if(RST = '1') then
+			Q <= (others => '0');
+		elsif rising_edge(CLK) and LOAD='1' then
+			Q <= D;
+		end if;
+	end process;
+end behavior;
 
 
 ----------------------------------------------------------------------
+
+
+-- ----------------------------------------------------------------------
+-- library ieee;
+-- use ieee.std_logic_1164.all;
+-- use ieee.numeric_std.all;
+-- use work.constants_components_package.all;
+
+
+-- ----------------------------------------------------------------------

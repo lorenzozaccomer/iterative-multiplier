@@ -13,7 +13,7 @@ entity ctrlunit is
 		Q 	: integer := 2;
 		M 	: integer := 4);
 	port(
-		CLK					in std_logic;
+		CLK:				in std_logic;
 		RST:				in std_logic;
 			-- control signals to/from extern
 		START:				in std_logic;	-- the module can go ahead
@@ -108,8 +108,9 @@ architecture behavior of ctrlunit is
 			when NEW_PRODUCT_BM =>
 				nextstate <= NEW_OPERAND_BM;
 			when SUBPRODUCT =>
-				if DONE = '1' then
+				if START = '1' then
 					nextstate <= INIT_BM;
+				end if;
 			when others =>
 				nextstate <= INIT_BM;
 		end case;
@@ -133,8 +134,8 @@ architecture behavior of ctrlunit is
 								
 		loadRB_BM	<= 	'1'  when state=WAIT_BM else 
 						'0';
-		selRB_BM	<= 	'0'  when state=WAIT_BM or else
-					<=	'1'  when state=NEW_OPERAND_BM;
+		selRB_BM	<= 	'0'  when state=WAIT_BM else
+						'1'  when state=NEW_OPERAND_BM;
 		
 		loadTEMP_BM <= 	'1'  when state=SAVE_OPA or
 							 state=NEW_PRODUCT_BM or

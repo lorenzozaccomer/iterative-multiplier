@@ -122,7 +122,7 @@ architecture behavior of adderN is
 	signal Sum_int : std_logic_vector(N downto 0);
 
 	begin
-	Sum_int <= std_logic_vector(unsigned('0'&A) + unsigned('0'&B));
+	Sum_int <= std_logic_vector(unsigned('0' & A) + unsigned('0' & B));
 	S <= Sum_int;
 end behavior;
 ----------------------------------------------------------------------
@@ -173,33 +173,6 @@ end s;
 ----------------------------------------------------------------------
 
 
--- ----------------------------------------------------------------------
--- library ieee;
--- use ieee.std_logic_1164.all;
--- use ieee.numeric_std.all;
--- use work.constants_components_pkg.all;
-
-
--- entity adder2 is
-	-- port(
-      -- A, B	: in std_logic; 	-- operands
-      -- S			: out std_logic_vector(1 downto 0) 	-- final result
-	  -- );
--- end entity;
-
-
--- architecture behavior of adder2 is
-
-	-- signal Sum_int : std_logic_vector(1 downto 0);
-
-	-- begin
-	-- Sum_int <= std_logic_vector(unsigned(A) + unsigned(B));
-	-- S <= Sum_int;
--- end behavior;
--- ----------------------------------------------------------------------
-
-
-
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
@@ -212,16 +185,16 @@ entity mux2N is
 	generic(N 	: integer := 8);
 	port (
 	sel: 	in std_logic;
-	IN0: 	in std_logic_vector(N-1 downto 0);
-	IN1: 	in std_logic_vector(N-1 downto 0);
+	I0: 	in std_logic_vector(N-1 downto 0);
+	I1: 	in std_logic_vector(N-1 downto 0);
 	Y:		out std_logic_vector(N-1 downto 0)
 	);
 end mux2x8;
 architecture behavior of mux2N is
 begin
 	with sel select
-	Y <= 	IN0 when '0', 
-			IN1 when others;
+	Y <= 	I0 when '0', 
+			I1 when others;
 end behavior;
 ----------------------------------------------------------------------
 
@@ -236,10 +209,10 @@ entity mux4N is
 	generic(N 	: integer := 8);
 	port (
 	sel: 	in std_logic_vector(1 downto 0);
-	IN0: 	in std_logic_vector(N-1 downto 0);
-	IN1: 	in std_logic_vector(N-1 downto 0);
-	IN2: 	in std_logic_vector(N-1 downto 0);
-	IN3: 	in std_logic_vector(N-1 downto 0);
+	I0: 	in std_logic_vector(N-1 downto 0);
+	I1: 	in std_logic_vector(N-1 downto 0);
+	I2: 	in std_logic_vector(N-1 downto 0);
+	I3: 	in std_logic_vector(N-1 downto 0);
 	Y:		out std_logic_vector(N-1 downto 0)
 	);
 end mux4N;
@@ -247,10 +220,10 @@ end mux4N;
 architecture behavior of mux4N is
 begin
 	with sel select
-        Y <= I0 after Tmux when "00",
-             I1 after Tmux when "01",
-             I2 after Tmux when "10",
-             I3 after Tmux when others;
+        Y <= I0 when "00",
+             I1 when "01",
+             I2 when "10",
+             I3 when others;
 end behavior;
 ----------------------------------------------------------------------
 
@@ -302,8 +275,6 @@ architecture behavior of leftshiftN is
 	begin
 		Y <= std_logic_vector(shift_left(unsigned(X), SH));
 end behavior;
-
-
 ----------------------------------------------------------------------
 
 
@@ -328,8 +299,6 @@ architecture behavior of leftshiftN is
 	begin
 		Y <= std_logic_vector(shift_right(unsigned(X), SH));
 end behavior;
-
-
 ----------------------------------------------------------------------
 
 
@@ -339,6 +308,28 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.constants_components_pkg.all;
+
+
+entity regN is
+	generic(N 	: integer := 4);
+	port(
+		CLK, RST, LOAD : in std_logic;
+		D : in std_logic_vector(N-1 downto 0);
+		Q : out std_logic_vector(N-1 downto 0)
+	);
+end regN;
+
+architecture behavior of regN is
+	begin
+	process(CLK, RST)
+	begin
+		if(RST = '1') then
+			Q <= (others => '0');
+		elsif rising_edge(CLK) and LOAD='1' then
+			Q <= D;
+		end if;
+	end process;
+end behavior;
 
 
 ----------------------------------------------------------------------

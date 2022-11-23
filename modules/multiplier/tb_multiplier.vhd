@@ -1,5 +1,5 @@
 
--- testbench.vhdl for basic_multiplier
+-- tb.vhdl for multiplierN
 
 -- libraries
 library ieee;
@@ -8,34 +8,33 @@ use ieee.numeric_std.all;
 
 
 -- interface
-entity testbench is
+entity tb is
 	generic(N 	: integer := 2);
-end testbench;
+end tb;
 
 
 -- architecture
-architecture tb_basic_multiplier of testbench is
+architecture behavior of tb is
 
 	constant CLK_SEMIPERIOD0 : time := 25 ns;
 	constant CLK_SEMIPERIOD1 : time := 25 ns;
 	constant CLK_PERIOD : time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
-	signal RST : std_logic;
 	
 	signal A_SIG: std_logic_vector(N-1 downto 0);
 	signal B_SIG: std_logic_vector(N-1 downto 0);
 	signal R_SIG: std_logic_vector(2*N-1 downto 0);
 
-	component basic_multiplier is
+	component multiplierN is
 	port( 
 		A   : in std_logic_vector(N-1 downto 0);
 		B   : in std_logic_vector(N-1 downto 0);
 		P   : out std_logic_vector(2*N-1 downto 0)
 		);
-	end component basic_multiplier;
+	end component multiplierN;
       
 begin
   
-	basic_multiplier_INST : basic_multiplier
+	basic_multiplier_INST : multiplierN
 	port map(
 		A	=> A_SIG,
 		B	=> B_SIG,
@@ -64,4 +63,4 @@ begin
 		-- wait for 10 ns;
 	end process;
 	
-end tb_basic_multiplier;
+end behavior;

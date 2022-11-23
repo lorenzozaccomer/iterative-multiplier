@@ -1,11 +1,11 @@
 
--- basic_multiplier.vhdl
+-- multiplierN.vhdl
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity basic_multiplier is
+entity multiplierN is
 	generic(
 	  N 	: integer := 2);
 	port(
@@ -15,7 +15,7 @@ entity basic_multiplier is
 end entity;
 
 
-architecture behavior of basic_multiplier is
+architecture behavior of multiplierN is
   begin
     P <= std_logic_vector(unsigned(A) * unsigned(B));
 end behavior;

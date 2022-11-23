@@ -19,7 +19,7 @@ entity ctrlunit is
 		START:				in std_logic;	-- the module can go ahead
 		DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
 		READY:				out std_logic;	-- the modules can do another operation
-			-- control singals to datapath
+			-- control signals to datapath
 		selOPA:				out std_logic;
 		selOPB:				out std_logic;
 		selRA_BM:			out std_logic;

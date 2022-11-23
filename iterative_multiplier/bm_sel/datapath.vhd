@@ -66,7 +66,7 @@ entity bmseldp is
 		RA_BM, RB_BM:		in std_logic_vector(M-1 downto 0);
 			-- data outputs
 		ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
-			-- control singals to datapath
+			-- control signals to datapath
 		selOPA:				in std_logic;
 		selOPB:				in std_logic;
 		selRA_BM:			in std_logic;

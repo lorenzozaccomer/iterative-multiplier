@@ -6,8 +6,8 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-package datapath_package is
-    component bmseldp is
+package bmsel_datapath_package is
+    component bmsel_datapath is
 		generic(
 			Q 	: integer := 2;
 			M 	: integer := 4);
@@ -27,7 +27,7 @@ package datapath_package is
 			selACC_BM:			in std_logic_vector(Q-1 downto 0);
 			selSUM:				in std_logic;
 			selINC_CNT:			in std_logic;
-			selADV_BM:		in std_logic;
+			selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			
 			loadOPA:			in std_logic;
@@ -38,15 +38,15 @@ package datapath_package is
 			loadACC_BM:			in std_logic;
 			loadSUM:			in std_logic;
 			loadINC_CNT:		in std_logic;
-			loadADV_BM:		in std_logic;
+			loadADV_BM:			in std_logic;
 			loadOUT:			in std_logic;
 			loadRPM:			in std_logic;
 				-- status signals from datapath
 			INT_CNT:			out std_logic_vector(Q downto 0);
-			ADV_BM:			out std_logic							
+			ADV_BM:				out std_logic
 			);
 	end component;
-end datapath_package;
+end bmsel_datapath_package;
 ----------------------------------------------------------------------
 
 
@@ -56,7 +56,7 @@ use ieee.numeric_std.all;
 use work.components_package.all;
 
 	-- interface
-entity bmseldp is
+entity bmsel_datapath is
 	generic(
 		Q 	: integer := 2;
 		M 	: integer := 4);
@@ -97,7 +97,7 @@ entity bmseldp is
 		);
 end entity;
 
-architecture struct of bmseldp is
+architecture struct of bmsel_datapath is
 	
 		-- signals
 	signal adv_in:						std_logic;

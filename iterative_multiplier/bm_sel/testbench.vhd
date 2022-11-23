@@ -56,9 +56,7 @@ architecture behavior of tb is
 	
 	begin
 	DUT: bmsel
-		port map(
-			CLK,
-			RST,
+		port map(CLK,RST,
 			A_BM,
 			B_BM,
 			OUT_BM,

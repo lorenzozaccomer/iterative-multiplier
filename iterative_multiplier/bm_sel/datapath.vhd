@@ -186,7 +186,7 @@ architecture struct of bmsel_datapath is
 	SHIFT_ACC_BM:	leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm_out);
 	
 		-- PRODUCT
-	PRODUCT:	BasicMultiplier port map(opa_out, opb_out, opr_out(M-1 downto 0));
+	PRODUCT:		multiplierN port map(opa_out, opb_out, opr_out(M-1 downto 0));
 	
 		-- status signals
 	ADV_BM 	<= adv_out;

@@ -32,6 +32,7 @@ package bmsel_datapath_package is
 			
 			loadOPA:			in std_logic;
 			loadOPB:			in std_logic;
+			loadRA_BM:			in std_logic;
 			loadRB_BM:			in std_logic;
 			loadTEMP_BM:		in std_logic;
 			loadOPR:			in std_logic;

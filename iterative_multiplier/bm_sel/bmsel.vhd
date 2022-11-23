@@ -134,6 +134,7 @@ architecture struct of bmsel is
 			selRPM,
 			loadOPA,
 			loadOPB,
+			loadRA_BM,
 			loadRB_BM,
 			loadTEMP_BM,
 			loadOPR,

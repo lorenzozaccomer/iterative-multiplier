@@ -52,7 +52,7 @@ package components_package is
 		  );
 	end component;
 	
-	component BasicMultiplier is
+	component multiplierN is
 		generic(N 	: integer := 2);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -293,7 +293,7 @@ use ieee.numeric_std.all;
 use work.constants_components_package.all;
 
 
-entity BasicMultiplier is
+entity multiplierN is
 	generic(
 	  N 	: integer := 2);
 	port(
@@ -303,7 +303,7 @@ entity BasicMultiplier is
 end entity;
 
 
-architecture behavior of BasicMultiplier is
+architecture behavior of multiplierN is
   begin
     P <= std_logic_vector(unsigned(A) * unsigned(B));
 end behavior;

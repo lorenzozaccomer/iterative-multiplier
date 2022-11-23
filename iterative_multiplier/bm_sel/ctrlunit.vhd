@@ -29,8 +29,8 @@ entity ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selINC_CNT:			out std_logic;
-		selSHIFT_BM:		out std_logic;
-		selR_PM:			out std_logic;
+		selADV_BM:		out std_logic;
+		selRPM:			out std_logic;
 		
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
@@ -41,7 +41,7 @@ entity ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadINC_CNT:		out std_logic;
-		loadSHIFT_BM:		out std_logic;
+		loadADV_BM:		out std_logic;
 		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
 			-- status signals from datapath
@@ -178,16 +178,16 @@ architecture behavior of ctrlunit is
 		selINC_CNT	<= 	'1'  when state=INC_BM else 
 						'0';
 		
-		loadSHIFT_BM<= 	'1'  when state=INC_BM or 
+		loadADV_BM	<= 	'1'  when state=INC_BM or 
 							 state=INIT_BM else 
 						'0';
-		selSHIFT_BM	<= 	'0'  when state=INIT_BM or
+		selADV_BM	<= 	'0'  when state=INIT_BM or
 							 state=RESET_BM else
 						'1'  when state=INC_BM;
 		
 		loadRPM	<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';
-		selR_PM		<= 	'1'  when state=SUBPRODUCT else 
+		selRPM		<= 	'1'  when state=SUBPRODUCT else 
 						'0';
 		
 		loadOUT		<= 	'1'  when state=SUBPRODUCT else 

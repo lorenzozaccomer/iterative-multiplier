@@ -2,13 +2,62 @@
 --- ctrlunit.vhd
 
 --- for basic multiplier select
+----------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+package bmsel_ctrlunit_package is
+	component bmsel_ctrlunit is
+		generic(
+			Q 	: integer := 2;
+			M 	: integer := 4);
+		port(
+			CLK:				in std_logic;
+			RST:				in std_logic;
+				-- control signals to/from extern
+			START:				in std_logic;	-- the module can go ahead
+			DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
+			READY:				out std_logic;	-- the modules can do another operation
+				-- control signals to datapath
+			selOPA:				out std_logic;
+			selOPB:				out std_logic;
+			selRA_BM:			out std_logic;
+			selRB_BM:			out std_logic;
+			selTEMP_BM:			out std_logic;
+			selOPR:				out std_logic_vector(Q-1 downto 0);
+			selACC_BM:			out std_logic_vector(Q-1 downto 0);
+			selSUM:				out std_logic;
+			selINC_CNT:			out std_logic;
+			selADV_BM:			out std_logic;
+			selRPM:				out std_logic;
+			
+			loadOPA:			out std_logic;
+			loadOPB:			out std_logic;
+			loadRA_BM:			out std_logic;
+			loadRB_BM:			out std_logic;
+			loadTEMP_BM:		out std_logic;
+			loadOPR:			out std_logic;
+			loadACC_BM:			out std_logic;
+			loadSUM:			out std_logic;
+			loadINC_CNT:		out std_logic;
+			loadADV_BM:			out std_logic;
+			loadOUT:			out std_logic;
+			loadRPM:			out std_logic;
+				-- status signals from datapath
+			INT_CNT:			in std_logic_vector(Q downto 0);
+			ADV_BM:				in std_logic				
+			);
+	end component;
+end bmsel_ctrlunit_package;
+----------------------------------------------------------------------
 
 -- libraries
 library ieee;
 use ieee.std_logic_1164.all;
 
 	-- interface
-entity ctrlunit is
+entity bmsel_ctrlunit is
 	generic(
 		Q 	: integer := 2;
 		M 	: integer := 4);
@@ -48,10 +97,10 @@ entity ctrlunit is
 		INT_CNT:			in std_logic_vector(Q downto 0);
 		ADV_BM:				in std_logic				
 		);
-end ctrlunit;
+end bmsel_ctrlunit;
 
 
-architecture behavior of ctrlunit is
+architecture behavior of bmsel_ctrlunit is
 
 	type statetype is (INIT_BM, SAVE_OPA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_BM, WAIT_BM, SHIFT_OPA, SHIFT_ACC, NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT);

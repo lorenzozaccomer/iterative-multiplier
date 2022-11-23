@@ -43,7 +43,7 @@ package datapath_package is
 			loadRPM:			in std_logic;
 				-- status signals from datapath
 			INT_CNT:			out std_logic_vector(Q downto 0);
-			BM_SHIFT:			out std_logic							
+			ADV_BM:			out std_logic							
 			);
 	end component;
 end datapath_package;
@@ -93,7 +93,7 @@ entity bmseldp is
 		loadRPM:			in std_logic;
 			-- status signals from datapath
 		INT_CNT:			out std_logic_vector(Q downto 0);
-		BM_SHIFT:			out std_logic							
+		ADV_BM:				out std_logic							
 		);
 end entity;
 
@@ -132,6 +132,7 @@ architecture struct of bmseldp is
 	signal rb_bm_out_Int:				std_logic_vector(Q-1 downto 0);
 	signal shift_temp_bm_out_Int:		std_logic_vector(Q-1 downto 0);
 	signal temp_bm_out_Int:				std_logic_vector(Q-1 downto 0);
+	signal one_inc_vector:				std_logic_vector(Q downto 0);
 	
 	begin
 		-- REGISTERS
@@ -159,17 +160,17 @@ architecture struct of bmseldp is
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, (others=>'0'), opb_out, opb_in);				
 	MUX_INC_CNT:	mux2N generic map(Q) port map(selINC_CNT, (others=>'0'), inc_cnt_out, inc_cnt_in); 	
 	MUX_RA_BM:		mux2N generic map(M) port map(selRA_BM, (others=>'0'), ra_bm_out, temp_bm_in);		
-	MUX_RB_BM:		mux2N generic map(M) port map(selRB_BM, shift_rb_bm_Int, rb_bm_out_Int, rb_bm_in);	
+	MUX_RB_BM:		mux2N generic map(Q) port map(selRB_BM, shift_rb_bm_Int, rb_bm_out_Int, opb_in);	
 	MUX_TEMP_BM:	mux2N generic map(Q) port map(selTEMP_BM, shift_temp_bm_out_Int, temp_bm_out_Int, opa_in);
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, (others=>'0'), rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, (others=>'0'), sum_bm_out, sum_bm_in); 
-	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, shift_opr, opr_out, (others=>'0'), (others=>'0'), opr_in);
-	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, shift_acc_bm_out, accbm_out, (others=>'0'), (others=>'0'), accbm_in);
+	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, (others=>'0'), shift_opr, opr_out, (others=>'0'), opr_in);
+	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, (others=>'0'), shift_acc_bm_out, accbm_out, (others=>'0'), accbm_in);
 	
 		-- ADDERS
 	-- needed to increment INC_CNT
-	ADD_INC_CNT:	adderNotCOut port map(inc_cnt_in, "001", inc_cnt_out);		
+	ADD_INC_CNT:	adderNotCOut port map(inc_cnt_in, one_inc_vector, inc_cnt_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
 	-- ROUT = RPM + ACC
@@ -188,7 +189,7 @@ architecture struct of bmseldp is
 	PRODUCT:	BasicMultiplier port map(opa_out, opb_out, opr_out(M-1 downto 0));
 	
 		-- status signals
-	BM_SHIFT <= adv_out;
+	ADV_BM 	<= adv_out;
 	INT_CNT <= inc_cnt_out;
 	
 		-- data output
@@ -199,5 +200,6 @@ architecture struct of bmseldp is
 	rb_bm_out_Int <= rb_bm_out(Q-1 downto 0);
 	shift_temp_bm_out_Int <= shift_temp_bm_out(Q-1 downto 0);
 	temp_bm_out_Int <= temp_bm_out(Q-1 downto 0);
+	one_inc_vector <= "001";
 
 end struct;

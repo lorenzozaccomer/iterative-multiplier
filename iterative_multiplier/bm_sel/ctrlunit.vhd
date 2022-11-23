@@ -29,8 +29,8 @@ entity ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selINC_CNT:			out std_logic;
-		selADV_BM:		out std_logic;
-		selRPM:			out std_logic;
+		selADV_BM:			out std_logic;
+		selRPM:				out std_logic;
 		
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
@@ -41,12 +41,12 @@ entity ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadINC_CNT:		out std_logic;
-		loadADV_BM:		out std_logic;
+		loadADV_BM:			out std_logic;
 		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
 			-- status signals from datapath
 		INT_CNT:			in std_logic_vector(Q downto 0);
-		BM_SHIFT:			in std_logic				
+		ADV_BM:				in std_logic				
 		);
 end ctrlunit;
 
@@ -61,7 +61,7 @@ architecture behavior of ctrlunit is
 		-- FSM
 			state <= INIT_BM when RST='1' else
 				nextstate when rising_edge(CLK);
-	process(state, START, DATAIN, BM_SHIFT, INT_CNT)
+	process(state, START, DATAIN, ADV_BM, INT_CNT)
 	begin
 		case state is
 			when INIT_BM =>
@@ -79,7 +79,7 @@ architecture behavior of ctrlunit is
 			when RESET_BM =>
 				nextstate <= PRODUCT;
 			when PRODUCT =>
-				if BM_SHIFT = '0' then
+				if ADV_BM = '0' then
 					nextstate <= SUM_BM;
 				else
 					nextstate <= SHIFT_PRODUCT;
@@ -151,20 +151,20 @@ architecture behavior of ctrlunit is
 							 state=SHIFT_PRODUCT or
 							 state=NEW_OPA or 
 							 state=RESET_BM else '0';
-		selOPR		<=  "00" when state=SHIFT_PRODUCT else
-						"01" when state=SUM_BM else
-						"10" when state=RESET_BM or 
+		selOPR		<=  "00" when state=RESET_BM or 
 							 state=NEW_OPA else 
+						"01" when state=SHIFT_PRODUCT else
+						"10" when state=SUM_BM else
 						"11";
 							
 		loadACC_BM	<= 	'1'  when state=ACC_BM or
 							 state=RESET_BM or
 							 state=SHIFT_ACC else '0';
-		selACC_BM	<=  "00" when state=SHIFT_ACC else
-						"01" when state=NEW_PRODUCT_BM or
+		selACC_BM	<=  "00" when state=RESET_BM else
+						"01" when state=SHIFT_ACC else
+						"10" when state=NEW_PRODUCT_BM or
 							 state=SUM_BM or
 							 state=SUBPRODUCT else
-						"10" when state=RESET_BM else
 						"11";
 								
 		loadSUM 	<= 	'1'  when state=SUM_BM or
@@ -185,7 +185,7 @@ architecture behavior of ctrlunit is
 							 state=RESET_BM else
 						'1'  when state=INC_BM;
 		
-		loadRPM	<= 	'1'  when state=NEW_PRODUCT_BM else 
+		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';
 		selRPM		<= 	'1'  when state=SUBPRODUCT else 
 						'0';

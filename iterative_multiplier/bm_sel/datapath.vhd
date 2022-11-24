@@ -137,22 +137,22 @@ architecture struct of bmsel_datapath is
 	
 	begin
 		-- REGISTERS
-	-- REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
+	REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
 	
-	-- REG_OPA:		regN generic map(Q) port map(CLK, RST, loadOPA, opa_in, opa_out);
-	-- REG_OPB:		regN generic map(Q) port map(CLK, RST, loadOPB, opb_in, opb_out);	
+	REG_OPA:		regN generic map(Q) port map(CLK, RST, loadOPA, opa_in, opa_out);
+	REG_OPB:		regN generic map(Q) port map(CLK, RST, loadOPB, opb_in, opb_out);	
 	
-	-- REG_INC_CNT:	regN generic map(Q+1) port map(CLK, RST, loadINC_CNT, inc_cnt_in, inc_cnt_out);
+	REG_INC_CNT:	regN generic map(Q+1) port map(CLK, RST, loadINC_CNT, inc_cnt_in, inc_cnt_out);
 	
-	-- REG_RA_BM:		regN generic map(M) port map(CLK, RST, loadRA_BM, ra_bm_in, ra_bm_out);
-	-- REG_RB_BM:		regN generic map(M) port map(CLK, RST, loadRB_BM, rb_bm_in, rb_bm_out);
-	-- REG_TEMP_BM:	regN generic map(M) port map(CLK, RST, loadTEMP_BM, temp_bm_in, temp_bm_out);
+	REG_RA_BM:		regN generic map(M) port map(CLK, RST, loadRA_BM, ra_bm_in, ra_bm_out);
+	REG_RB_BM:		regN generic map(M) port map(CLK, RST, loadRB_BM, rb_bm_in, rb_bm_out);
+	REG_TEMP_BM:	regN generic map(M) port map(CLK, RST, loadTEMP_BM, temp_bm_in, temp_bm_out);
 	
-	-- REG_SUM:		regN generic map(2*M) port map(CLK, RST, loadSUM, sum_bm_in, sum_bm_out);
-	-- REG_ACC_BM:		regN generic map(2*M) port map(CLK, RST, loadACC_BM, accbm_in, accbm_out);
-	-- REG_OPR:		regN generic map(2*M) port map(CLK, RST, loadOPR, opr_in, opr_out);
-	-- REG_PM:			regN generic map(2*M) port map(CLK, RST, loadRPM, rpm_in, rpm_out);
-	-- REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, add_subproduct_out, r_out_bm);
+	REG_SUM:		regN generic map(2*M) port map(CLK, RST, loadSUM, sum_bm_in, sum_bm_out);
+	REG_ACC_BM:		regN generic map(2*M) port map(CLK, RST, loadACC_BM, accbm_in, accbm_out);
+	REG_OPR:		regN generic map(2*M) port map(CLK, RST, loadOPR, opr_in, opr_out);
+	REG_PM:			regN generic map(2*M) port map(CLK, RST, loadRPM, rpm_in, rpm_out);
+	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, add_subproduct_out, r_out_bm);
 	
 		-- -- MUXS
 	MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		

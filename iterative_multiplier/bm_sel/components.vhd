@@ -409,12 +409,12 @@ entity reg is
 	);
 end reg;
 
-architecture behavior of regN is
+architecture behavior of reg is
 	begin
 	process(CLK, RST)
 	begin
 		if(RST = '1') then
-			Q <= (others => '0');
+			Q <= '0';
 		elsif rising_edge(CLK) and LOAD='1' then
 			Q <= D;
 		end if;

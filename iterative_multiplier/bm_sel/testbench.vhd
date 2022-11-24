@@ -35,7 +35,7 @@ architecture behavior of tb is
 	signal ROUT_BM:				std_logic_vector(2*M-1 downto 0);
 	signal CALC:				std_logic	:= '1';
 	signal DATAIN:				std_logic	:= '0';
-	signal READY:				std_logic	:= '1';
+	signal READY:				std_logic;
 	
 	-- DUT declaration
 	component bmsel is
@@ -80,7 +80,7 @@ architecture behavior of tb is
 		variable in_DATAIN: 	bit;
 		variable in_CALC : 		bit;
 	begin
-		if (CLK='0') and (start = 1) then
+		if (CLK='0') and (start = 1) and (READY = '1') then
 		-- read new data from file
 				if not endfile(infile) then
 					readline(infile, inputline);

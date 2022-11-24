@@ -2,7 +2,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use STD.textio.all;
+use std.textio.all;
+use ieee.std_logic_textio.all;
 
 
 entity tb is
@@ -18,22 +19,25 @@ architecture behavior of tb is
 	constant CLK_PERIOD: 		time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	constant RESET_TIME:		time := 3*CLK_PERIOD + 9 ns;
 	
-	signal CLK, RST: 			std_logic;
-	signal start:				integer := 0;
-	signal done:				integer := 0;
-	signal int_count:			integer := 0;
-	signal int_counter_data:	integer := 0;
-	signal count:				std_logic_vector(2*M-1 downto 0) := (others=>'0');
-	signal counter_data:		std_logic_vector(2*M-1 downto 0) := (others=>'0');
+	-- signals for debugging and tb control
+	 signal count : std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	 signal int_count : integer := 0;
+	 signal start : integer := 0;
+	 signal done : integer := 0;
+	 signal counter_data : std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	 signal int_counter_data : integer := 0;
 	
+	
+	-- signals for DUT
+	signal CLK, RST: 			std_logic;
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
-	signal OUT_BM:				std_logic_vector(2*M-1 downto 0);
+	signal ROUT_BM:				std_logic_vector(2*M-1 downto 0);
 	signal CALC:				std_logic	:= '1';
 	signal DATAIN:				std_logic	:= '0';
-	signal READY:				std_logic;
+	signal READY:				std_logic	:= '1';
 	
-	
+	-- DUT declaration
 	component bmsel is
 		generic(
 			Q 	: integer := 2;
@@ -59,37 +63,39 @@ architecture behavior of tb is
 		port map(CLK,RST,
 			A_BM,
 			B_BM,
-			OUT_BM,
+			ROUT_BM,
 			DATAIN,
 			CALC,
 			READY
 		);
 		
-		
+			
+	-- read from datafile
 	read_file_process: process(CLK)
-		file infile: 			TEXT open READ_MODE is "data.txt";
+		file infile: 			TEXT open READ_MODE is "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\bm_sel\data.txt";
+		-- file infile: 			TEXT open READ_MODE is "data.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_BM'range);
 		variable in_B: 			bit_vector(B_BM'range);
 		variable in_DATAIN: 	bit;
 		variable in_CALC : 		bit;
 	begin
-		if (CLK='0') and (start = 1) and (READY='1') then
+		if (CLK='0') and (start = 1) then
 		-- read new data from file
 				if not endfile(infile) then
-				readline(infile, inputline);
-				read(inputline, in_A); A_BM <= to_UX01(in_A);
-				readline(infile, inputline);
-				read(inputline, in_B); B_BM <= to_UX01(in_B);
-				readline(infile, inputline);
-				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				readline(infile, inputline);
-				read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
-				readline(infile, inputline);
-				counter_data<= std_logic_vector(unsigned(counter_data)+1);
-				int_counter_data <= int_counter_data + 1;
-			else
-				done <= 1;
+					readline(infile, inputline);
+					read(inputline, in_A); A_BM <= to_UX01(in_A);
+					readline(infile, inputline);
+					read(inputline, in_B); B_BM <= to_UX01(in_B);
+					readline(infile, inputline);
+					read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
+					readline(infile, inputline);
+					read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
+					-- readline(infile, inputline);
+					counter_data<= std_logic_vector(unsigned(counter_data)+1);
+					int_counter_data <= int_counter_data + 1;
+				else
+					done <= 1;
 			end if;
 		end if;
 	end process;
@@ -109,8 +115,9 @@ architecture behavior of tb is
 			severity failure;
 		end if;
 	end process done_process;
-		
-	start_process: process
+	
+	-- RESET
+	reset_process: process
 	begin
 		RST <= '0';
 		wait for 1 ns;
@@ -120,7 +127,8 @@ architecture behavior of tb is
 		start <= 1;
 		wait;
 	end process;
-	
+			
+	-- CLOCK
 	clock_process: process
 		begin
 			if CLK = '0' then

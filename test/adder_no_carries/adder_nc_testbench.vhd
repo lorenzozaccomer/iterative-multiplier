@@ -23,13 +23,13 @@ architecture tb_adder of testbench is
 	
 	signal A_SIG: std_logic_vector(N-1 downto 0);
 	signal B_SIG: std_logic_vector(N-1 downto 0);
-	signal R_SIG: std_logic_vector(N downto 0);
+	signal R_SIG: std_logic_vector(N-1 downto 0);
 
 	component adder is
 	port( 
 	  A_sum  : in std_logic_vector(N-1 downto 0);
 	  B_sum  : in std_logic_vector(N-1 downto 0);
-      Sum	 : out std_logic_vector(N downto 0) 		-- final result
+      Sum	 : out std_logic_vector(N-1 downto 0) 		-- final result
 	  );
 	end component adder;
       

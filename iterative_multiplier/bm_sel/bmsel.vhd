@@ -73,6 +73,8 @@ architecture struct of bmsel is
 	signal selADV_BM:			std_logic;
 	signal selRPM:				std_logic;
 	
+	signal selTMPtoA:			std_logic;
+	
 	signal loadOPA:				std_logic;
 	signal loadOPB:				std_logic;
 	signal loadRA_BM:			std_logic;
@@ -103,6 +105,7 @@ architecture struct of bmsel is
 			selINC_CNT,
 			selADV_BM,
 			selRPM,
+			selTMPtoA,
 			loadOPA,
 			loadOPB,
 			loadRA_BM,
@@ -132,6 +135,7 @@ architecture struct of bmsel is
 			selINC_CNT,
 			selADV_BM,
 			selRPM,
+			selTMPtoA,
 			loadOPA,
 			loadOPB,
 			loadRA_BM,

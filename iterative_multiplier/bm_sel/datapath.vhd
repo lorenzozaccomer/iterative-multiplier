@@ -30,6 +30,8 @@ package bmsel_datapath_package is
 			selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			
+			selTMPtoA:			in std_logic;
+			
 			loadOPA:			in std_logic;
 			loadOPB:			in std_logic;
 			loadA_BM:			in std_logic;
@@ -80,6 +82,8 @@ entity bmsel_datapath is
 		selADV_BM:			in std_logic;
 		selRPM:				in std_logic;
 		
+		selTMPtoA:			in std_logic;
+		
 		loadOPA:			in std_logic;
 		loadOPB:			in std_logic;
 		loadA_BM:			in std_logic;
@@ -109,7 +113,7 @@ architecture struct of bmsel_datapath is
 	signal opb_in, opb_out:				std_logic_vector(Q-1 downto 0);
 	
 	signal inc_bm_in:					std_logic_vector(Q downto 0); 
-	signal inc_bm_out:				 	std_logic_vector(Q downto 0) := (others=>'0');
+	signal inc_bm_out:				 	std_logic_vector(Q downto 0);
 	
 	signal temp_bm_in, temp_bm_out: 	std_logic_vector(M-1 downto 0);
 	signal ra_bm_in, ra_bm_out:			std_logic_vector(M-1 downto 0);
@@ -139,8 +143,8 @@ architecture struct of bmsel_datapath is
 	
 	begin
 	
-	ra_bm_in <= A_BM;
-	rb_bm_in <= B_BM;
+	-- ra_bm_in <= A_BM;
+	-- rb_bm_in <= B_BM;
 	inc_bm_in <= (others=>'0');
 	
 		-- REGISTERS
@@ -151,8 +155,8 @@ architecture struct of bmsel_datapath is
 	
 	REG_INC_BM:		regN generic map(Q+1) port map(CLK, RST, loadINC_BM, inc_bm_in, inc_bm_out);
 	
-	REG_A_BM:		regN generic map(M) port map(CLK, RST, loadA_BM, ra_bm_in, ra_bm_out);
-	REG_B_BM:		regN generic map(M) port map(CLK, RST, loadB_BM, rb_bm_in, rb_bm_out);
+	REG_A_BM:		regN generic map(M) port map(CLK, RST, loadA_BM, A_BM, ra_bm_out);
+	REG_B_BM:		regN generic map(M) port map(CLK, RST, loadB_BM, B_BM, rb_bm_out);
 	REG_TEMP_BM:	regN generic map(M) port map(CLK, RST, loadTEMP_BM, temp_bm_in, temp_bm_out);
 	
 	REG_SUM:		regN generic map(2*M) port map(CLK, RST, loadSUM, sum_bm_in, sum_bm_out);
@@ -167,14 +171,16 @@ architecture struct of bmsel_datapath is
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, (others=>'0'), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, (others=>'0'), opb_out, opb_in);				
 	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, (others=>'0'), inc_bm_out, inc_bm_in); 	
-	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, (others=>'0'), ra_bm_out, temp_bm_in);		
-	MUX_B_BM:		mux2N generic map(Q) port map(selB_BM, shift_rb_bm_Int, rb_bm_out_Int, opb_in);	
-	MUX_TEMP_BM:	mux2N generic map(Q) port map(selTEMP_BM, shift_temp_bm_out_Int, temp_bm_out_Int, opa_in);
+	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, (others=>'0'), ra_bm_out, ra_bm_in);		
+	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, shift_rb_bm, rb_bm_out, opb_in);	
+	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, shift_temp_bm_out, temp_bm_out, temp_bm_in);
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, (others=>'0'), rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, (others=>'0'), sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, (others=>'0'), shift_opr, opr_out, (others=>'0'), opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, (others=>'0'), shift_acc_bm_out, accbm_out, (others=>'0'), accbm_in);
+	
+	MUX1:			mux2N generic map(Q) port map(selTMPtoA, (others=>'0'), temp_bm_out(Q-1 downto 0), opa_in);
 	
 		-- ADDERS
 	-- needed to increment INC_BM
@@ -188,7 +194,7 @@ architecture struct of bmsel_datapath is
 	NOTPORT1:		notport port map(adv_in, notport_out);
 	
 		-- SHIFTERS
-	SHIFT1_B_BM:	leftshiftN generic map(M,Q) port map(rb_bm_in, shift_rb_bm);
+	SHIFT1_B_BM:	leftshiftN generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
 	SHIFT2_OPR:		leftshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
 	SHIFT3_TEMP_BM:	leftshiftN generic map(M,Q) port map(temp_bm_out, shift_temp_bm_out);
 	SHIFT_ACC_BM:	leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm_out);

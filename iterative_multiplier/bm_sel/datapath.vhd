@@ -134,18 +134,17 @@ architecture struct of bmsel_datapath is
 	signal rpm_in, rpm_out:				std_logic_vector(2*M-1 downto 0);
 	
 		-- internal signals
-	signal shift_rb_bm_Int:				std_logic_vector(Q-1 downto 0);
-	signal rb_bm_out_Int:				std_logic_vector(Q-1 downto 0);
-	signal shift_temp_bm_out_Int:		std_logic_vector(Q-1 downto 0);
-	signal temp_bm_out_Int:				std_logic_vector(Q-1 downto 0);
-	signal one_inc_vector:				std_logic_vector(Q downto 0);
+	signal zeros2:						std_logic_vector(Q-1 downto 0)	:= (others=>'0');
+	signal zeros4:						std_logic_vector(M-1 downto 0)	:= (others=>'0');
+	signal zeros8:						std_logic_vector(2*M-1 downto 0):= (others=>'0');
+	signal one_inc_vector:				std_logic_vector(Q downto 0)	:= "001";
 	
 	
 	begin
 	
 	-- ra_bm_in <= A_BM;
 	-- rb_bm_in <= B_BM;
-	inc_bm_in <= (others=>'0');
+	-- inc_bm_in <= (others=>'0');
 	
 		-- REGISTERS
 	REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
@@ -155,8 +154,8 @@ architecture struct of bmsel_datapath is
 	
 	REG_INC_BM:		regN generic map(Q+1) port map(CLK, RST, loadINC_BM, inc_bm_in, inc_bm_out);
 	
-	REG_A_BM:		regN generic map(M) port map(CLK, RST, loadA_BM, A_BM, ra_bm_out);
-	REG_B_BM:		regN generic map(M) port map(CLK, RST, loadB_BM, B_BM, rb_bm_out);
+	REG_A_BM:		regN generic map(M) port map(CLK, RST, loadA_BM, ra_bm_in, ra_bm_out);
+	REG_B_BM:		regN generic map(M) port map(CLK, RST, loadB_BM, rb_bm_in, rb_bm_out);
 	REG_TEMP_BM:	regN generic map(M) port map(CLK, RST, loadTEMP_BM, temp_bm_in, temp_bm_out);
 	
 	REG_SUM:		regN generic map(2*M) port map(CLK, RST, loadSUM, sum_bm_in, sum_bm_out);
@@ -168,23 +167,24 @@ architecture struct of bmsel_datapath is
 		-- -- MUXS
 	MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
 	
-	MUX_OPA:		mux2N generic map(Q) port map(selOPA, (others=>'0'), opa_out, opa_in);				
-	MUX_OPB:		mux2N generic map(Q) port map(selOPB, (others=>'0'), opb_out, opb_in);				
+	MUX_OPA:		mux2N generic map(Q) port map(selOPA, zeros2, opa_out, opa_in);				
+	MUX_OPB:		mux2N generic map(Q) port map(selOPB, zeros2, opb_out, opb_in);				
 	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, (others=>'0'), inc_bm_out, inc_bm_in); 	
-	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, (others=>'0'), ra_bm_out, ra_bm_in);		
-	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, shift_rb_bm, rb_bm_out, opb_in);	
-	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, shift_temp_bm_out, temp_bm_out, temp_bm_in);
+	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, zeros4, ra_bm_out, ra_bm_in);		
+	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, shift_rb_bm, rb_bm_out, rb_bm_in);	
+	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, temp_bm_out, shift_temp_bm_out, temp_bm_in);
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, (others=>'0'), rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, (others=>'0'), sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, (others=>'0'), shift_opr, opr_out, (others=>'0'), opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, (others=>'0'), shift_acc_bm_out, accbm_out, (others=>'0'), accbm_in);
 	
-	MUX1:			mux2N generic map(Q) port map(selTMPtoA, (others=>'0'), temp_bm_out(Q-1 downto 0), opa_in);
+	MUX_TEMPtoA:	mux2N generic map(Q) port map(selTMPtoA, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
+	-- MUX_ADD_INC:	mux3N generic map(Q+1) port map(
 	
 		-- ADDERS
 	-- needed to increment INC_BM
-	ADD_INC_BM:	adderNotCOut generic map(Q+1) port map(inc_bm_in, "001", inc_bm_out);		
+	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_in, one_inc_vector, inc_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
 	-- ROUT = RPM + ACC
@@ -210,9 +210,9 @@ architecture struct of bmsel_datapath is
 	ROUT_BM <= add_subproduct_out;
 	
 		-- internal signals management
-	shift_rb_bm_Int <= shift_rb_bm(Q-1 downto 0);
-	rb_bm_out_Int <= rb_bm_out(Q-1 downto 0);
-	shift_temp_bm_out_Int <= shift_temp_bm_out(Q-1 downto 0);
-	temp_bm_out_Int <= temp_bm_out(Q-1 downto 0);
-	one_inc_vector <= "001";
+	-- shift_rb_bm_Int <= shift_rb_bm(Q-1 downto 0);
+	-- rb_bm_out_Int <= rb_bm_out(Q-1 downto 0);
+	-- shift_temp_bm_out_Int <= shift_temp_bm_out(Q-1 downto 0);
+	-- temp_bm_out_Int <= temp_bm_out(Q-1 downto 0);
+	-- one_inc_vector <= "001";
 end struct;

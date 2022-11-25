@@ -201,15 +201,17 @@ architecture behavior of bmsel_ctrlunit is
 		loadTEMP_BM <= 	'1'  when state=SAVE_OPA or
 							 state=NEW_PRODUCT_BM or
 							 state=SHIFT_OPA else '0';
-		selTEMP_BM	<=  '1'  when state=NEW_OPA or 
-							 state=NEW_OPERAND_BM else
-						'0'  when state=INIT_BM or 
-							 state=SHIFT_OPA;
+		selTEMP_BM	<=  '1'  when state=SHIFT_OPA else
+						'0';
+							 
+							 
 							 
 		selTMPtoA 	<=	'1'  when state=NEW_OPA or
 							 state=NEW_OPERAND_BM else
 						'0';
-							
+						
+						
+													
 		loadOPR 	<= 	'1'  when state=PRODUCT or
 							 state=SHIFT_PRODUCT or
 							 state=NEW_OPA or 

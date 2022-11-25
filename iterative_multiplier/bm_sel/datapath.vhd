@@ -45,7 +45,7 @@ package bmsel_datapath_package is
 			loadOUT:			in std_logic;
 			loadRPM:			in std_logic;
 				-- status signals from datapath
-			INC_BM:				out std_logic_vector(Q downto 0);
+			CNT_BM:				out std_logic_vector(Q downto 0);
 			ADV_BM:				out std_logic
 			);
 	end component;
@@ -97,7 +97,7 @@ entity bmsel_datapath is
 		loadOUT:			in std_logic;
 		loadRPM:			in std_logic;
 			-- status signals from datapath
-		INC_BM:				out std_logic_vector(Q downto 0);
+		CNT_BM:				out std_logic_vector(Q downto 0);
 		ADV_BM:				out std_logic							
 		);
 end entity;
@@ -182,7 +182,7 @@ architecture struct of bmsel_datapath is
 	-- MUX_ADD_SUBPRD:	mux2N generic map(2*M) port map(
 	
 		-- ADDERS
-	-- needed to increment INC_BM
+	-- needed to increment CNT_BM
 	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_in, one_inc_vector, add_inc_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
@@ -203,7 +203,7 @@ architecture struct of bmsel_datapath is
 	
 		-- status signals
 	ADV_BM 	<= adv_out;
-	INC_BM <= inc_bm_out;
+	CNT_BM <= inc_bm_out;
 	
 		-- data output
 	ROUT_BM <= add_subproduct_out;

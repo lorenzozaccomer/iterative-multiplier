@@ -47,7 +47,7 @@ package bmsel_ctrlunit_package is
 			loadOUT:			out std_logic;
 			loadRPM:			out std_logic;
 				-- status signals from datapath
-			INC_BM:				in std_logic_vector(Q downto 0);
+			CNT_BM:				in std_logic_vector(Q downto 0);
 			ADV_BM:				in std_logic				
 			);
 	end component;
@@ -98,7 +98,7 @@ entity bmsel_ctrlunit is
 		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
 			-- status signals from datapath
-		INC_BM:				in std_logic_vector(Q downto 0);
+		CNT_BM:				in std_logic_vector(Q downto 0);
 		ADV_BM:				in std_logic				
 		);
 end bmsel_ctrlunit;
@@ -114,7 +114,7 @@ architecture behavior of bmsel_ctrlunit is
 		-- FSM
 			state <= INIT_BM when RST='1' else
 				nextstate when rising_edge(CLK);
-	process(state, START, DATAIN, ADV_BM, INC_BM)
+	process(state, START, DATAIN, ADV_BM, CNT_BM)
 	begin
 		case state is
 			when INIT_BM =>
@@ -144,7 +144,7 @@ architecture behavior of bmsel_ctrlunit is
 			when ACC_BM =>
 				nextstate <= INC_CNT;
 			when INC_CNT =>
-				if INC_BM <= "010" then
+				if CNT_BM <= "010" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= SHIFT_OPA;
@@ -154,7 +154,7 @@ architecture behavior of bmsel_ctrlunit is
 			when NEW_OPA =>
 				nextstate <= PRODUCT;
 			when WAIT_BM =>
-				if INC_BM = "100" then
+				if CNT_BM = "100" then
 					nextstate <= SHIFT_ACC;
 				else
 					nextstate <= NEW_PRODUCT_BM;

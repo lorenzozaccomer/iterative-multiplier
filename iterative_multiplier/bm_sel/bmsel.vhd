@@ -88,7 +88,7 @@ architecture struct of bmsel is
 	signal loadOUT:				std_logic;
 	signal loadRPM:				std_logic;
 		-- status signals from datapath
-	signal INT_CNT:				std_logic_vector(Q downto 0);
+	signal CNT_BM:				std_logic_vector(Q downto 0);
 	signal ADV_BM:				std_logic;	
 	
 	begin
@@ -118,7 +118,7 @@ architecture struct of bmsel is
 			loadADV_BM,
 			loadOUT,
 			loadRPM,
-			INT_CNT,
+			CNT_BM,
 			ADV_BM
 		);
 		
@@ -148,7 +148,7 @@ architecture struct of bmsel is
 			loadADV_BM,
 			loadOUT,
 			loadRPM,
-			INT_CNT,
+			CNT_BM,
 			ADV_BM
 		);
 end struct;

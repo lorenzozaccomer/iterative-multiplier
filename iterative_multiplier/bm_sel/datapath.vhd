@@ -112,8 +112,8 @@ architecture struct of bmsel_datapath is
 	signal opa_in, opa_out:				std_logic_vector(Q-1 downto 0);
 	signal opb_in, opb_out:				std_logic_vector(Q-1 downto 0);
 	
-	signal inc_bm_in:					std_logic_vector(Q downto 0); 
-	signal inc_bm_out:				 	std_logic_vector(Q downto 0);
+	signal inc_bm_in, inc_bm_out:		std_logic_vector(Q downto 0); 
+	signal add_inc_bm_out:				std_logic_vector(Q downto 0);
 	
 	signal temp_bm_in, temp_bm_out: 	std_logic_vector(M-1 downto 0);
 	signal ra_bm_in, ra_bm_out:			std_logic_vector(M-1 downto 0);
@@ -135,17 +135,14 @@ architecture struct of bmsel_datapath is
 	
 		-- internal signals
 	signal zeros2:						std_logic_vector(Q-1 downto 0)	:= (others=>'0');
+	signal zeros3:						std_logic_vector(Q downto 0)	:= (others=>'0');
 	signal zeros4:						std_logic_vector(M-1 downto 0)	:= (others=>'0');
 	signal zeros8:						std_logic_vector(2*M-1 downto 0):= (others=>'0');
 	signal one_inc_vector:				std_logic_vector(Q downto 0)	:= "001";
 	
 	
 	begin
-	
-	-- ra_bm_in <= A_BM;
-	-- rb_bm_in <= B_BM;
-	-- inc_bm_in <= (others=>'0');
-	
+		
 		-- REGISTERS
 	REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
 	
@@ -169,22 +166,24 @@ architecture struct of bmsel_datapath is
 	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, zeros2, opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, zeros2, opb_out, opb_in);				
-	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, (others=>'0'), inc_bm_out, inc_bm_in); 	
+	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, zeros3, inc_bm_out, inc_bm_in); 	
 	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, zeros4, ra_bm_out, ra_bm_in);		
 	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, shift_rb_bm, rb_bm_out, rb_bm_in);	
 	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, temp_bm_out, shift_temp_bm_out, temp_bm_in);
 	
-	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, (others=>'0'), rpm_out, rpm_in);		
-	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, (others=>'0'), sum_bm_out, sum_bm_in); 
-	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, (others=>'0'), shift_opr, opr_out, (others=>'0'), opr_in);
-	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, (others=>'0'), shift_acc_bm_out, accbm_out, (others=>'0'), accbm_in);
+	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, zeros8, rpm_out, rpm_in);		
+	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, zeros8, sum_bm_out, sum_bm_in); 
+	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, zeros8, opr_in);
+	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm_out, accbm_out, zeros8, accbm_in);
 	
 	MUX_TEMPtoA:	mux2N generic map(Q) port map(selTMPtoA, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
-	-- MUX_ADD_INC:	mux3N generic map(Q+1) port map(
+	-- MUX_ADD_INC:	mux2N generic map(Q+1) port map(
+	-- MUX_ADD_OPR:	mux2N generic map(2*M) port map(
+	-- MUX_ADD_SUBPRD:	mux2N generic map(2*M) port map(
 	
 		-- ADDERS
 	-- needed to increment INC_BM
-	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_in, one_inc_vector, inc_bm_out);		
+	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_in, one_inc_vector, add_inc_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
 	-- ROUT = RPM + ACC

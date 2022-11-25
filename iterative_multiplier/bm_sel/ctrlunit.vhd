@@ -178,7 +178,7 @@ architecture behavior of bmsel_ctrlunit is
 		loadOPA		<= 	'1'  when state=NEW_OPERAND_BM or
 							 state=NEW_OPA else 
 						'0';
-		selOPA		<= 	'1'  when state=PRODUCT else 
+		selOPA		<= 	'1'  when state=PRODUCT else
 						'0';
 		
 		loadOPB 	<= 	'1'  when state=NEW_OPERAND_BM else 
@@ -248,7 +248,7 @@ architecture behavior of bmsel_ctrlunit is
 		loadADV_BM	<= 	'1'  when state=INC_CNT or 
 							 state=INIT_BM else 
 						'0';
-		selADV_BM	<= 	'0'  when state=INIT_BM or
+		selADV_BM	<= 	'0'  when 
 							 state=RESET_BM else
 						'1'  when state=INC_CNT;
 		

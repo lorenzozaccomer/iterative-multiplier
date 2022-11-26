@@ -127,7 +127,7 @@ architecture struct of bmsel_datapath is
 	signal rout_in, rout_out:			std_logic_vector(2*M-1 downto 0);
 	signal opr_in, opr_out:				std_logic_vector(2*M-1 downto 0);
 	
-	signal add_opr_out:					std_logic_vector(2*M-1 downto 0);
+	signal add_sum_out:					std_logic_vector(2*M-1 downto 0);
 	signal add_subproduct_out:			std_logic_vector(2*M-1 downto 0);
 	signal product_out:					std_logic_vector(2*M-1 downto 0) := (others=>'0');
 	signal shift_opr:					std_logic_vector(2*M-1 downto 0);
@@ -173,9 +173,9 @@ architecture struct of bmsel_datapath is
 	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, rb_bm_out, shift_rb_bm, zeros4, rb_bm_in);	
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, zeros8, rpm_out, rpm_in);		
-	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_opr_out, sum_bm_out, sum_bm_in); 
+	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, product_out, opr_in);
-	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, sum_bm_out, accbm_in);
+	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, add_sum_out, accbm_in);
 	
 	-- MUX_TEMPtoA:	mux2N generic map(Q) port map(selSUBPRD, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
 	-- MUX_SH_TMP:		mux2N generic map(M) port map(selSH_TMP, zeros4, shift_ra_bm, ra_bm_out);
@@ -187,7 +187,7 @@ architecture struct of bmsel_datapath is
 	-- needed to increment CNT_BM
 	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_out, one_inc_vector, add_inc_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
-	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
+	ADD_SUM:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_sum_out);		
 	-- ROUT = RPM + ACC
 	ADD_SUBPRD:		adderNotCOut generic map(2*M) port map(rpm_out, accbm_out, add_subproduct_out);	
 	
@@ -198,7 +198,7 @@ architecture struct of bmsel_datapath is
 	SH_B_BM:		rightshiftN	generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
 	SH_OPR:			leftshiftN  generic map(2*M,Q) port map(opr_out, shift_opr);
 	SH_A_BM:		rightshiftN generic map(M,Q) port map(ra_bm_out, shift_ra_bm);
-	SH_ACC_BM:		leftshiftN	generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
+	SH_ACC_BM:		rightshiftN	generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
 	
 		-- PRODUCT
 	PRODUCT:		multiplierN port map(opa_out, opb_out, product_out(M-1 downto 0));

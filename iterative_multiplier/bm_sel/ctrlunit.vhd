@@ -246,15 +246,15 @@ architecture behavior of bmsel_ctrlunit is
 		selACC_BM	<=  "00" when state=RESET_BM else
 						"01" when state=SHIFT_ACC else
 						"10" when state=NEW_PRODUCT_BM or
-							 state=SUM_BM or
-							 state=SUBPRODUCT else
+							 state=SUBPRODUCT or 
+							 state=SUM_BM else
 						"11" when state=ACC_BM;
 								
 		loadSUM 	<= 	'1'  when state=SUM_BM or
-							 state=ACC_BM or
-							 state=RESET_BM else '0';
-		selSUM		<= 	'1'  when state=ACC_BM else 
-						'0'  when state=RESET_BM;
+							 state=RESET_BM else 
+						'0';
+		selSUM		<= 	'0'  when state=ACC_BM else 
+						'1'  when state=RESET_BM;
 
 		loadINC_BM	<= 	'1'  when state=INC_CNT or 
 							 state=INIT_BM else 

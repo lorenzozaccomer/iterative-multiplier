@@ -162,7 +162,7 @@ architecture struct of bmsel_datapath is
 	REG_ACC_BM:		regN generic map(2*M) port map(CLK, RST, loadACC_BM, accbm_in, accbm_out);
 	REG_OPR:		regN generic map(2*M) port map(CLK, RST, loadOPR, opr_in, opr_out);
 	REG_PM:			regN generic map(2*M) port map(CLK, RST, loadRPM, rpm_in, rpm_out);
-	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, add_subproduct_out, r_out_bm);
+	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, rout_in, r_out_bm);
 	
 		-- -- MUXS
 	MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
@@ -198,10 +198,10 @@ architecture struct of bmsel_datapath is
 	NOTPORT1:		notport port map(adv_out, notport_out);
 	
 		-- SHIFTERS
-	SH_B_BM:		leftshiftN generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
-	SH_OPR:			leftshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
+	SH_B_BM:		leftshiftN	generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
+	SH_OPR:			rightshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
 	-- SHIFT3_TEMP_BM:	leftshiftN generic map(M,Q) port map(temp_bm_out, shift_temp_bm_out);
-	SH_ACC_BM:		leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
+	SH_ACC_BM:		leftshiftN	generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
 	
 		-- PRODUCT
 	PRODUCT:		multiplierN port map(opa_out, opb_out, product_out(M-1 downto 0));

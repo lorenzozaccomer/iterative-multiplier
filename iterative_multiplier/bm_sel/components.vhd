@@ -352,7 +352,7 @@ entity rightshiftN is
 	);
 end entity;
 
-architecture behavior of leftshiftN is
+architecture behavior of rightshiftN is
 	begin
 		Y <= std_logic_vector(shift_right(unsigned(X), SH));
 end behavior;

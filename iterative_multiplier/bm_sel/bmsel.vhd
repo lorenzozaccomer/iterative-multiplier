@@ -63,8 +63,8 @@ architecture struct of bmsel is
 		-- control signals to datapath
 	signal selOPA:				std_logic;
 	signal selOPB:				std_logic;
-	signal selRA_BM:			std_logic;
-	signal selRB_BM:			std_logic;
+	signal selRA_BM:			std_logic_vector(Q-1 downto 0);
+	signal selRB_BM:			std_logic_vector(Q-1 downto 0);
 	signal selTEMP_BM:			std_logic;
 	signal selOPR:				std_logic_vector(Q-1 downto 0);
 	signal selACC_BM:			std_logic_vector(Q-1 downto 0);
@@ -73,7 +73,7 @@ architecture struct of bmsel is
 	signal selADV_BM:			std_logic;
 	signal selRPM:				std_logic;
 	
-	signal selTMPtoA:			std_logic;
+	signal selSUBPRD:			std_logic;
 	signal selSH_TMP:			std_logic;
 	
 	signal loadOPA:				std_logic;
@@ -106,7 +106,7 @@ architecture struct of bmsel is
 			selINC_CNT,
 			selADV_BM,
 			selRPM,
-			selTMPtoA,
+			selSUBPRD,
 			selSH_TMP,
 			loadOPA,
 			loadOPB,
@@ -137,7 +137,7 @@ architecture struct of bmsel is
 			selINC_CNT,
 			selADV_BM,
 			selRPM,
-			selTMPtoA,
+			selSUBPRD,
 			selSH_TMP,
 			loadOPA,
 			loadOPB,

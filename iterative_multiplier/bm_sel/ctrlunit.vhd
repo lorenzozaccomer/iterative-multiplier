@@ -223,13 +223,15 @@ architecture behavior of bmsel_ctrlunit is
 		loadOPR 	<= 	'1'  when state=PRODUCT or
 							 state=SHIFT_PRODUCT or
 							 state=NEW_OPA or 
-							 state=RESET_BM else 
+							 state=RESET_BM or 
+							 state=INIT_BM else 
 						'0';
 		selOPR		<=  "00" when state=RESET_BM or 
-							 state=NEW_OPA else 
+							 state=NEW_OPA or 
+							 state=INIT_BM else 
 						"01" when state=SHIFT_PRODUCT else
 						"10" when state=SUM_BM else
-						"11";
+						"11" when state=PRODUCT;
 							
 		loadACC_BM	<= 	'1'  when state=ACC_BM or
 							 state=RESET_BM or
@@ -240,7 +242,7 @@ architecture behavior of bmsel_ctrlunit is
 						"10" when state=NEW_PRODUCT_BM or
 							 state=SUM_BM or
 							 state=SUBPRODUCT else
-						"11";
+						"11" when state=ACC_BM;
 								
 		loadSUM 	<= 	'1'  when state=SUM_BM or
 							 state=RESET_BM else '0';

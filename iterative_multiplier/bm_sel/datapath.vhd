@@ -22,7 +22,7 @@ package bmsel_datapath_package is
 			selOPB:				in std_logic;
 			selA_BM:			in std_logic;
 			selB_BM:			in std_logic;
-			selTEMP_BM:			in std_logic;
+			selTEMP_BM:			in std_logic;	-- NOT USED
 			selOPR:				in std_logic_vector(Q-1 downto 0);
 			selACC_BM:			in std_logic_vector(Q-1 downto 0);
 			selSUM:				in std_logic;
@@ -30,9 +30,9 @@ package bmsel_datapath_package is
 			selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			
-			selTMPtoA:			in std_logic;
-			selSH_TMP:			in std_logic;
-			
+			selTMPtoA:			in std_logic;	-- NOT USED
+			selSH_TMP:			in std_logic;	-- NOT USED
+		
 			loadOPA:			in std_logic;
 			loadOPB:			in std_logic;
 			loadA_BM:			in std_logic;
@@ -84,7 +84,7 @@ entity bmsel_datapath is
 		selRPM:				in std_logic;
 		
 		selTMPtoA:			in std_logic;	-- NOT USED
-		selSH_TMP:			in std_logic;
+		selSH_TMP:			in std_logic;	-- NOT USED
 		
 		loadOPA:			in std_logic;
 		loadOPB:			in std_logic;
@@ -169,7 +169,7 @@ architecture struct of bmsel_datapath is
 	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
-	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, zeros3, inc_bm_out, inc_bm_in); 	
+	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, zeros3, add_inc_bm_out, inc_bm_in); 	
 	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, A_BM, ra_bm_out, ra_bm_in);		
 	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, B_BM, rb_bm_out, rb_bm_in);	
 	-- MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, ra_bm_out, temp_bm_out, temp_bm_in);
@@ -181,21 +181,21 @@ architecture struct of bmsel_datapath is
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, add_opr_out, accbm_in);
 	
 	-- MUX_TEMPtoA:	mux2N generic map(Q) port map(selTMPtoA, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
-	MUX_SH_TMP:		mux2N generic map(M) port map(selSH_TMP, zeros4, shift_temp_bm_out, temp_bm_in);
+	-- MUX_SH_TMP:		mux2N generic map(M) port map(selSH_TMP, zeros4, shift_temp_bm_out, temp_bm_in);
 	-- MUX_ADD_INC:	mux2N generic map(Q+1) port map(
 	-- MUX_ADD_OPR:	mux2N generic map(2*M) port map(
 	-- MUX_ADD_SUBPRD:	mux2N generic map(2*M) port map(
 	
 		-- ADDERS
 	-- needed to increment CNT_BM
-	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_in, one_inc_vector, add_inc_bm_out);		
+	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_out, one_inc_vector, add_inc_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_OPR:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_opr_out);		
 	-- ROUT = RPM + ACC
 	ADD_SUBPRD:		adderNotCOut generic map(2*M) port map(rpm_out, accbm_out, add_subproduct_out);	
 	
 		-- LOGIC PORTS
-	NOTPORT1:		notport port map(adv_in, notport_out);
+	NOTPORT1:		notport port map(adv_out, notport_out);
 	
 		-- SHIFTERS
 	SH_B_BM:		leftshiftN generic map(M,Q) port map(rb_bm_out, shift_rb_bm);

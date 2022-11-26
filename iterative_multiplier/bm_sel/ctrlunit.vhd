@@ -24,7 +24,7 @@ package bmsel_ctrlunit_package is
 			selOPB:				out std_logic;
 			selA_BM:			out std_logic;
 			selB_BM:			out std_logic;
-			selTEMP_BM:			out std_logic;
+			selTEMP_BM:			out std_logic;	-- NOT USED
 			selOPR:				out std_logic_vector(Q-1 downto 0);
 			selACC_BM:			out std_logic_vector(Q-1 downto 0);
 			selSUM:				out std_logic;
@@ -32,8 +32,8 @@ package bmsel_ctrlunit_package is
 			selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
 			
-			selTMPtoA:			out std_logic;
-			selSH_TMP:			out std_logic;
+			selTMPtoA:			out std_logic;	-- NOT USED
+			selSH_TMP:			out std_logic;	-- NOT USED
 			
 			loadOPA:			out std_logic;
 			loadOPB:			out std_logic;
@@ -76,7 +76,7 @@ entity bmsel_ctrlunit is
 		selOPB:				out std_logic;
 		selA_BM:			out std_logic;
 		selB_BM:			out std_logic;
-		selTEMP_BM:			out std_logic;
+		selTEMP_BM:			out std_logic;	-- NOT USED
 		selOPR:				out std_logic_vector(Q-1 downto 0);
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
@@ -84,8 +84,8 @@ entity bmsel_ctrlunit is
 		selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		
-		selTMPtoA:			out std_logic;
-		selSH_TMP:			out std_logic;
+		selTMPtoA:			out std_logic;	-- NOT USED
+		selSH_TMP:			out std_logic;	-- NOT USED
 		
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
@@ -109,7 +109,8 @@ end bmsel_ctrlunit;
 architecture behavior of bmsel_ctrlunit is
 
 	type statetype is (INIT_BM, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
-						SUM_BM, ACC_BM, INC_CNT, WAIT_BM, SHIFT_OPA, SHIFT_ACC, NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT);
+						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
+						NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -144,7 +145,9 @@ architecture behavior of bmsel_ctrlunit is
 			when ACC_BM =>
 				nextstate <= INC_CNT;
 			when INC_CNT =>
-				if CNT_BM <= "010" then
+				nextstate <= ADV;
+			when ADV =>
+				if CNT_BM = "010" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= SHIFT_OPA;
@@ -250,11 +253,11 @@ architecture behavior of bmsel_ctrlunit is
 		selINC_BM	<= 	'0'  when state=INIT_BM else
 						'1'	 when state=INC_CNT;
 		
-		loadADV_BM	<= 	'1'  when state=INC_CNT or 
+		loadADV_BM	<= 	'1'  when state=ADV or 
 							 state=RESET_BM else 
 						'0';
 		selADV_BM	<= 	'0'  when state=RESET_BM else
-						'1'  when state=INC_CNT;
+						'1'  when state=ADV;
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';

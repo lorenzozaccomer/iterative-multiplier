@@ -148,7 +148,7 @@ architecture behavior of bmsel_ctrlunit is
 			when INC_CNT =>
 				nextstate <= ADV;
 			when ADV =>
-				if CNT_BM = "010" then
+				if CNT_BM = "010" or CNT_BM = "100" then
 					nextstate <= WAIT_BM;
 				else
 					nextstate <= SHIFT_OPA;
@@ -251,6 +251,7 @@ architecture behavior of bmsel_ctrlunit is
 						"11" when state=ACC_BM;
 								
 		loadSUM 	<= 	'1'  when state=SUM_BM or
+							 state=ACC_BM or
 							 state=RESET_BM else '0';
 		selSUM		<= 	'1'  when state=ACC_BM else 
 						'0'  when state=RESET_BM;

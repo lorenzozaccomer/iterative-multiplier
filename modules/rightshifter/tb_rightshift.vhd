@@ -17,7 +17,7 @@ architecture shift_testbench of testbench is
 	signal Y: std_logic_vector(N-1 downto 0);
 	
 	-- DUT declaration
-	component shift is
+	component rightshiftN is
 	port(
 		X : in std_logic_vector(N-1 downto 0);
 		Y : out std_logic_vector(N-1 downto 0)
@@ -26,7 +26,7 @@ architecture shift_testbench of testbench is
 	
 	begin
 	
-	DUT : shift
+	DUT : rightshiftN
 	port map(
 		X => X,
 		Y => Y
@@ -39,6 +39,12 @@ architecture shift_testbench of testbench is
 		X <= "1001";
 		wait for 10 ns;
 		X <= "0111";
+		wait for 10 ns;
+		X <= "1111";
+		wait for 10 ns;
+		X <= "0001";
+		wait for 10 ns;
+		X <= "0000";
 		wait for 10 ns;
 		-- X <= "0011";
 		-- LOAD <= '1';

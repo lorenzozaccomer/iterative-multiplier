@@ -172,7 +172,7 @@ architecture struct of bmsel_datapath is
 	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, ra_bm_out, shift_ra_bm, zeros4, ra_bm_in);		
 	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, rb_bm_out, shift_rb_bm, zeros4, rb_bm_in);	
 	
-	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, zeros8, rpm_out, rpm_in);		
+	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, accbm_out, rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, product_out, opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, add_sum_out, accbm_in);

@@ -253,7 +253,8 @@ architecture behavior of bmsel_ctrlunit is
 		loadSUM 	<= 	'1'  when state=SUM_BM or
 							 state=RESET_BM else 
 						'0';
-		selSUM		<= 	'0'  when state=ACC_BM else 
+		selSUM		<= 	'0'  when state=ACC_BM or 
+							 state=SUM_BM else 
 						'1'  when state=RESET_BM;
 
 		loadINC_BM	<= 	'1'  when state=INC_CNT or 
@@ -271,7 +272,7 @@ architecture behavior of bmsel_ctrlunit is
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';
 		selRPM		<= 	'1'  when state=SUBPRODUCT else 
-						'0';
+						'0'  when state=NEW_PRODUCT_BM;
 		
 		loadOUT		<= 	'1'  when state=SUBPRODUCT else 
 						'0';

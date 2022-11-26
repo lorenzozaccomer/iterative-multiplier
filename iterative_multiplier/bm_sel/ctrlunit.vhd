@@ -16,7 +16,7 @@ package bmsel_ctrlunit_package is
 			CLK:				in std_logic;
 			RST:				in std_logic;
 				-- control signals to/from extern
-			START:				in std_logic;	-- the module can go ahead
+			-- START:				in std_logic;	-- the module can go ahead
 			DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
 			READY:				out std_logic;	-- the modules can do another operation
 				-- control signals to datapath
@@ -68,7 +68,7 @@ entity bmsel_ctrlunit is
 		CLK:				in std_logic;
 		RST:				in std_logic;
 			-- control signals to/from extern
-		START:				in std_logic;	-- the module can go ahead
+		-- START:				in std_logic;	-- the module can go ahead
 		DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
 		READY:				out std_logic;	-- the modules can do another operation
 			-- control signals to datapath
@@ -108,7 +108,7 @@ end bmsel_ctrlunit;
 
 architecture behavior of bmsel_ctrlunit is
 
-	type statetype is (INIT_BM, SAVE_OPA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
+	type statetype is (INIT_BM, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, WAIT_BM, SHIFT_OPA, SHIFT_ACC, NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT);
 	signal state, nextstate : statetype;
 	
@@ -116,19 +116,17 @@ architecture behavior of bmsel_ctrlunit is
 		-- FSM
 			state <= INIT_BM when RST='1' else
 				nextstate when rising_edge(CLK);
-	process(state, START, DATAIN, ADV_BM, CNT_BM)
+	process(state, DATAIN, ADV_BM, CNT_BM)
 	begin
 		case state is
 			when INIT_BM =>
-				if START /= '0'	then
-					nextstate <= INIT_BM;
-				elsif DATAIN /= '1' then
+				if DATAIN /= '1' then
 					nextstate <= INIT_BM;
 				else
-					nextstate <= SAVE_OPA;
+					nextstate <= NEW_OPERAND_BM;
 				end if;
-			when SAVE_OPA =>
-				nextstate <= NEW_OPERAND_BM;
+			-- when SAVE_OPA =>
+				-- nextstate <= NEW_OPERAND_BM;
 			when NEW_OPERAND_BM =>
 				nextstate <= RESET_BM;
 			when RESET_BM =>
@@ -190,8 +188,7 @@ architecture behavior of bmsel_ctrlunit is
 		
 		loadA_BM	<=	'1' when state=INIT_BM else
 						'0';
-		selA_BM	<= 		'1'  when state=SAVE_OPA or 
-							 state=NEW_PRODUCT_BM else 
+		selA_BM	<= 		'1'  when state=NEW_PRODUCT_BM else 
 						'0'  when state=INIT_BM;
 								
 		loadB_BM	<= 	'1'  when state=WAIT_BM or
@@ -201,12 +198,10 @@ architecture behavior of bmsel_ctrlunit is
 							 state=NEW_OPERAND_BM else
 						'0'  when state=INIT_BM;
 		
-		loadTEMP_BM <= 	'1'  when state=SAVE_OPA or
-							 state=NEW_PRODUCT_BM or
+		loadTEMP_BM <= 	'1'  when state=NEW_PRODUCT_BM or
 							 state=SHIFT_OPA else 
 						'0';
-		selTEMP_BM	<=  '0'  when state=SAVE_OPA or
-							 state=NEW_PRODUCT_BM else
+		selTEMP_BM	<=  '0'  when state=NEW_PRODUCT_BM else
 						'1';
 							 
 							 

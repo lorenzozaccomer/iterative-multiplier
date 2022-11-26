@@ -51,7 +51,7 @@ entity bmsel is
 		ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
 			-- control inputs
 		DATAIN:				in std_logic;
-		START:				in std_logic;
+		-- START:				in std_logic;
 			-- control outputs
 		READY:				out std_logic
 	);
@@ -94,7 +94,7 @@ architecture struct of bmsel is
 	
 	begin
 	CTRL: bmsel_ctrlunit 
-		port map(CLK, RST, START, DATAIN, READY,
+		port map(CLK, RST, DATAIN, READY,
 			selOPA,
 			selOPB,
 			selRA_BM,

@@ -52,7 +52,7 @@ architecture behavior of tb is
 			ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
-			START:				in std_logic;
+			-- START:				in std_logic;
 				-- control outputs
 			READY:				out std_logic
 		);
@@ -65,7 +65,7 @@ architecture behavior of tb is
 			B_BM,
 			ROUT_BM,
 			DATAIN,
-			CALC,
+			-- CALC,
 			READY
 		);
 		
@@ -78,24 +78,24 @@ architecture behavior of tb is
 		variable in_A:			bit_vector(A_BM'range);
 		variable in_B: 			bit_vector(B_BM'range);
 		variable in_DATAIN: 	bit;
-		variable in_CALC : 		bit;
+		-- variable in_CALC : 		bit;
 	begin
 		if (CLK='0') and (start = 1) and (READY = '1') then
 		-- read new data from file
-				if not endfile(infile) then
-					readline(infile, inputline);
-					read(inputline, in_A); A_BM <= to_UX01(in_A);
-					readline(infile, inputline);
-					read(inputline, in_B); B_BM <= to_UX01(in_B);
-					readline(infile, inputline);
-					read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-					readline(infile, inputline);
-					read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
-					-- readline(infile, inputline);
-					counter_data<= std_logic_vector(unsigned(counter_data)+1);
-					int_counter_data <= int_counter_data + 1;
-				else
-					done <= 1;
+			if not endfile(infile) then
+				readline(infile, inputline);
+				read(inputline, in_A); A_BM <= to_UX01(in_A);
+				readline(infile, inputline);
+				read(inputline, in_B); B_BM <= to_UX01(in_B);
+				readline(infile, inputline);
+				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
+				-- readline(infile, inputline);
+				-- read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
+				-- readline(infile, inputline);
+				counter_data<= std_logic_vector(unsigned(counter_data)+1);
+				int_counter_data <= int_counter_data + 1;
+			else
+				done <= 1;
 			end if;
 		end if;
 	end process;
@@ -114,10 +114,10 @@ architecture behavior of tb is
 			report "NONE. End of simulation."
 			severity failure;
 		end if;
-	end process done_process;
+	end process;
 	
-	-- RESET
-	reset_process: process
+	-- START
+	start_process: process
 	begin
 		RST <= '0';
 		wait for 1 ns;

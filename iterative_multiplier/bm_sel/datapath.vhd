@@ -198,10 +198,10 @@ architecture struct of bmsel_datapath is
 	NOTPORT1:		notport port map(adv_in, notport_out);
 	
 		-- SHIFTERS
-	SHIFT1_B_BM:	leftshiftN generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
-	SHIFT2_OPR:		leftshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
+	SH_B_BM:		leftshiftN generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
+	SH_OPR:			leftshiftN generic map(2*M,Q) port map(opr_out, shift_opr);
 	-- SHIFT3_TEMP_BM:	leftshiftN generic map(M,Q) port map(temp_bm_out, shift_temp_bm_out);
-	SHIFT_ACC_BM:	leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
+	SH_ACC_BM:		leftshiftN generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
 	
 		-- PRODUCT
 	PRODUCT:		multiplierN port map(opa_out, opb_out, product_out(M-1 downto 0));

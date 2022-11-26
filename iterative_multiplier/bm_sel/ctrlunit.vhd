@@ -207,7 +207,7 @@ architecture behavior of bmsel_ctrlunit is
 						'0';
 		selTEMP_BM	<=  '0'  when state=SAVE_OPA or
 							 state=NEW_PRODUCT_BM else
-						'0';
+						'1';
 							 
 							 
 							 
@@ -254,10 +254,9 @@ architecture behavior of bmsel_ctrlunit is
 						'1'	 when state=INC_CNT;
 		
 		loadADV_BM	<= 	'1'  when state=INC_CNT or 
-							 state=INIT_BM else 
+							 state=RESET_BM else 
 						'0';
-		selADV_BM	<= 	'0'  when 
-							 state=RESET_BM else
+		selADV_BM	<= 	'0'  when state=RESET_BM else
 						'1'  when state=INC_CNT;
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 

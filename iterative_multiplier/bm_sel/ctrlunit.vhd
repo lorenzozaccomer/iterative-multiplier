@@ -33,6 +33,7 @@ package bmsel_ctrlunit_package is
 			selRPM:				out std_logic;
 			
 			selTMPtoA:			out std_logic;
+			selSH_TMP:			out std_logic;
 			
 			loadOPA:			out std_logic;
 			loadOPB:			out std_logic;
@@ -84,6 +85,7 @@ entity bmsel_ctrlunit is
 		selRPM:				out std_logic;
 		
 		selTMPtoA:			out std_logic;
+		selSH_TMP:			out std_logic;
 		
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
@@ -190,24 +192,30 @@ architecture behavior of bmsel_ctrlunit is
 						'0';
 		selA_BM	<= 		'1'  when state=SAVE_OPA or 
 							 state=NEW_PRODUCT_BM else 
-						'0';
+						'0'  when state=INIT_BM;
 								
 		loadB_BM	<= 	'1'  when state=WAIT_BM or
 							 state=INIT_BM else 
 						'0';
-		selB_BM	<= 		'0'  when state=WAIT_BM else
-						'1'  when state=NEW_OPERAND_BM;
+		selB_BM	<= 		'1'  when state=WAIT_BM or 
+							 state=NEW_OPERAND_BM else
+						'0'  when state=INIT_BM;
 		
 		loadTEMP_BM <= 	'1'  when state=SAVE_OPA or
 							 state=NEW_PRODUCT_BM or
-							 state=SHIFT_OPA else '0';
-		selTEMP_BM	<=  '1'  when state=SHIFT_OPA else
+							 state=SHIFT_OPA else 
+						'0';
+		selTEMP_BM	<=  '0'  when state=SAVE_OPA or
+							 state=NEW_PRODUCT_BM else
 						'0';
 							 
 							 
 							 
 		selTMPtoA 	<=	'1'  when state=NEW_OPA or
 							 state=NEW_OPERAND_BM else
+						'0';
+						
+		selSH_TMP	<=	'1'  when state=SHIFT_OPA else
 						'0';
 						
 						

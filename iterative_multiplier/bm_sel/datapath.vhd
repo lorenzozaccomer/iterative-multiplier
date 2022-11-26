@@ -31,6 +31,7 @@ package bmsel_datapath_package is
 			selRPM:				in std_logic;
 			
 			selTMPtoA:			in std_logic;
+			selSH_TMP:			in std_logic;
 			
 			loadOPA:			in std_logic;
 			loadOPB:			in std_logic;
@@ -83,6 +84,7 @@ entity bmsel_datapath is
 		selRPM:				in std_logic;
 		
 		selTMPtoA:			in std_logic;
+		selSH_TMP:			in std_logic;
 		
 		loadOPA:			in std_logic;
 		loadOPB:			in std_logic;
@@ -167,9 +169,10 @@ architecture struct of bmsel_datapath is
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, zeros2, opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, zeros2, opb_out, opb_in);				
 	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, zeros3, inc_bm_out, inc_bm_in); 	
-	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, zeros4, ra_bm_out, ra_bm_in);		
-	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, shift_rb_bm, rb_bm_out, rb_bm_in);	
-	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, temp_bm_out, shift_temp_bm_out, temp_bm_in);
+	MUX_A_BM:		mux2N generic map(M) port map(selA_BM, A_BM, ra_bm_out, ra_bm_in);		
+	MUX_B_BM:		mux2N generic map(M) port map(selB_BM, B_BM, rb_bm_out, rb_bm_in);	
+	MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, ra_bm_out, temp_bm_out, temp_bm_in);
+	-- MUX_TEMP_BM:	mux2N generic map(M) port map(selTEMP_BM, temp_bm_out, shift_temp_bm_out, temp_bm_in);
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, zeros8, rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, zeros8, sum_bm_out, sum_bm_in); 
@@ -177,6 +180,7 @@ architecture struct of bmsel_datapath is
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm_out, accbm_out, zeros8, accbm_in);
 	
 	MUX_TEMPtoA:	mux2N generic map(Q) port map(selTMPtoA, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
+	MUX_SH_TMP:		mux2N generic map(M) port map(selSH_TMP, zeros4, shift_temp_bm_out, temp_bm_in);
 	-- MUX_ADD_INC:	mux2N generic map(Q+1) port map(
 	-- MUX_ADD_OPR:	mux2N generic map(2*M) port map(
 	-- MUX_ADD_SUBPRD:	mux2N generic map(2*M) port map(

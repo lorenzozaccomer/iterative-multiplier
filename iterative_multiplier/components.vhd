@@ -56,7 +56,7 @@ package constants_components_package is
     constant TRco           : time := 1 ns;
     constant TRsu           : time := 1 ns;
     constant Tshift         : time := 0 ns;
-    -- constant Tlogic         : time := 0.4 ns;
+    constant Tlogic         : time := 0.4 ns;
 end constants_components_package;
 -----------------------------------------------------------------
 
@@ -139,7 +139,7 @@ architecture behavior of reg is
 		if(RST = '1') then
 			Q <= (others => '0');
 		elsif rising_edge(CLK) and LOAD='1' then
-			Q <= D after TRco;
+			Q <= D;
 		end if;
 	end process;
 end behavior;

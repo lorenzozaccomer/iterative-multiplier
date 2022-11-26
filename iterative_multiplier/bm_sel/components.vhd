@@ -197,10 +197,10 @@ entity notport is
          );
 end notport;
 
-architecture s of notport is
+architecture behavior of notport is
 begin
     Y <= not A;
-end s;
+end behavior;
 ----------------------------------------------------------------------
 
 

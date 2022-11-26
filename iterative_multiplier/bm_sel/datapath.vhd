@@ -198,7 +198,7 @@ architecture struct of bmsel_datapath is
 	SH_B_BM:		rightshiftN	generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
 	SH_OPR:			leftshiftN  generic map(2*M,Q) port map(opr_out, shift_opr);
 	SH_A_BM:		rightshiftN generic map(M,Q) port map(ra_bm_out, shift_ra_bm);
-	SH_ACC_BM:		rightshiftN	generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
+	SH_ACC_BM:		leftshiftN	generic map(2*M,Q) port map(accbm_out, shift_acc_bm);
 	
 		-- PRODUCT
 	PRODUCT:		multiplierN port map(opa_out, opb_out, product_out(M-1 downto 0));

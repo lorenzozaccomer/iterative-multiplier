@@ -113,7 +113,7 @@ architecture behavior of bmsel_ctrlunit is
 
 	type statetype is (INIT_BM, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
-						NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT);
+						NEW_OPA, NEW_PRODUCT_BM, SUBPRODUCT, WAITDATA);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -170,10 +170,12 @@ architecture behavior of bmsel_ctrlunit is
 			when SHIFT_ACC =>
 				nextstate <= SUBPRODUCT;
 			when SUBPRODUCT =>
+					nextstate <= WAITDATA;
+			when WAITDATA =>
 				if DATAIN = '0' then
-					nextstate <= SUBPRODUCT;
+					nextstate <= WAITDATA;
 				else
-					nextstate <= INIT_BM;
+					nextstate <= NEW_OPERAND_BM;
 				end if;
 			when others =>
 				nextstate <= INIT_BM;
@@ -284,6 +286,6 @@ architecture behavior of bmsel_ctrlunit is
 						'1';
 						
 		READY		<=  '1'	 when state=INIT_BM or 
-							 state=SUBPRODUCT else
+							 state=WAITDATA else
 						'0';
 end behavior;

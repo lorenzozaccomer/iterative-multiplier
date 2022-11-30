@@ -133,7 +133,6 @@ architecture struct of bmsel_datapath is
 	signal add_subproduct_out:			std_logic_vector(2*M-1 downto 0);
 	signal product_out:					std_logic_vector(2*M-1 downto 0) := (others=>'0');
 	signal shift_opr:					std_logic_vector(2*M-1 downto 0);
-	-- signal r_out_bm:					std_logic_vector(2*M-1 downto 0);
 	signal shift_acc_bm:				std_logic_vector(2*M-1 downto 0);
 	signal sum_bm_in, sum_bm_out:		std_logic_vector(2*M-1 downto 0);
 	signal rpm_in, rpm_out:				std_logic_vector(2*M-1 downto 0);
@@ -143,8 +142,6 @@ architecture struct of bmsel_datapath is
 	signal zeros3:						std_logic_vector(Q downto 0)	:= (others=>'0');
 	signal zeros4:						std_logic_vector(M-1 downto 0)	:= (others=>'0');
 	signal zeros8:						std_logic_vector(2*M-1 downto 0):= (others=>'0');
-	-- signal one_inc_vector:				std_logic_vector(Q downto 0)	:= "001";
-	
 	
 	begin
 		
@@ -179,12 +176,6 @@ architecture struct of bmsel_datapath is
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, product_out, opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, add_sum_out, accbm_in);
 	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, r_out_bm, rout_in);
-	
-	-- MUX_TEMPtoA:	mux2N generic map(Q) port map(selSUBPRD, zeros2, temp_bm_out(Q-1 downto 0), opa_in);
-	-- MUX_SH_TMP:		mux2N generic map(M) port map(selSH_TMP, zeros4, shift_ra_bm, ra_bm_out);
-	-- MUX_ADD_INC:	mux2N generic map(Q+1) port map(
-	-- MUX_ADD_OPR:	mux2N generic map(2*M) port map(
-	-- MUX_ADD_SUBPRD:	mux2N generic map(2*M) port map(
 	
 		-- ADDERS
 	-- needed to increment CNT_BM

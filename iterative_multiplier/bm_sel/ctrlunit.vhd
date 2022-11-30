@@ -34,6 +34,7 @@ package bmsel_ctrlunit_package is
 			
 			selSUBPRD:			out std_logic;	-- NOT USED
 			selSH_TMP:			out std_logic;	-- NOT USED
+			selOUT:				out std_logic;
 			
 			loadOPA:			out std_logic;
 			loadOPB:			out std_logic;
@@ -84,6 +85,7 @@ entity bmsel_ctrlunit is
 		selINC_BM:			out std_logic;
 		selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
+		selOUT:				out std_logic;
 		
 		selSUBPRD:			out std_logic;	-- NOT USED
 		selSH_TMP:			out std_logic;	-- NOT USED
@@ -272,11 +274,14 @@ architecture behavior of bmsel_ctrlunit is
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';
-		selRPM		<= 	'1'  when state=SUBPRODUCT else 
-						'0'  when state=NEW_PRODUCT_BM;
+		selRPM		<= 	'0'  when state=NEW_PRODUCT_BM else
+						'1';
 		
 		loadOUT		<= 	'1'  when state=SUBPRODUCT else 
 						'0';
+						
+		selOUT		<=	'0'  when state=SUBPRODUCT else
+						'1';
 						
 		READY		<=  '1'	 when state=INIT_BM or 
 							 state=SUBPRODUCT else

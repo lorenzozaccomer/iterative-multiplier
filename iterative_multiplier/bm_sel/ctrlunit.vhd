@@ -24,23 +24,18 @@ package bmsel_ctrlunit_package is
 			selOPB:				out std_logic;
 			selA_BM:			out std_logic_vector(Q-1 downto 0);
 			selB_BM:			out std_logic_vector(Q-1 downto 0);
-			selTEMP_BM:			out std_logic;	-- NOT USED
 			selOPR:				out std_logic_vector(Q-1 downto 0);
 			selACC_BM:			out std_logic_vector(Q-1 downto 0);
 			selSUM:				out std_logic;
 			selINC_BM:			out std_logic;
 			selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
-			
-			selSUBPRD:			out std_logic;	-- NOT USED
-			selSH_TMP:			out std_logic;	-- NOT USED
 			selOUT:				out std_logic;
 			
 			loadOPA:			out std_logic;
 			loadOPB:			out std_logic;
 			loadA_BM:			out std_logic;
 			loadB_BM:			out std_logic;
-			loadTEMP_BM:		out std_logic;
 			loadOPR:			out std_logic;
 			loadACC_BM:			out std_logic;
 			loadSUM:			out std_logic;
@@ -78,7 +73,6 @@ entity bmsel_ctrlunit is
 		selOPB:				out std_logic;
 		selA_BM:			out std_logic_vector(Q-1 downto 0);
 		selB_BM:			out std_logic_vector(Q-1 downto 0);
-		selTEMP_BM:			out std_logic;	-- NOT USED
 		selOPR:				out std_logic_vector(Q-1 downto 0);
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
@@ -86,15 +80,11 @@ entity bmsel_ctrlunit is
 		selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		selOUT:				out std_logic;
-		
-		selSUBPRD:			out std_logic;	-- NOT USED
-		selSH_TMP:			out std_logic;	-- NOT USED
-		
+				
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
 		loadA_BM:			out std_logic;
 		loadB_BM:			out std_logic;
-		loadTEMP_BM:		out std_logic;
 		loadOPR:			out std_logic;
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
@@ -129,8 +119,6 @@ architecture behavior of bmsel_ctrlunit is
 				else
 					nextstate <= NEW_OPERAND_BM;
 				end if;
-			-- when SAVE_OPA =>
-				-- nextstate <= NEW_OPERAND_BM;
 			when NEW_OPERAND_BM =>
 				nextstate <= RESET_BM;
 			when RESET_BM =>
@@ -217,24 +205,7 @@ architecture behavior of bmsel_ctrlunit is
 						"01" when state=NEW_OPERAND_BM else
 						"10" when state=WAIT_BM else
 						"11";
-		
-		loadTEMP_BM <= 	'1'  when state=NEW_PRODUCT_BM or
-							 state=SHIFT_OPA else 
-						'0';
-		selTEMP_BM	<=  '0'  when state=NEW_PRODUCT_BM else
-						'1';
-							 
-							 
-							 
-		selSUBPRD 	<=	'1'  when state=NEW_OPA or
-							 state=NEW_OPERAND_BM else
-						'0';
 						
-		selSH_TMP	<=	'1'  when state=SHIFT_OPA else
-						'0';
-						
-						
-													
 		loadOPR 	<= 	'1'  when state=PRODUCT or
 							 state=SHIFT_PRODUCT or
 							 state=NEW_OPA or 

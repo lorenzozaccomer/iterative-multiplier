@@ -22,7 +22,6 @@ package bmsel_datapath_package is
 			selOPB:				in std_logic;
 			selA_BM:			in std_logic_vector(Q-1 downto 0);
 			selB_BM:			in std_logic_vector(Q-1 downto 0);
-			selTEMP_BM:			in std_logic;	-- NOT USED
 			selOPR:				in std_logic_vector(Q-1 downto 0);
 			selACC_BM:			in std_logic_vector(Q-1 downto 0);
 			selSUM:				in std_logic;
@@ -30,15 +29,11 @@ package bmsel_datapath_package is
 			selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			selOUT:				in std_logic;
-			
-			selSUBPRD:			in std_logic;	-- NOT USED
-			selSH_TMP:			in std_logic;	-- NOT USED
-		
+					
 			loadOPA:			in std_logic;
 			loadOPB:			in std_logic;
 			loadA_BM:			in std_logic;
 			loadB_BM:			in std_logic;
-			loadTEMP_BM:		in std_logic;
 			loadOPR:			in std_logic;
 			loadACC_BM:			in std_logic;
 			loadSUM:			in std_logic;
@@ -76,23 +71,18 @@ entity bmsel_datapath is
 		selOPB:				in std_logic;
 		selA_BM:			in std_logic_vector(Q-1 downto 0);
 		selB_BM:			in std_logic_vector(Q-1 downto 0);
-		selTEMP_BM:			in std_logic;	-- NOT USED
 		selOPR:				in std_logic_vector(Q-1 downto 0);
 		selACC_BM:			in std_logic_vector(Q-1 downto 0);
 		selSUM:				in std_logic;
 		selINC_BM:			in std_logic;
 		selADV_BM:			in std_logic;
 		selRPM:				in std_logic;
-		
-		selSUBPRD:			in std_logic;	-- NOT USED
-		selSH_TMP:			in std_logic;	-- NOT USED
 		selOUT:				in std_logic;
 		
 		loadOPA:			in std_logic;
 		loadOPB:			in std_logic;
 		loadA_BM:			in std_logic;
 		loadB_BM:			in std_logic;
-		loadTEMP_BM:		in std_logic;
 		loadOPR:			in std_logic;
 		loadACC_BM:			in std_logic;
 		loadSUM:			in std_logic;
@@ -119,7 +109,6 @@ architecture struct of bmsel_datapath is
 	signal inc_bm_in, inc_bm_out:		std_logic_vector(Q downto 0); 
 	signal add_inc_bm_out:				std_logic_vector(Q downto 0);
 	
-	signal temp_bm_in, temp_bm_out: 	std_logic_vector(M-1 downto 0);
 	signal ra_bm_in, ra_bm_out:			std_logic_vector(M-1 downto 0);
 	signal rb_bm_in, rb_bm_out:			std_logic_vector(M-1 downto 0);
 	signal shift_rb_bm:					std_logic_vector(M-1 downto 0);
@@ -138,7 +127,6 @@ architecture struct of bmsel_datapath is
 	signal rpm_in, rpm_out:				std_logic_vector(2*M-1 downto 0);
 	
 		-- internal signals
-	signal zeros2:						std_logic_vector(Q-1 downto 0)	:= (others=>'0');
 	signal zeros3:						std_logic_vector(Q downto 0)	:= (others=>'0');
 	signal zeros4:						std_logic_vector(M-1 downto 0)	:= (others=>'0');
 	signal zeros8:						std_logic_vector(2*M-1 downto 0):= (others=>'0');

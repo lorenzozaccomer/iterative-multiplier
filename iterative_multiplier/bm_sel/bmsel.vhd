@@ -65,7 +65,6 @@ architecture struct of bmsel is
 	signal selOPB:				std_logic;
 	signal selRA_BM:			std_logic_vector(Q-1 downto 0);
 	signal selRB_BM:			std_logic_vector(Q-1 downto 0);
-	signal selTEMP_BM:			std_logic;
 	signal selOPR:				std_logic_vector(Q-1 downto 0);
 	signal selACC_BM:			std_logic_vector(Q-1 downto 0);
 	signal selSUM:				std_logic;
@@ -73,15 +72,11 @@ architecture struct of bmsel is
 	signal selADV_BM:			std_logic;
 	signal selRPM:				std_logic;
 	signal selOUT:				std_logic;
-	
-	signal selSUBPRD:			std_logic;
-	signal selSH_TMP:			std_logic;
-	
+		
 	signal loadOPA:				std_logic;
 	signal loadOPB:				std_logic;
 	signal loadRA_BM:			std_logic;
 	signal loadRB_BM:			std_logic;
-	signal loadTEMP_BM:			std_logic;
 	signal loadOPR:				std_logic;
 	signal loadACC_BM:			std_logic;
 	signal loadSUM:				std_logic;
@@ -100,7 +95,6 @@ architecture struct of bmsel is
 			selOPB,
 			selRA_BM,
 			selRB_BM,
-			selTEMP_BM,
 			selOPR,
 			selACC_BM,
 			selSUM,
@@ -108,13 +102,10 @@ architecture struct of bmsel is
 			selADV_BM,
 			selRPM,
 			selOUT,
-			selSUBPRD,
-			selSH_TMP,
 			loadOPA,
 			loadOPB,
 			loadRA_BM,
 			loadRB_BM,
-			loadTEMP_BM,
 			loadOPR,
 			loadACC_BM,
 			loadSUM,
@@ -132,7 +123,6 @@ architecture struct of bmsel is
 			selOPB,
 			selRA_BM,
 			selRB_BM,
-			selTEMP_BM,
 			selOPR,
 			selACC_BM,
 			selSUM,
@@ -140,13 +130,10 @@ architecture struct of bmsel is
 			selADV_BM,
 			selRPM,
 			selOUT,
-			selSUBPRD,
-			selSH_TMP,
 			loadOPA,
 			loadOPB,
 			loadRA_BM,
 			loadRB_BM,
-			loadTEMP_BM,
 			loadOPR,
 			loadACC_BM,
 			loadSUM,

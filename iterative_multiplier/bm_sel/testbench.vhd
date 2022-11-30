@@ -33,7 +33,7 @@ architecture behavior of tb is
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
 	signal ROUT_BM:				std_logic_vector(2*M-1 downto 0);
-	signal CALC:				std_logic	:= '1';
+	-- signal CALC:				std_logic	:= '1';
 	signal DATAIN:				std_logic	:= '0';
 	signal READY:				std_logic;
 	

@@ -196,10 +196,12 @@ architecture behavior of bmsel_ctrlunit is
 						'1';
 		
 		loadA_BM	<=	'1' when state=INIT_BM or
+							state=WAITDATA or 
 							state=NEW_PRODUCT_BM or 
 							state=SHIFT_OPA else
 						'0';
-		selA_BM		<=	"00" when state=INIT_BM or 
+		selA_BM		<=	"00" when state=INIT_BM or
+							 state=WAITDATA or 
 							 state=NEW_PRODUCT_BM else
 						"01" when state=NEW_OPERAND_BM or 
 							 state=NEW_OPA else 
@@ -207,9 +209,11 @@ architecture behavior of bmsel_ctrlunit is
 						"11";
 								
 		loadB_BM	<= 	'1'  when state=WAIT_BM or
-							 state=INIT_BM else 
+							 state=INIT_BM or 
+							 state=WAITDATA else 
 						'0';
-		selB_BM	<= 		"00" when state=INIT_BM else
+		selB_BM	<= 		"00" when state=INIT_BM  or
+							 state=WAITDATA else
 						"01" when state=NEW_OPERAND_BM else
 						"10" when state=WAIT_BM else
 						"11";
@@ -263,9 +267,11 @@ architecture behavior of bmsel_ctrlunit is
 						'1'  when state=RESET_BM;
 
 		loadINC_BM	<= 	'1'  when state=INC_CNT or 
+							 state=WAITDATA or 
 							 state=INIT_BM else 
 						'0';
-		selINC_BM	<= 	'0'  when state=INIT_BM else
+		selINC_BM	<= 	'0'  when state=INIT_BM or 
+							 state=WAITDATA else
 						'1'	 when state=INC_CNT;
 		
 		loadADV_BM	<= 	'1'  when state=ADV or 

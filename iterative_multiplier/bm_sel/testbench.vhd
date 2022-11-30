@@ -89,7 +89,7 @@ architecture behavior of tb is
 				read(inputline, in_B); B_BM <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				readline(infile, inputline);
+				-- readline(infile, inputline);
 				-- read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
 				-- readline(infile, inputline);
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);

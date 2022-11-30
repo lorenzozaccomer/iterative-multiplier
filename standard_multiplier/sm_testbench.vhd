@@ -65,6 +65,18 @@ begin
 		A_SIG <= "1111";	-- 4 bit
 		B_SIG <= "1111";	-- 4 bit	
 		wait for 10 ns;
+		A_SIG <= "1011";	-- 4 bit
+		B_SIG <= "0010";	-- 4 bit	
+		wait for 10 ns;
+		A_SIG <= "1101";	-- 4 bit
+		B_SIG <= "1010";	-- 4 bit	
+		wait for 10 ns;
+		A_SIG <= "1010";	-- 4 bit
+		B_SIG <= "0101";	-- 4 bit	
+		wait for 10 ns;
+		A_SIG <= "1011";	-- 4 bit
+		B_SIG <= "1010";	-- 4 bit	
+		wait for 10 ns;
 		-- A_SIG <= "10";
 		-- B_SIG <= "01";
 		-- wait for 10 ns;

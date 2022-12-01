@@ -21,7 +21,6 @@ package bmsel_package is
 			ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
-			START:				in std_logic;
 				-- control outputs
 			READY:				out std_logic
 		);

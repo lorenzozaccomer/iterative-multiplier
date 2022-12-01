@@ -90,7 +90,10 @@ architecture struct of msel_datapath is
 	signal a_bm_in, a_bm_out:			std_logic_vector(M-1 downto 0);
 	signal b_bm_in, b_bm_out:			std_logic_vector(M-1 downto 0);
 		
-	signal inc_m_in, inc_m_out:			std_logic_vector(Q downto 0);
+	signal inc_m_in, inc_m_out:			std_logic_vector(M downto 0);
+	signal add_inc_m_out:				std_logic_vector(M downto 0);
+	
+	signal shift_am, shift_bm:			std_logic_vector(N-1 downto 0);
 	
 	signal am_in, am_out:				std_logic_vector(N-1 downto 0);
 	signal bm_in, bm_out:				std_logic_vector(N-1 downto 0);
@@ -101,22 +104,22 @@ architecture struct of msel_datapath is
 	REG_A_BM:	regN generic map(M) port map(CLK, RST, loadAM, a_bm_in, a_bm_out);
 	REG_B_BM:	regN generic map(M) port map(CLK, RST, loadAM, b_bm_in, b_bm_out);
 	
-	REG_INC_M:	regN generic map(Q+1) port map(CLK, RST, loadINC_M, inc_m_in, inc_m_out);
+	REG_INC_M:	regN generic map(M+1) port map(CLK, RST, loadINC_M, inc_m_in, inc_m_out);
 	
 	REG_AM:		regN generic map(N) port map(CLK, RST, loadA_BM, am_in, am_out);
 	REG_BM:		regN generic map(N) port map(CLK, RST, loadB_BM, bm_in, bm_out);
 			
 		-- MUXS
-	MUX_A_BM:	muxN generic map(M) port map(selA_BM, am_out, a_bm_out(M-1 downto 0), am_in);
-	MUX_B_BM:	muxN generic map(M) port map(selB_BM, bm_out, a_bm_out(M-1 downto 0), bm_in);
+	MUX_A_BM:	mux2N generic map(M) port map(selA_BM, am_out, a_bm_out(M-1 downto 0), am_in);
+	MUX_B_BM:	mux2N generic map(M) port map(selB_BM, bm_out, a_bm_out(M-1 downto 0), bm_in);
 	
-	MUX_INC_M:	muxN generic map(Q+1) port map(selINC_M, (others=>'0'), add_inc_m_out, inc_m_in);
+	MUX_INC_M:	mux2N generic map(M+1) port map(selINC_M, (others=>'0'), add_inc_m_out, inc_m_in);
 	
-	MUX_AM:		muxN generic map(N) port map(selAM, A_M, shift_am, am_in);
-	MUX_BM:		muxN generic map(N) port map(selBM, B_M, shift_bm, bm_in);
+	MUX_AM:		mux2N generic map(N) port map(selAM, A_M, shift_am, am_in);
+	MUX_BM:		mux2N generic map(N) port map(selBM, B_M, shift_bm, bm_in);
 		
 		-- ADDERS
-	ADD_INC_M:	adderNotCount generic map(M+1) port map(inc_m_out, "00001", add_inc_m_out);
+	ADD_INC_M:	adderNotCOut generic map(M+1) port map(inc_m_out, "00001", add_inc_m_out);
 	
 		-- SHIFTERS
 	SH_AM:		leftshiftN generic map(N,M) port map(am_out, shift_am);

@@ -4,7 +4,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-package components_package is
+package msel_components_package is
 
 	component regN is
 		generic(N 	: integer := 4);
@@ -112,7 +112,7 @@ package components_package is
 		);
 	end component;
 	
-end components_package;
+end msel_components_package;
 ----------------------------------------------------------------------
 
 

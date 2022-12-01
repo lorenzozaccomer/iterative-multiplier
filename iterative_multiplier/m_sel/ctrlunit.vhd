@@ -140,7 +140,7 @@ architecture behavior of msel_ctrlunit is
 						'0';
 		selAM		<=  '0'  when state=SAVE_OPS or
 							 state=NEW_PRODUCT else
-						'1'  when state=SHIFT_AM;;
+						'1'  when state=SHIFT_AM;
 						
 		loadBM		<=  '1'  when state=SAVE_OPS or 
 							 state=NEW_PRODUCT else

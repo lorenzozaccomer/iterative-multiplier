@@ -50,6 +50,18 @@ entity msel_ctrlunit is
 		DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
+		selAM			in std_logic;
+		selBM			in std_logic;
+		selINC_M		in std_logic;
+		selA_AM			in std_logic;
+		selB_BM			in std_logic;
+		
+		
+		loadAM			in std_logic;
+		loadBM			in std_logic;
+		loadINC_M		in std_logic;
+		loadA_BM		in std_logic;
+		loadB_BM		in std_logic;
 			-- status signals from datapath
 		INC_M:			in std_logic_vector(M downto 0);
 	);
@@ -134,12 +146,12 @@ architecture behavior of msel_ctrlunit is
 		loadA_BM	<=	'1'  when state=SAVE_OPS_BM or 
 							 state=SHIFT_AM else
 						'0';
-		selA_AM		<=	'1'  when state=SAVE_OPS_BM else
+		selA_BM		<=	'1'  when state=SAVE_OPS_BM else
 						'0';
 						
 		loadB_BM	<=	'1'  when state=SAVE_OPS_BM else
 						'0';
-		selB_AM		<=	'1'  when state=SAVE_OPS_BM else
+		selB_BM		<=	'1'  when state=SAVE_OPS_BM else
 						'0';
 						
 						

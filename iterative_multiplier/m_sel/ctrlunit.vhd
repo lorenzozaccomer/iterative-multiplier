@@ -25,7 +25,19 @@ package msel_ctrlunit_package is
 			DATAIN_BM:		in std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
+			selAM			in std_logic;
+			selBM			in std_logic;
+			selINC_M		in std_logic;
+			selA_AM			in std_logic;
+			selB_BM			in std_logic;
+						
+			loadAM			in std_logic;
+			loadBM			in std_logic;
+			loadINC_M		in std_logic;
+			loadA_BM		in std_logic;
+			loadB_BM		in std_logic;
 				-- status signals from datapath
+			INC_M:			in std_logic_vector(M downto 0);
 		);
 	end component;
 end msel_ctrlunit_package;
@@ -55,8 +67,7 @@ entity msel_ctrlunit is
 		selINC_M		in std_logic;
 		selA_AM			in std_logic;
 		selB_BM			in std_logic;
-		
-		
+				
 		loadAM			in std_logic;
 		loadBM			in std_logic;
 		loadINC_M		in std_logic;

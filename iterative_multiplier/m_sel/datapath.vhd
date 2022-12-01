@@ -20,8 +20,8 @@ package msel_datapath_package is
 				-- data inputs
 			A_M:			in std_logic_vector(N-1 downto 0);
 			B_M:			in std_logic_vector(N-1 downto 0);
-			A_BM:			out std_logic_vector(N-1 downto 0);
-			B_BM:			out std_logic_vector(N-1 downto 0);
+			A_BM:			out std_logic_vector(M-1 downto 0);
+			B_BM:			out std_logic_vector(M-1 downto 0);
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
@@ -29,22 +29,22 @@ package msel_datapath_package is
 			DATAIN_BM:		in std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
-			selAM			in std_logic;
-			selBM			in std_logic;
-			selINC_M		in std_logic;
-			selA_AM			in std_logic;
-			selB_BM			in std_logic;
+			selAM:			in std_logic;
+			selBM:			in std_logic;
+			selINC_M:		in std_logic;
+			selA_BM:		in std_logic;
+			selB_BM:		in std_logic;
 						
-			loadAM			in std_logic;
-			loadBM			in std_logic;
-			loadINC_M		in std_logic;
-			loadA_BM		in std_logic;
-			loadB_BM		in std_logic;
+			loadAM:			in std_logic;
+			loadBM:			in std_logic;
+			loadINC_M:		in std_logic;
+			loadA_BM:		in std_logic;
+			loadB_BM:		in std_logic;
 				-- status signals from datapath
-			INC_M:			in std_logic_vector(M downto 0);
+			INC_M:			in std_logic_vector(M downto 0)
 		);
 	end component;
-end msel_ctrlunit_package;
+end msel_datapath_package;
 ----------------------------------------------------------------------
 
 
@@ -68,19 +68,19 @@ entity msel_datapath is
 		A_BM:			out std_logic_vector(N-1 downto 0);
 		B_BM:			out std_logic_vector(N-1 downto 0);
 			-- control signal to datapath
-		selAM			in std_logic;
-		selBM			in std_logic;
-		selINC_M		in std_logic;
-		selA_AM			in std_logic;
-		selB_BM			in std_logic;
+		selAM:			in std_logic;
+		selBM:			in std_logic;
+		selINC_M:		in std_logic;
+		selA_BM:		in std_logic;
+		selB_BM:		in std_logic;
 					
-		loadAM			in std_logic;
-		loadBM			in std_logic;
-		loadINC_M		in std_logic;
-		loadA_BM		in std_logic;
-		loadB_BM		in std_logic;
+		loadAM:			in std_logic;
+		loadBM:			in std_logic;
+		loadINC_M:		in std_logic;
+		loadA_BM:		in std_logic;
+		loadB_BM:		in std_logic;
 			-- status signals from datapath
-		INC_M:			out std_logic_vector(M downto 0);
+		INC_M:			out std_logic_vector(M downto 0)
 	);
 end entity;
 
@@ -88,13 +88,13 @@ architecture struct of msel_datapath is
 
 	-- signals
 	signal am_in, am_out:				std_logic_vector(N-1 downto 0);
-	signal opb_in, opb_out:				std_logic_vector(N-1 downto 0);
+	signal bm_in, bm_out:				std_logic_vector(N-1 downto 0);
 	-- internal signals
 	
 	begin
 		-- REGISTERS
 	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, am_in, am_out);
-	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, bm_in, bm_out);
+	REG_BM:		regN generic map(N) port map(CLK, RST, loadAM, bm_in, bm_out);
 		-- MUXS
 		-- ADDERS
 		-- LOGIC PORTS

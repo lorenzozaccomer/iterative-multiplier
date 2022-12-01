@@ -51,7 +51,7 @@ end msel_ctrlunit_package;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.components_package.all;
+use work.msel_components_package.all;
 
 	-- interface
 entity msel_datapath is
@@ -87,10 +87,14 @@ end entity;
 architecture struct of msel_datapath is
 
 	-- signals
+	signal am_in, am_out:				std_logic_vector(N-1 downto 0);
+	signal opb_in, opb_out:				std_logic_vector(N-1 downto 0);
 	-- internal signals
 	
 	begin
 		-- REGISTERS
+	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, am_in, am_out);
+	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, bm_in, bm_out);
 		-- MUXS
 		-- ADDERS
 		-- LOGIC PORTS

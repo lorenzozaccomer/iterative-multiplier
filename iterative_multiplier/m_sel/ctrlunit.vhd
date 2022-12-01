@@ -25,19 +25,19 @@ package msel_ctrlunit_package is
 			DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
-			selAM			out std_logic;
-			selBM			out std_logic;
-			selINC_M		out std_logic;
-			selA_AM			out std_logic;
-			selB_BM			out std_logic;
+			selAM:			out std_logic;
+			selBM:			out std_logic;
+			selINC_M:		out std_logic;
+			selA_AM:		out std_logic;
+			selB_BM:		out std_logic;
 						
-			loadAM			out std_logic;
-			loadBM			out std_logic;
-			loadINC_M		out std_logic;
-			loadA_BM		out std_logic;
-			loadB_BM		out std_logic;
+			loadAM:			out std_logic;
+			loadBM:			out std_logic;
+			loadINC_M:		out std_logic;
+			loadA_BM:		out std_logic;
+			loadB_BM:		out std_logic;
 				-- status signals from datapath
-			INC_M:			in std_logic_vector(M downto 0);
+			INC_M:			in std_logic_vector(M downto 0)
 		);
 	end component;
 end msel_ctrlunit_package;
@@ -62,19 +62,19 @@ entity msel_ctrlunit is
 		DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
-		selAM			out std_logic;
-		selBM			out std_logic;
-		selINC_M		out std_logic;
-		selA_AM			out std_logic;
-		selB_BM			out std_logic;
+		selAM:			out std_logic;
+		selBM:			out std_logic;
+		selINC_M:		out std_logic;
+		selA_BM:		out std_logic;
+		selB_BM:		out std_logic;
 					
-		loadAM			out std_logic;
-		loadBM			out std_logic;
-		loadINC_M		out std_logic;
-		loadA_BM		out std_logic;
-		loadB_BM		out std_logic;
+		loadAM:			out std_logic;
+		loadBM:			out std_logic;
+		loadINC_M:		out std_logic;
+		loadA_BM:		out std_logic;
+		loadB_BM:		out std_logic;
 			-- status signals from datapath
-		INC_M:			in std_logic_vector(M downto 0);
+		INC_M:			in std_logic_vector(M downto 0)
 	);
 end entity;
 
@@ -99,6 +99,7 @@ architecture behavior of msel_ctrlunit is
 					nextstate <= INIT_M;
 				else
 					nextstate <= SAVE_OPS;
+				end if;
 			when SAVE_OPS =>
 				if ADV_AM = '1' then
 					nextstate <= SHIFT_AM;
@@ -114,11 +115,11 @@ architecture behavior of msel_ctrlunit is
 			when INC =>
 				nextstate <= SAVE_OPS_BM;
 			when SAVE_OPS_BM =>
-				nextstate <= WAITDATA;
+				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				nextstate WAITDATA;
+				nextstate <= WAITDATA;
 			when WAITDATA =>
-				if INC = "10000" then	-- b10000 = 16
+				if INC_M = "10000" then	-- b10000 = 16
 					nextstate <= INIT_M;
 				elsif ADV_AM = '1' then
 					nextstate <= SHIFT_AM;
@@ -126,6 +127,7 @@ architecture behavior of msel_ctrlunit is
 					nextstate <= NEW_PRODUCT;
 				else
 					nextstate <= WAITDATA;
+				end if;
 			when others =>
 				nextstate <= INIT_M;
 		end case;

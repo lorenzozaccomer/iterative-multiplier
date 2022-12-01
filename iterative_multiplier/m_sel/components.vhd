@@ -44,13 +44,13 @@ package msel_components_package is
 	-- end component;
 	
 	
-	-- component adderNotCOut is
-		-- generic(N 	: integer := 4);
-		-- port(
-		  -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-		  -- S		: out std_logic_vector(N-1 downto 0) 	-- final result
-		  -- );
-	-- end component;
+	component adderNotCOut is
+		generic(N 	: integer := 4);
+		port(
+		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
+		  S		: out std_logic_vector(N-1 downto 0) 	-- final result
+		  );
+	end component;
 	
 	-- component multiplierN is
 		-- generic(N 	: integer := 2);
@@ -168,18 +168,18 @@ use work.constants_components_package.all;
 
 -- adder without carries
 
--- entity adderNotCOut is
-	-- generic(N 	: integer := 4);
-	-- port(
-      -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-      -- S		: out std_logic_vector(N-1 downto 0) 	-- final result
-	  -- );
--- end entity;
+entity adderNotCOut is
+	generic(N 	: integer := 4);
+	port(
+      A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
+      S		: out std_logic_vector(N-1 downto 0) 	-- final result
+	  );
+end entity;
 
--- architecture behavior of adderNotCOut is
-	-- begin
-		-- S <= std_logic_vector(unsigned(A) + unsigned(B));
--- end behavior;
+architecture behavior of adderNotCOut is
+	begin
+		S <= std_logic_vector(unsigned(A) + unsigned(B));
+end behavior;
 ----------------------------------------------------------------------
 
 

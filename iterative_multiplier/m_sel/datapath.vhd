@@ -22,12 +22,6 @@ package msel_datapath_package is
 			B_M:			in std_logic_vector(N-1 downto 0);
 			A_BM:			out std_logic_vector(M-1 downto 0);
 			B_BM:			out std_logic_vector(M-1 downto 0);
-				-- control signal to/from extern
-			DATAIN:			in std_logic;	-- new data to manipulate
-			ADV_AM:			in std_logic;
-			NW_PRD:			in std_logic;
-			DATAIN_BM:		in std_logic;	-- new data for bm_sel are ready to used it
-			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
 			selAM:			in std_logic;
 			selBM:			in std_logic;
@@ -102,7 +96,7 @@ architecture struct of msel_datapath is
 	begin
 		-- REGISTERS
 	REG_A_BM:	regN generic map(M) port map(CLK, RST, loadAM, a_bm_in, a_bm_out);
-	REG_B_BM:	regN generic map(M) port map(CLK, RST, loadAM, b_bm_in, b_bm_out);
+	REG_B_BM:	regN generic map(M) port map(CLK, RST, loadBM, b_bm_in, b_bm_out);
 	
 	REG_INC_M:	regN generic map(M+1) port map(CLK, RST, loadINC_M, inc_m_in, inc_m_out);
 	
@@ -126,10 +120,10 @@ architecture struct of msel_datapath is
 	SH_BM:		leftshiftN generic map(N,M) port map(bm_out, shift_bm);
 	
 		-- status signals
-	INC_M	<= inc_m_out;
+	INC_M <= inc_m_out;
 	
 		-- data outputs
-	A_BM 	<= am_out;
-	B_BM 	<= bm_out;
+	A_BM <= am_out;
+	B_BM <= bm_out;
 		
 end struct;

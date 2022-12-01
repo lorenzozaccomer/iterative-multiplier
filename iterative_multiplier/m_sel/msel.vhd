@@ -14,14 +14,14 @@ package msel_package is
 			M	: integer := 4
 			);
 		port(
-			CLK:				in std_logic;
-			RST:				in std_logic;
+			CLK:			in std_logic;
+			RST:			in std_logic;
 				-- data inputs
-			A_M:				in std_logic_vector(N-1 downto 0);
-			B_M:				in std_logic_vector(N-1 downto 0);
+			A_M:			in std_logic_vector(N-1 downto 0);
+			B_M:			in std_logic_vector(N-1 downto 0);
 				-- data outputs
-			A_BM:				out std_logic_vector(M-1 downto 0);
-			B_BM:				out std_logic_vector(M-1 downto 0);
+			A_BM:			out std_logic_vector(M-1 downto 0);
+			B_BM:			out std_logic_vector(M-1 downto 0);
 				-- control inputs
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
@@ -48,14 +48,14 @@ entity msel is
 		M	: integer := 4
 	);
 	port(
-		CLK:				in std_logic;
-		RST:				in std_logic;
+		CLK:			in std_logic;
+		RST:			in std_logic;
 			-- data inputs
-		A_M:				in std_logic_vector(N-1 downto 0);
-		B_M:				in std_logic_vector(N-1 downto 0);
+		A_M:			in std_logic_vector(N-1 downto 0);
+		B_M:			in std_logic_vector(N-1 downto 0);
 			-- data outputs
-		A_BM:				out std_logic_vector(M-1 downto 0);
-		B_BM:				out std_logic_vector(M-1 downto 0);
+		A_BM:			out std_logic_vector(M-1 downto 0);
+		B_BM:			out std_logic_vector(M-1 downto 0);
 			-- control inputs
 		DATAIN:			in std_logic;	-- new data to manipulate
 		ADV_AM:			in std_logic;
@@ -67,8 +67,8 @@ entity msel is
 end entity;
 
 architecture struct of msel is
-	
-		-- control signals to datapath
+
+			-- control signal to datapath
 	signal selAM:			std_logic;
 	signal selBM:			std_logic;
 	signal selINC_M:		std_logic;
@@ -80,7 +80,7 @@ architecture struct of msel is
 	signal loadINC_M:		std_logic;
 	signal loadA_BM:		std_logic;
 	signal loadB_BM:		std_logic;
-		-- status signals from datapath
+				-- status signals from datapath
 	signal INC_M:			std_logic_vector(M downto 0);
 	
 	begin
@@ -99,7 +99,7 @@ architecture struct of msel is
 			INC_M
 		);
 		
-	DP:	msel_datapath 
+	DP: msel_datapath 
 		port map(CLK, RST, A_M, B_M, A_BM, B_BM,
 			selAM,
 			selBM,

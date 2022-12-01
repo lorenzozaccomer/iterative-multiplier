@@ -28,7 +28,7 @@ package msel_ctrlunit_package is
 			selAM:			out std_logic;
 			selBM:			out std_logic;
 			selINC_M:		out std_logic;
-			selA_AM:		out std_logic;
+			selA_BM:		out std_logic;
 			selB_BM:		out std_logic;
 						
 			loadAM:			out std_logic;

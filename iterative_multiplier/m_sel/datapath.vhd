@@ -67,12 +67,6 @@ entity msel_datapath is
 		B_M:			in std_logic_vector(N-1 downto 0);
 		A_BM:			out std_logic_vector(N-1 downto 0);
 		B_BM:			out std_logic_vector(N-1 downto 0);
-			-- control signal to/from extern
-		DATAIN:			in std_logic;	-- new data to manipulate
-		ADV_AM:			in std_logic;
-		NW_PRD:			in std_logic;
-		DATAIN_BM:		in std_logic;	-- new data for bm_sel are ready to used it
-		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
 		selAM			in std_logic;
 		selBM			in std_logic;
@@ -86,7 +80,7 @@ entity msel_datapath is
 		loadA_BM		in std_logic;
 		loadB_BM		in std_logic;
 			-- status signals from datapath
-		INC_M:			in std_logic_vector(M downto 0);
+		INC_M:			out std_logic_vector(M downto 0);
 	);
 end entity;
 

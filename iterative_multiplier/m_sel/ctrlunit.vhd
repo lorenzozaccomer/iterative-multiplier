@@ -22,20 +22,20 @@ package msel_ctrlunit_package is
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
 			NW_PRD:			in std_logic;
-			DATAIN_BM:		in std_logic;	-- new data for bm_sel are ready to used it
+			DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
-			selAM			in std_logic;
-			selBM			in std_logic;
-			selINC_M		in std_logic;
-			selA_AM			in std_logic;
-			selB_BM			in std_logic;
+			selAM			out std_logic;
+			selBM			out std_logic;
+			selINC_M		out std_logic;
+			selA_AM			out std_logic;
+			selB_BM			out std_logic;
 						
-			loadAM			in std_logic;
-			loadBM			in std_logic;
-			loadINC_M		in std_logic;
-			loadA_BM		in std_logic;
-			loadB_BM		in std_logic;
+			loadAM			out std_logic;
+			loadBM			out std_logic;
+			loadINC_M		out std_logic;
+			loadA_BM		out std_logic;
+			loadB_BM		out std_logic;
 				-- status signals from datapath
 			INC_M:			in std_logic_vector(M downto 0);
 		);
@@ -57,22 +57,22 @@ entity msel_ctrlunit is
 		RST:			in std_logic;
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
-		ADV_AM:			in std_logic;
-		NW_PRD:			in std_logic;
+		ADV_AM:			in std_logic;	-- new 4bits of A
+		NW_PRD:			in std_logic;	-- shift B and restore A
 		DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
-		selAM			in std_logic;
-		selBM			in std_logic;
-		selINC_M		in std_logic;
-		selA_AM			in std_logic;
-		selB_BM			in std_logic;
-				
-		loadAM			in std_logic;
-		loadBM			in std_logic;
-		loadINC_M		in std_logic;
-		loadA_BM		in std_logic;
-		loadB_BM		in std_logic;
+		selAM			out std_logic;
+		selBM			out std_logic;
+		selINC_M		out std_logic;
+		selA_AM			out std_logic;
+		selB_BM			out std_logic;
+					
+		loadAM			out std_logic;
+		loadBM			out std_logic;
+		loadINC_M		out std_logic;
+		loadA_BM		out std_logic;
+		loadB_BM		out std_logic;
 			-- status signals from datapath
 		INC_M:			in std_logic_vector(M downto 0);
 	);

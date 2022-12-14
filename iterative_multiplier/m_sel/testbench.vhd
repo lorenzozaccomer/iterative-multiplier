@@ -87,17 +87,20 @@ architecture behavior of tb is
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);
 		variable in_DATAIN: 	bit;
+		variable in_ADV_AM: 	bit;
+		variable in_NW_PRD: 	bit;
 	begin
 		if (CLK='0') and (start = 1) and (READY = '1') then
 		-- read new data from file
 			if not endfile(infile) then
 				readline(infile, inputline);
-				read(inputline, in_A); A_BM <= to_UX01(in_A);
+				read(inputline, in_A); A_M <= to_UX01(in_A);
 				readline(infile, inputline);
-				read(inputline, in_B); B_BM <= to_UX01(in_B);
+				read(inputline, in_B); B_M <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				-- readline(infile, inputline);
+				read(inputline, in_ADV_AM); ADV_AM <= to_UX01(in_ADV_AM);
+				read(inputline, in_NW_PRD); NW_PRD <= to_UX01(in_NW_PRD);
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;
 			else

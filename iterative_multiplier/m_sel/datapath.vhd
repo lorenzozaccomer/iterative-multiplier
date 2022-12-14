@@ -35,7 +35,7 @@ package msel_datapath_package is
 			loadA_BM:		in std_logic;
 			loadB_BM:		in std_logic;
 				-- status signals from datapath
-			INC_M:			in std_logic_vector(M downto 0)
+			INC_M:			out std_logic_vector(M downto 0)
 		);
 	end component;
 end msel_datapath_package;
@@ -59,8 +59,8 @@ entity msel_datapath is
 			-- data inputs
 		A_M:			in std_logic_vector(N-1 downto 0);
 		B_M:			in std_logic_vector(N-1 downto 0);
-		A_BM:			out std_logic_vector(N-1 downto 0);
-		B_BM:			out std_logic_vector(N-1 downto 0);
+		A_BM:			out std_logic_vector(M-1 downto 0);
+		B_BM:			out std_logic_vector(M-1 downto 0);
 			-- control signal to datapath
 		selAM:			in std_logic;
 		selBM:			in std_logic;
@@ -104,8 +104,8 @@ architecture struct of msel_datapath is
 	REG_BM:		regN generic map(N) port map(CLK, RST, loadB_BM, bm_in, bm_out);
 			
 		-- MUXS
-	MUX_A_BM:	mux2N generic map(M) port map(selA_BM, am_out, a_bm_out(M-1 downto 0), am_in);
-	MUX_B_BM:	mux2N generic map(M) port map(selB_BM, bm_out, a_bm_out(M-1 downto 0), bm_in);
+	MUX_A_BM:	mux2N generic map(M) port map(selA_BM, a_bm_out, am_out(M-1 downto 0), a_bm_in);
+	MUX_B_BM:	mux2N generic map(M) port map(selB_BM, b_bm_out, bm_out(M-1 downto 0), b_bm_in);
 	
 	MUX_INC_M:	mux2N generic map(M+1) port map(selINC_M, (others=>'0'), add_inc_m_out, inc_m_in);
 	
@@ -123,7 +123,7 @@ architecture struct of msel_datapath is
 	INC_M <= inc_m_out;
 	
 		-- data outputs
-	A_BM <= am_out;
-	B_BM <= bm_out;
+	A_BM <= a_bm_out;
+	B_BM <= b_bm_out;
 		
 end struct;

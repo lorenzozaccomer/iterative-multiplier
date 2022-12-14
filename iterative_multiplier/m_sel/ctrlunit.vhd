@@ -155,8 +155,7 @@ architecture behavior of msel_ctrlunit is
 		selINC_M	<=  '0'  when state=INIT_M else
 						'1'  when state=INC;
 						
-		loadA_BM	<=	'1'  when state=SAVE_OPS_BM or 
-							 state=SHIFT_AM else
+		loadA_BM	<=	'1'  when state=SAVE_OPS_BM else
 						'0';
 		selA_BM		<=	'1'  when state=SAVE_OPS_BM else
 						'0';

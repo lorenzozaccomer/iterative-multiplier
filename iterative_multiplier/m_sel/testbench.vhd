@@ -40,6 +40,15 @@ architecture behavior of tb is
 	signal DATAIN_BM:			std_logic;
 	signal READY:				std_logic;
 	
+	type seq_array is array (natural range <>) of std_logic;
+	
+	constant sequence_ADV_BM          : seq_array := (                    
+											 '0', '1', '1', '1'
+										   );
+	constant sequence_NW_PRD          : seq_array := (                    
+											 '0', '0', '0', '1'
+										   );
+	
 		-- DUT declaration
 	component msel is
 		generic(
@@ -82,7 +91,7 @@ architecture behavior of tb is
 	
 	-- read from datafile
 	read_file_process: process(CLK)
-		file infile: 			TEXT open READ_MODE is "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\bm_sel\data.txt";
+		file infile: 			TEXT open READ_MODE is "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\m_sel\inputdata.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);
@@ -99,8 +108,6 @@ architecture behavior of tb is
 				read(inputline, in_B); B_M <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				read(inputline, in_ADV_AM); ADV_AM <= to_UX01(in_ADV_AM);
-				read(inputline, in_NW_PRD); NW_PRD <= to_UX01(in_NW_PRD);
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;
 			else

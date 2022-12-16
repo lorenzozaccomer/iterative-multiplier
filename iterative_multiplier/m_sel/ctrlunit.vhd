@@ -82,7 +82,7 @@ end entity;
 architecture behavior of msel_ctrlunit is
 
 
-	type statetype is (INIT_M, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
+	type statetype is (INIT_M, SAVE_OPS, WAIT_M, SHIFT_AM, NEW_PRODUCT,
 						INC, SAVE_OPS_BM, OUTDATA_BM, WAITDATA);
 	signal state, nextstate : statetype;
 	
@@ -101,6 +101,8 @@ architecture behavior of msel_ctrlunit is
 					nextstate <= SAVE_OPS;
 				end if;
 			when SAVE_OPS =>
+				nextstate <= WAIT_M;
+			when WAIT_M =>
 				if ADV_AM = '1' then
 					nextstate <= SHIFT_AM;
 				elsif NW_PRD = '1' then
@@ -145,9 +147,9 @@ architecture behavior of msel_ctrlunit is
 		loadBM		<=  '1'  when state=SAVE_OPS or 
 							 state=NEW_PRODUCT else
 						'0';
-		selBM		<=  '1'  when state=SAVE_OPS or 
+		selBM		<=  '0'  when state=SAVE_OPS or 
 							 state=NEW_PRODUCT else
-						'0';
+						'1';
 		
 		loadINC_M	<=	'1'  when state=INIT_M or
 							 state=INC else
@@ -169,8 +171,7 @@ architecture behavior of msel_ctrlunit is
 		DATAIN_BM	<=  '1'	 when state=OUTDATA_BM else
 						'0';
 						
-		READY		<=  '1'	 when state=INIT_M or 
-							 state=WAITDATA else
+		READY		<=  '1'	 when state=INIT_M else
 						'0';
 end behavior;
 				

@@ -119,11 +119,13 @@ architecture behavior of msel_ctrlunit is
 			when SAVE_OPS_BM =>
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				nextstate <= WAITSELS;
-			when WAITSELS =>
 				if INC_M = "10000" then	-- b10000 = 16
 					nextstate <= INIT_M;
-				elsif ADV_AM = '1' and NW_PRD = '0' then	-- this and is only for not overlap
+				else
+					nextstate <= WAITSELS;
+				end if;
+			when WAITSELS =>
+				if ADV_AM = '1' and NW_PRD = '0' then		-- this and is only for not overlap
 					nextstate <= SHIFT_AM;
 				elsif NW_PRD = '1' and ADV_AM = '0' then	-- this and is only for not overlap
 					nextstate <= NEW_PRODUCT;

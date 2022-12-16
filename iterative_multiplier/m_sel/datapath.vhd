@@ -95,13 +95,13 @@ architecture struct of msel_datapath is
 	
 	begin
 		-- REGISTERS
-	REG_A_BM:	regN generic map(M) port map(CLK, RST, loadAM, a_bm_in, a_bm_out);
-	REG_B_BM:	regN generic map(M) port map(CLK, RST, loadBM, b_bm_in, b_bm_out);
+	REG_A_BM:	regN generic map(M) port map(CLK, RST, loadA_BM, a_bm_in, a_bm_out);
+	REG_B_BM:	regN generic map(M) port map(CLK, RST, loadB_BM, b_bm_in, b_bm_out);
 	
 	REG_INC_M:	regN generic map(M+1) port map(CLK, RST, loadINC_M, inc_m_in, inc_m_out);
 	
-	REG_AM:		regN generic map(N) port map(CLK, RST, loadA_BM, am_in, am_out);
-	REG_BM:		regN generic map(N) port map(CLK, RST, loadB_BM, bm_in, bm_out);
+	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, am_in, am_out);
+	REG_BM:		regN generic map(N) port map(CLK, RST, loadBM, bm_in, bm_out);
 			
 		-- MUXS
 	MUX_A_BM:	mux2N generic map(M) port map(selA_BM, a_bm_out, am_out(M-1 downto 0), a_bm_in);

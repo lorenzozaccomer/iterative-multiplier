@@ -145,9 +145,8 @@ architecture behavior of msel_ctrlunit is
 		loadBM		<=  '1'  when state=SAVE_OPS or 
 							 state=NEW_PRODUCT else
 						'0';
-		selBM		<=  '0'  when state=SAVE_OPS or 
-							 state=NEW_PRODUCT else
-						'1';
+		selBM		<=  '0'  when state=SAVE_OPS else
+						'1'  when state=NEW_PRODUCT;
 		
 		loadINC_M	<=	'1'  when state=INIT_M or
 							 state=INC else

@@ -22,7 +22,7 @@ package msel_ctrlunit_package is
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
 			NW_PRD:			in std_logic;
-			DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
+			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
 			selAM:			out std_logic;
@@ -59,7 +59,7 @@ entity msel_ctrlunit is
 		DATAIN:			in std_logic;	-- new data to manipulate
 		ADV_AM:			in std_logic;	-- new 4bits of A
 		NW_PRD:			in std_logic;	-- shift B and restore A
-		DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
+		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
 		selAM:			out std_logic;
@@ -83,7 +83,7 @@ architecture behavior of msel_ctrlunit is
 
 
 	type statetype is (INIT_M, SAVE_OPS, WAIT_M, SHIFT_AM, NEW_PRODUCT,
-						INC, SAVE_OPS_BM, OUTDATA_BM, WAITDATA);
+						INC, SAVE_OPS_BM, OUTDATA_BM, WAITSELS);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -119,16 +119,16 @@ architecture behavior of msel_ctrlunit is
 			when SAVE_OPS_BM =>
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				nextstate <= WAITDATA;
-			when WAITDATA =>
+				nextstate <= WAITSELS;
+			when WAITSELS =>
 				if INC_M = "10000" then	-- b10000 = 16
 					nextstate <= INIT_M;
-				elsif ADV_AM = '1' then
+				elsif ADV_AM = '1' and NW_PRD = '0' then	-- this and is only for not overlap
 					nextstate <= SHIFT_AM;
-				elsif NW_PRD = '1' then
+				elsif NW_PRD = '1' and ADV_AM = '0' then	-- this and is only for not overlap
 					nextstate <= NEW_PRODUCT;
 				else
-					nextstate <= WAITDATA;
+					nextstate <= WAITSELS;
 				end if;
 			when others =>
 				nextstate <= INIT_M;
@@ -168,7 +168,7 @@ architecture behavior of msel_ctrlunit is
 						'0';
 						
 						
-		DATAIN_BM	<=  '1'	 when state=OUTDATA_BM else
+		DATAOUT		<=  '1'	 when state=OUTDATA_BM else
 						'0';
 						
 		READY		<=  '1'	 when state=INIT_M else

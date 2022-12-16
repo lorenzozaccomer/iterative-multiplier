@@ -27,7 +27,7 @@ package msel_package is
 			ADV_AM:			in std_logic;
 			NW_PRD:			in std_logic;
 				-- control outputs
-			DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
+			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
 	end component;
@@ -61,7 +61,7 @@ entity msel is
 		ADV_AM:			in std_logic;
 		NW_PRD:			in std_logic;
 			-- control outputs
-		DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
+		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic	-- m_sel can accept new data input
 	);
 end entity;
@@ -85,7 +85,7 @@ architecture struct of msel is
 	
 	begin
 	CTRL: msel_ctrlunit 
-		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, DATAIN_BM, READY,
+		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, DATAOUT, READY,
 			selAM,
 			selBM,
 			selINC_M,

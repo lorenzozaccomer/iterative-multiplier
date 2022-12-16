@@ -35,18 +35,22 @@ architecture behavior of tb is
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
 	signal DATAIN:				std_logic	:= '0';
-	signal ADV_AM:				std_logic;
-	signal NW_PRD:				std_logic;
-	signal DATAIN_BM:			std_logic;
+	signal ADV_AM:				std_logic	:= '0';
+	signal NW_PRD:				std_logic	:= '0';
+	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
+	
+	signal index:	integer	:= 0;
 	
 	type seq_array is array (natural range <>) of std_logic;
 	
 	constant sequence_ADV_BM          : seq_array := (                    
-											 '0', '1', '1', '1'
+											 '0', '1', '1', '1',
+											 '0'
 										   );
 	constant sequence_NW_PRD          : seq_array := (                    
-											 '0', '0', '0', '1'
+											 '0', '0', '0', '0',
+											 '1'
 										   );
 	
 		-- DUT declaration
@@ -84,7 +88,7 @@ architecture behavior of tb is
 			DATAIN,
 			ADV_AM,
 			NW_PRD,
-			DATAIN_BM,
+			DATAOUT,
 			READY
 		);
 	
@@ -99,7 +103,7 @@ architecture behavior of tb is
 		variable in_ADV_AM: 	bit;
 		variable in_NW_PRD: 	bit;
 	begin
-		if (CLK='0') and (start = 1) and (READY = '1') then
+		if (CLK = '0') and (start = 1) and (READY = '1') then
 		-- read new data from file
 			if not endfile(infile) then
 				readline(infile, inputline);
@@ -108,10 +112,18 @@ architecture behavior of tb is
 				read(inputline, in_B); B_M <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
+				index <= 0;
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;
 			else
 				done <= 1;
+			end if;
+		end if;
+		if(DATAOUT = '1') then
+			if(index < sequence_ADV_BM'length) then
+				ADV_AM <= sequence_ADV_BM(index);
+				NW_PRD <= sequence_NW_PRD(index);
+				index <= index + 1;
 			end if;
 		end if;
 	end process;

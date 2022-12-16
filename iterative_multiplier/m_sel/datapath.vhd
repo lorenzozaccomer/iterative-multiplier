@@ -116,8 +116,8 @@ architecture struct of msel_datapath is
 	ADD_INC_M:	adderNotCOut generic map(M+1) port map(inc_m_out, "00001", add_inc_m_out);
 	
 		-- SHIFTERS
-	SH_AM:		rightsniftN generic map(N,M) port map(am_out, shift_am);
-	SH_BM:		rightsniftN generic map(N,M) port map(bm_out, shift_bm);
+	SH_AM:		rightshiftN generic map(N,M) port map(am_out, shift_am);
+	SH_BM:		rightshiftN generic map(N,M) port map(bm_out, shift_bm);
 	
 		-- status signals
 	INC_M <= inc_m_out;

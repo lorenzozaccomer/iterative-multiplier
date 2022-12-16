@@ -30,8 +30,8 @@ architecture behavior of tb is
 	 
 		-- signals for DUT
 	signal CLK, RST: 			std_logic;
-	signal A_M:					std_logic_vector(N-1 downto 0);
-	signal B_M:					std_logic_vector(N-1 downto 0);
+	signal A_M:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
+	signal B_M:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
 	signal DATAIN:				std_logic	:= '0';
@@ -46,11 +46,15 @@ architecture behavior of tb is
 	
 	constant sequence_ADV_BM          : seq_array := (                    
 											 '0', '1', '1', '1',
-											 '0'
+											 '0', '1', '1', '1',
+											 '0', '1', '1', '1',
+											 '0', '1', '1', '1'
 										   );
 	constant sequence_NW_PRD          : seq_array := (                    
 											 '0', '0', '0', '0',
-											 '1'
+											 '1', '0', '0', '0',
+											 '1', '0', '0', '0',
+											 '1', '0', '0', '0'
 										   );
 	
 		-- DUT declaration
@@ -73,7 +77,7 @@ architecture behavior of tb is
 			ADV_AM:			in std_logic;
 			NW_PRD:			in std_logic;
 				-- control outputs
-			DATAIN_BM:		out std_logic;	-- new data for bm_sel are ready to used it
+			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
 	end component;
@@ -119,11 +123,13 @@ architecture behavior of tb is
 				done <= 1;
 			end if;
 		end if;
-		if(DATAOUT = '1') then
-			if(index < sequence_ADV_BM'length) then
+		
+		if(index < sequence_ADV_BM'length) then
+			if (DATAOUT = '1') then
+				index <= index + 1;
+			else
 				ADV_AM <= sequence_ADV_BM(index);
 				NW_PRD <= sequence_NW_PRD(index);
-				index <= index + 1;
 			end if;
 		end if;
 	end process;

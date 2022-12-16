@@ -39,8 +39,9 @@ architecture behavior of tb is
 	signal NW_PRD:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
+	signal CALC:				std_logic;
 	
-	signal index:	integer	:= 0;
+	signal index:	integer	:= 1;
 	
 	type seq_array is array (natural range <>) of std_logic;
 	
@@ -76,6 +77,7 @@ architecture behavior of tb is
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
 			NW_PRD:			in std_logic;
+			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 				-- control outputs
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic	-- m_sel can accept new data input
@@ -92,6 +94,7 @@ architecture behavior of tb is
 			DATAIN,
 			ADV_AM,
 			NW_PRD,
+			CALC,
 			DATAOUT,
 			READY
 		);
@@ -104,8 +107,7 @@ architecture behavior of tb is
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);
 		variable in_DATAIN: 	bit;
-		variable in_ADV_AM: 	bit;
-		variable in_NW_PRD: 	bit;
+		variable in_CALC: 		bit;
 	begin
 		if (CLK = '0') and (start = 1) and (READY = '1') then
 		-- read new data from file
@@ -116,23 +118,43 @@ architecture behavior of tb is
 				read(inputline, in_B); B_M <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				index <= 0;
+				-- readline(infile, inputline);
+				-- read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
+				index <= 1;
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;
 			else
 				done <= 1;
 			end if;
 		end if;
-		
-		if(index < sequence_ADV_BM'length) then
-			if (DATAOUT = '1') then
+
+		if (CLK = '0') and (CALC ='1') then
+			if(index < sequence_ADV_BM'length) then
 				index <= index + 1;
-			else
 				ADV_AM <= sequence_ADV_BM(index);
 				NW_PRD <= sequence_NW_PRD(index);
+			else
+				index <= 0;
 			end if;
 		end if;
+		
 	end process;
+	
+	
+	-- CALC
+	calc_process: process
+		begin
+			if CALC = '0' then
+				CALC <= '1';
+				wait for 50 ns;
+			else
+				CALC <= '0';
+				wait for 450 ns;
+			end if;
+			if done = 1 then
+				wait;
+			end if;
+		end process;
 	
 	
 	-- terminate the simulation when there are no more data in datafile

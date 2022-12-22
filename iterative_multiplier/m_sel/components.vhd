@@ -6,6 +6,7 @@ use ieee.std_logic_1164.all;
 
 package msel_components_package is
 
+
 	component regN is
 		generic(N 	: integer := 4);
 		port(
@@ -14,6 +15,7 @@ package msel_components_package is
 			Q : out std_logic_vector(N-1 downto 0)
 		);
 	end component;
+	
 	
 	component leftshiftN is
 		generic(
@@ -25,6 +27,7 @@ package msel_components_package is
 		);
 	end component;
 	
+	
 	component rightshiftN is
 		generic(
 			N: 	integer := 4;
@@ -34,16 +37,8 @@ package msel_components_package is
 			Y: out std_logic_vector(N-1 downto 0)
 		);
 	end component;
-	
-	-- component adderN is
-		-- generic(N 	: integer := 4);
-		-- port(
-		  -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-		  -- S			: out std_logic_vector(N downto 0) 	-- final result
-		  -- );
-	-- end component;
-	
-	
+		
+		
 	component adderNotCOut is
 		generic(N 	: integer := 4);
 		port(
@@ -52,23 +47,7 @@ package msel_components_package is
 		  );
 	end component;
 	
-	-- component multiplierN is
-		-- generic(N 	: integer := 2);
-		-- port(
-		  -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-		  -- P		: out std_logic_vector(2*N-1 downto 0) 	-- final result
-		  -- );
-	-- end component;
 	
-	
-	-- component notport is
-		-- port (
-				-- A               : in  std_logic;
-				-- Y               : out std_logic
-			 -- );
-	-- end component;
-		
-
 	component mux is
 		port (
 		sel: 	in std_logic;
@@ -77,6 +56,7 @@ package msel_components_package is
 		Y:		out std_logic
 		);
 	end component;
+
 
 	component mux2N is
 		generic(N 	: integer := 8);
@@ -137,35 +117,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.constants_components_package.all;
 
--- adder with carry out and without carry in
-
--- entity adderN is
-	-- generic(N 	: integer := 4);
-	-- port(
-      -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-      -- S			: out std_logic_vector(N downto 0) 	-- final result
-	  -- );
--- end entity;
-
-
--- architecture behavior of adderN is
-
-	-- signal Sum_int : std_logic_vector(N downto 0);
-
-	-- begin
-	-- Sum_int <= std_logic_vector(unsigned('0' & A) + unsigned('0' & B));
-	-- S <= Sum_int;
--- end behavior;
-----------------------------------------------------------------------
-
-
-
-----------------------------------------------------------------------
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.constants_components_package.all;
-
 -- adder without carries
 
 entity adderNotCOut is
@@ -180,27 +131,6 @@ architecture behavior of adderNotCOut is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;
-----------------------------------------------------------------------
-
-
-
-----------------------------------------------------------------------
--- library ieee;
--- use ieee.std_logic_1164.all;
--- use work.constants_components_package.all;
-
-
--- entity notport is
-    -- port (
-            -- A               : in  std_logic;
-            -- Y               : out std_logic
-         -- );
--- end notport;
-
--- architecture behavior of notport is
--- begin
-    -- Y <= not A;
--- end behavior;
 ----------------------------------------------------------------------
 
 
@@ -285,32 +215,6 @@ end behavior;
 
 
 
-
-----------------------------------------------------------------------
--- library ieee;
--- use ieee.std_logic_1164.all;
--- use ieee.numeric_std.all;
--- use work.constants_components_package.all;
-
-
--- entity multiplierN is
-	-- generic(
-	  -- N 	: integer := 2);
-	-- port(
-      -- A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
-      -- P		: out std_logic_vector(2*N-1 downto 0) 	-- final result
-	  -- );
--- end entity;
-
-
--- architecture behavior of multiplierN is
-  -- begin
-    -- P <= std_logic_vector(unsigned(A) * unsigned(B));
--- end behavior;
-----------------------------------------------------------------------
-
-
-
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
@@ -333,6 +237,7 @@ architecture behavior of leftshiftN is
 		Y <= std_logic_vector(shift_left(unsigned(X), SH));
 end behavior;
 ----------------------------------------------------------------------
+
 
 
 ----------------------------------------------------------------------

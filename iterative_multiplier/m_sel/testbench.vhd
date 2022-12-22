@@ -41,6 +41,8 @@ architecture behavior of tb is
 	signal READY:				std_logic;
 	signal CALC:				std_logic;
 	
+	signal sel1, sel2:			std_logic	:= '0';
+	
 	signal index:	integer	:= 1;
 	
 	type seq_array is array (natural range <>) of std_logic;
@@ -126,14 +128,19 @@ architecture behavior of tb is
 			end if;
 		end if;
 
-		if (CLK = '0') and (CALC ='1') then
+		if (CLK = '0') and (DATAOUT ='1') then
 			if(index < sequence_ADV_BM'length) then
 				index <= index + 1;
-				ADV_AM <= sequence_ADV_BM(index);
-				NW_PRD <= sequence_NW_PRD(index);
+				sel1 <= sequence_ADV_BM(index);
+				sel2 <= sequence_NW_PRD(index);
 			else
-				index <= 0;
+				index <= 1;
 			end if;
+		end if;
+		
+		if (CLK = '0') and (CALC ='1') then
+			ADV_AM <= sel1;
+			NW_PRD <= sel2;
 		end if;
 		
 	end process;
@@ -147,7 +154,7 @@ architecture behavior of tb is
 				wait for 50 ns;
 			else
 				CALC <= '0';
-				wait for 450 ns;
+				wait for 200 ns;
 			end if;
 			if done = 1 then
 				wait;

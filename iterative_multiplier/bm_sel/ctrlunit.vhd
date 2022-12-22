@@ -117,7 +117,7 @@ architecture behavior of bmsel_ctrlunit is
 				if DATAIN /= '1' then
 					nextstate <= INIT_BM;
 				else
-					nextstate <= NEW_OPERAND_BM;
+					nextstate <= LOAD_DATA;
 				end if;
 			when LOAD_DATA =>
 				nextstate <= NEW_OPERAND_BM;

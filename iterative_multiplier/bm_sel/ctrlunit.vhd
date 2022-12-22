@@ -101,9 +101,9 @@ end bmsel_ctrlunit;
 
 architecture behavior of bmsel_ctrlunit is
 
-	type statetype is (INIT_BM, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
+	type statetype is (INIT_BM, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
-						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, WAITDATA);
+						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, OUTSTATE, WAITDATA);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -119,6 +119,8 @@ architecture behavior of bmsel_ctrlunit is
 				else
 					nextstate <= NEW_OPERAND_BM;
 				end if;
+			when LOAD_DATA =>
+				nextstate <= NEW_OPERAND_BM;
 			when NEW_OPERAND_BM =>
 				nextstate <= RESET_BM;
 			when RESET_BM =>
@@ -160,12 +162,14 @@ architecture behavior of bmsel_ctrlunit is
 			when SHIFT_ACC =>
 				nextstate <= SUBPRODUCT;
 			when SUBPRODUCT =>
+				nextstate <= OUTSTATE;
+			when OUTSTATE =>
 					nextstate <= WAITDATA;
 			when WAITDATA =>
 				if DATAIN = '0' then
 					nextstate <= WAITDATA;
 				else
-					nextstate <= NEW_OPERAND_BM;
+					nextstate <= LOAD_DATA;
 				end if;
 			when others =>
 				nextstate <= INIT_BM;
@@ -185,24 +189,22 @@ architecture behavior of bmsel_ctrlunit is
 		selOPB		<= 	'0'  when state=NEW_OPERAND_BM else 
 						'1';
 		
-		loadA_BM	<=	'1' when state=INIT_BM or
-							state=WAITDATA or 
+		loadA_BM	<=	'1' when state=LOAD_DATA or 
 							state=NEW_PRODUCT_BM or 
 							state=SHIFT_OPA else
 						'0';
-		selA_BM		<=	"00" when state=INIT_BM or
-							 state=WAITDATA or 
+		selA_BM		<=	"00" when state=LOAD_DATA or 
 							 state=NEW_PRODUCT_BM else
 						"01" when state=NEW_OPERAND_BM or 
 							 state=NEW_OPA else 
 						"10" when state=SHIFT_OPA else
 						"11";
 								
-		loadB_BM	<= 	'1'  when state=SHIFT_RB_BM or
-							 state=INIT_BM or 
+		loadB_BM	<= 	'1'  when state=LOAD_DATA or 
+							 state=SHIFT_RB_BM or
 							 state=WAITDATA else 
 						'0';
-		selB_BM	<= 		"00" when state=INIT_BM  or
+		selB_BM	<= 		"00" when state=LOAD_DATA  or
 							 state=WAITDATA else
 						"01" when state=NEW_OPERAND_BM else
 						"10" when state=SHIFT_RB_BM else
@@ -239,11 +241,12 @@ architecture behavior of bmsel_ctrlunit is
 							 state=SUM_BM else 
 						'1'  when state=RESET_BM;
 
-		loadINC_BM	<= 	'1'  when state=INC_CNT or 
-							 state=WAITDATA or 
-							 state=INIT_BM else 
+		loadINC_BM	<= 	'1'  when state = LOAD_DATA or 
+							 state=INC_CNT or 
+							 state=WAITDATA 
+							 else 
 						'0';
-		selINC_BM	<= 	'0'  when state=INIT_BM or 
+		selINC_BM	<= 	'0'  when state=LOAD_DATA or 
 							 state=WAITDATA else
 						'1'	 when state=INC_CNT;
 		

@@ -36,6 +36,7 @@ architecture behavior of tb is
 	-- signal CALC:				std_logic	:= '1';
 	signal DATAIN:				std_logic	:= '0';
 	signal READY:				std_logic;
+	signal DATAOUT:				std_logic;
 	
 	-- DUT declaration
 	component bmsel is
@@ -54,6 +55,7 @@ architecture behavior of tb is
 			DATAIN:				in std_logic;
 			-- START:				in std_logic;
 				-- control outputs
+			DATAOUT:			out std_logic;
 			READY:				out std_logic
 		);
 	end component;
@@ -66,6 +68,7 @@ architecture behavior of tb is
 			ROUT_BM,
 			DATAIN,
 			-- CALC,
+			DATAOUT,
 			READY
 		);
 		

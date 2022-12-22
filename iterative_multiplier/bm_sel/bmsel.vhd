@@ -22,6 +22,7 @@ package bmsel_package is
 				-- control inputs
 			DATAIN:				in std_logic;
 				-- control outputs
+			DATAOUT:			out std_logic;	-- new data for bm_sel are ready to used it
 			READY:				out std_logic
 		);
 	end component;
@@ -52,6 +53,7 @@ entity bmsel is
 		DATAIN:				in std_logic;
 		-- START:				in std_logic;
 			-- control outputs
+		DATAOUT:			out std_logic;	-- new data for bm_sel are ready to used it
 		READY:				out std_logic
 	);
 end entity;
@@ -89,7 +91,7 @@ architecture struct of bmsel is
 	
 	begin
 	CTRL: bmsel_ctrlunit 
-		port map(CLK, RST, DATAIN, READY,
+		port map(CLK, RST, DATAIN, DATAOUT, READY,
 			selOPA,
 			selOPB,
 			selRA_BM,

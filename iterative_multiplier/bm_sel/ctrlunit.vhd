@@ -18,6 +18,7 @@ package bmsel_ctrlunit_package is
 				-- control signals to/from extern
 			-- START:				in std_logic;	-- the module can go ahead
 			DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
+			DATAOUT:			out std_logic;
 			READY:				out std_logic;	-- the modules can do another operation
 				-- control signals to datapath
 			selOPA:				out std_logic;
@@ -67,6 +68,7 @@ entity bmsel_ctrlunit is
 			-- control signals to/from extern
 		-- START:				in std_logic;	-- the module can go ahead
 		DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
+		DATAOUT:			out std_logic;
 		READY:				out std_logic;	-- the modules can do another operation
 			-- control signals to datapath
 		selOPA:				out std_logic;
@@ -267,6 +269,8 @@ architecture behavior of bmsel_ctrlunit is
 		selOUT		<=	'0'  when state=SUBPRODUCT else
 						'1';
 						
+		DATAOUT		<=	'1' when state=OUTSTATE else
+						'0';
 		READY		<=  '1'	 when state=INIT_BM or 
 							 state=WAITDATA else
 						'0';

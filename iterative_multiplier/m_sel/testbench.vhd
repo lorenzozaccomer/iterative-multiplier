@@ -102,12 +102,12 @@ architecture behavior of tb is
 	
 	-- read from datafile
 	read_file_process: process(CLK)
-		file infile: 			TEXT open READ_MODE is "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\m_sel\inputdata.txt";
+		file infile: 			TEXT open READ_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\m_sel\inputdata.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);
 		variable in_DATAIN: 	bit;
-		variable in_CALC: 		bit;
 	begin
 		if (CLK = '0') and (start = 1) and (READY = '1') then
 		-- read new data from file
@@ -118,8 +118,6 @@ architecture behavior of tb is
 				read(inputline, in_B); B_M <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				-- readline(infile, inputline);
-				-- read(inputline, in_CALC); CALC <= to_UX01(in_CALC);
 				index <= 1;
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;

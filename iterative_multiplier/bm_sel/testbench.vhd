@@ -72,8 +72,8 @@ architecture behavior of tb is
 			
 	-- read from datafile
 	read_file_process: process(CLK)
-		file infile: 			TEXT open READ_MODE is "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\bm_sel\data.txt";
-		-- file infile: 			TEXT open READ_MODE is "data.txt";
+		file infile: 			TEXT open READ_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\bm_sel\inputdata.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_BM'range);
 		variable in_B: 			bit_vector(B_BM'range);

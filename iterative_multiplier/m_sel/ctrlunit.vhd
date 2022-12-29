@@ -21,7 +21,7 @@ package msel_ctrlunit_package is
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
-			NW_PRD:			in std_logic;
+			-- NW_PRD:			in std_logic;
 			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
@@ -59,7 +59,7 @@ entity msel_ctrlunit is
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
 		ADV_AM:			in std_logic;	-- new 4bits of A
-		NW_PRD:			in std_logic;	-- shift B and restore A
+		-- NW_PRD:			in std_logic;	-- shift B and restore A
 		CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
@@ -93,7 +93,7 @@ architecture behavior of msel_ctrlunit is
 			state <= INIT_M when RST='1' else
 				nextstate when rising_edge(CLK);
 				
-	process(state, DATAIN, ADV_AM, NW_PRD, CALC)
+	process(state, DATAIN, ADV_AM, CALC)
 	begin
 		case state is
 			when INIT_M =>
@@ -119,10 +119,10 @@ architecture behavior of msel_ctrlunit is
 					nextstate <= WAITSELS;
 				end if;
 			when WAITSELS =>
-				if CALC = '1' then
-					if ADV_AM = '1' and NW_PRD = '0' then		-- this and is only for not overlap
+				if CALC = '1' then				-- enable switching bit
+					if ADV_AM = '1' then		
 						nextstate <= SHIFT_AM;
-					elsif NW_PRD = '1' and ADV_AM = '0' then	-- this and is only for not overlap
+					else										
 						nextstate <= NEW_PRODUCT;
 					end if;
 				else

@@ -25,7 +25,7 @@ package msel_package is
 				-- control inputs
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
-			NW_PRD:			in std_logic;
+			-- NW_PRD:			in std_logic;
 			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 				-- control outputs
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -60,7 +60,7 @@ entity msel is
 			-- control inputs
 		DATAIN:			in std_logic;	-- new data to manipulate
 		ADV_AM:			in std_logic;
-		NW_PRD:			in std_logic;
+		-- NW_PRD:			in std_logic;
 		CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 			-- control outputs
 		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -87,7 +87,7 @@ architecture struct of msel is
 	
 	begin
 	CTRL: msel_ctrlunit 
-		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, CALC, DATAOUT, READY,
+		port map(CLK, RST, DATAIN, ADV_AM, CALC, DATAOUT, READY,
 			selAM,
 			selBM,
 			selINC_M,

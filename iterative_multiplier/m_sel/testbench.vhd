@@ -36,12 +36,13 @@ architecture behavior of tb is
 	signal B_BM:				std_logic_vector(M-1 downto 0);
 	signal DATAIN:				std_logic	:= '0';
 	signal ADV_AM:				std_logic	:= '0';
-	signal NW_PRD:				std_logic	:= '0';
+	-- signal NW_PRD:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
 	signal CALC:				std_logic;
 	
-	signal sel1, sel2:			std_logic	:= '0';
+	signal sel1:				std_logic	:= '0';
+	-- signal sel2:				std_logic	:= '0';
 	
 	signal index:	integer	:= 1;
 	
@@ -53,12 +54,12 @@ architecture behavior of tb is
 											 '0', '1', '1', '1',
 											 '0', '1', '1', '1'
 										   );
-	constant sequence_NW_PRD          : seq_array := (                    
-											 '0', '0', '0', '0',
-											 '1', '0', '0', '0',
-											 '1', '0', '0', '0',
-											 '1', '0', '0', '0'
-										   );
+	-- constant sequence_NW_PRD          : seq_array := (                    
+											 -- '0', '0', '0', '0',
+											 -- '1', '0', '0', '0',
+											 -- '1', '0', '0', '0',
+											 -- '1', '0', '0', '0'
+										   -- );
 	
 		-- DUT declaration
 	component msel is
@@ -78,7 +79,7 @@ architecture behavior of tb is
 				-- control inputs
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
-			NW_PRD:			in std_logic;
+			-- NW_PRD:			in std_logic;
 			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 				-- control outputs
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -95,7 +96,6 @@ architecture behavior of tb is
 			B_BM,
 			DATAIN,
 			ADV_AM,
-			NW_PRD,
 			CALC,
 			DATAOUT,
 			READY
@@ -132,7 +132,7 @@ architecture behavior of tb is
 			if(index < sequence_ADV_BM'length) then
 				index <= index + 1;
 				sel1 <= sequence_ADV_BM(index);
-				sel2 <= sequence_NW_PRD(index);
+				-- sel2 <= sequence_NW_PRD(index);
 			else
 				index <= 1;
 			end if;
@@ -140,7 +140,7 @@ architecture behavior of tb is
 		
 		if (CLK = '0') and (CALC ='1') then
 			ADV_AM <= sel1;
-			NW_PRD <= sel2;
+			-- NW_PRD <= sel2;
 		end if;
 		
 	end process;

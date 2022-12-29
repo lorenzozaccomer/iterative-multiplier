@@ -80,7 +80,7 @@ architecture behavior of tb is
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic;
 			-- NW_PRD:			in std_logic;
-			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
+			CALC:			in std_logic;	-- wait for RES module to prepare new 4 bits operands
 				-- control outputs
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic	-- m_sel can accept new data input

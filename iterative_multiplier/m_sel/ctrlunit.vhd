@@ -20,9 +20,9 @@ package msel_ctrlunit_package is
 			RST:			in std_logic;
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
-			ADV_AM:			in std_logic;
-			-- NW_PRD:			in std_logic;
-			CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
+			ADV_AM:			in std_logic_vector (1 downto 0);	-- new 4bits of A
+			-- CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
+			NW_PRD:			out std_logic;
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
@@ -58,9 +58,9 @@ entity msel_ctrlunit is
 		RST:			in std_logic;
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
-		ADV_AM:			in std_logic;	-- new 4bits of A
-		-- NW_PRD:			in std_logic;	-- shift B and restore A
-		CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
+		ADV_AM:			in std_logic_vector (1 downto 0);	-- new 4bits of A
+		-- CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
+		NW_PRD:			out std_logic;
 		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
@@ -93,7 +93,7 @@ architecture behavior of msel_ctrlunit is
 			state <= INIT_M when RST='1' else
 				nextstate when rising_edge(CLK);
 				
-	process(state, DATAIN, ADV_AM, CALC)
+	process(state, DATAIN, ADV_AM)
 	begin
 		case state is
 			when INIT_M =>
@@ -119,12 +119,10 @@ architecture behavior of msel_ctrlunit is
 					nextstate <= WAITSELS;
 				end if;
 			when WAITSELS =>
-				if CALC = '1' then				-- enable switching bit
-					if ADV_AM = '1' then		
-						nextstate <= SHIFT_AM;
-					else										
-						nextstate <= NEW_PRODUCT;
-					end if;
+				if ADV_AM = "01" then		
+					nextstate <= SHIFT_AM;
+				elsif ADV_AM = "00" then										
+					nextstate <= NEW_PRODUCT;
 				else
 					nextstate <= WAITSELS;
 				end if;
@@ -165,9 +163,11 @@ architecture behavior of msel_ctrlunit is
 						'0';
 						
 						
+		NW_PRD		<=	'1'  when state=SHIFT_AM or
+							 state=NEW_PRODUCT else
+						'0';
 		DATAOUT		<=  '1'	 when state=OUTDATA_BM else
 						'0';
-						
 		READY		<=  '1'	 when state=INIT_M else
 						'0';
 end behavior;

@@ -35,8 +35,8 @@ architecture behavior of tb is
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
 	signal DATAIN:				std_logic	:= '0';
-	signal ADV_AM:				std_logic	:= '0';
-	-- signal NW_PRD:				std_logic	:= '0';
+	signal ADV_AM:				std_logic_vector(1 downto 0)	:= "00";
+	signal NW_PRD:				std_logic;
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
 	signal CALC:				std_logic;
@@ -46,13 +46,13 @@ architecture behavior of tb is
 	
 	signal index:	integer	:= 1;
 	
-	type seq_array is array (natural range <>) of std_logic;
+	type seq_array is array (natural range <>) of std_logic_vector(1 downto 0);
 	
 	constant sequence_ADV_BM          : seq_array := (                    
-											 '0', '1', '1', '1',
-											 '0', '1', '1', '1',
-											 '0', '1', '1', '1',
-											 '0', '1', '1', '1'
+											 "00", "01", "01", "01",
+											 "00", "01", "01", "01",
+											 "00", "01", "01", "01",
+											 "00", "01", "01", "01"
 										   );
 	-- constant sequence_NW_PRD          : seq_array := (                    
 											 -- '0', '0', '0', '0',
@@ -78,10 +78,11 @@ architecture behavior of tb is
 			B_BM:			out std_logic_vector(M-1 downto 0);
 				-- control inputs
 			DATAIN:			in std_logic;	-- new data to manipulate
-			ADV_AM:			in std_logic;
+			ADV_AM:			in std_logic_vector(1 downto 0);
 			-- NW_PRD:			in std_logic;
-			CALC:			in std_logic;	-- wait for RES module to prepare new 4 bits operands
+			-- CALC:			in std_logic;	-- wait for RES module to prepare new 4 bits operands
 				-- control outputs
+			NW_PRD:			out std_logic;
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
@@ -96,7 +97,7 @@ architecture behavior of tb is
 			B_BM,
 			DATAIN,
 			ADV_AM,
-			CALC,
+			NW_PRD,
 			DATAOUT,
 			READY
 		);
@@ -131,15 +132,15 @@ architecture behavior of tb is
 		if (CLK = '0') and (DATAOUT ='1') then
 			if(index < sequence_ADV_BM'length) then
 				index <= index + 1;
-				sel1 <= sequence_ADV_BM(index);
+				ADV_AM <= sequence_ADV_BM(index);
 				-- sel2 <= sequence_NW_PRD(index);
 			else
 				index <= 1;
 			end if;
 		end if;
 		
-		if (CLK = '0') and (CALC ='1') then
-			ADV_AM <= sel1;
+		if (CLK = '0') and (NW_PRD ='1') then
+			ADV_AM <= "11";
 			-- NW_PRD <= sel2;
 		end if;
 		

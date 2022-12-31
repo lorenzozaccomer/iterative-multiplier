@@ -50,8 +50,6 @@ package res_ctrlunit_package is
 		);
 	end component;
 end res_ctrlunit_package;
-
-
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;

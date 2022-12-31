@@ -200,8 +200,8 @@ architecture behavior of res_ctrlunit is
 							
 		loadOUTBM		<=	'1' when state=LOAD_DATA else
 							'0';
-		selOUTBM		<=	'1' when state=LOAD_DATA else
-							'0';
+		selOUTBM		<=	'0' when state=LOAD_DATA else
+							'1';
 							
 		loadBM			<=	'1' when state=LOAD_DATA else
 							'0';

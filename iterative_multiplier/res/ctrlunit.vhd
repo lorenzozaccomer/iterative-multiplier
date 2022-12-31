@@ -13,6 +13,7 @@ package res_ctrlunit_package is
 	component res_ctrlunit is
 		generic(
 			N	: integer := 16;
+			M	: integer := 8;
 			P	: integer := 4
 			);
 		port(
@@ -59,6 +60,7 @@ use ieee.numeric_std.all;
 entity res_ctrlunit is
 	generic(
 		N	: integer := 16;
+		M	: integer := 8;
 		P	: integer := 4
 		);
 	port(

@@ -12,13 +12,14 @@ package res_datapath_package is
 	component res_datapath is
 		generic(
 			N	: integer := 16;
+			M	: integer := 8;
 			P	: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
 			RST:			in std_logic;
 				-- data inputs
-			OUT_BM:			in std_logic_vector(2*P-1 downto 0);
+			OUT_BM:			in std_logic_vector(M-1 downto 0);
 			RES:			out std_logic_vector(2*N-1 downto 0);
 				-- control signal to datapath
 			loadNSHIFT:		in std_logic;
@@ -58,13 +59,14 @@ use work.res_components_package.all;
 entity res_datapath is
 	generic(
 		N	: integer := 16;
+		M	: integer := 8;
 		P	: integer := 4
 		);
 	port(
 		CLK:			in std_logic;
 		RST:			in std_logic;
 			-- data inputs
-		OUT_BM:			in std_logic_vector(2*P-1 downto 0);
+		OUT_BM:			in std_logic_vector(M-1 downto 0);
 		RES:			out std_logic_vector(2*N-1 downto 0);
 			-- control signal to datapath
 		loadNSHIFT:		in std_logic;
@@ -91,3 +93,29 @@ entity res_datapath is
 		CNT_R:			out std_logic_vector(P downto 0)
 	);
 end entity;
+
+
+architecture struct of res_datapath is
+
+	-- signals
+	signal out_bm_in, out_bm_out:			std_logic_vector(2*P-1 downto 0);
+	signal bm_in, bm_out:					std_logic_vector(2*P-1 downto 0);
+	
+	signal rs_in, rs_out:					std_logic_vector(N+P-1 downto 0);
+	signal s1_in, s1_out:					std_logic_vector(N+P-1 downto 0);
+	signal adder1_out:						std_logic_vector(N+P-1 downto 0);
+				
+	begin
+		-- REGISTERS
+	REG_BM:		regN generic map(2*P-1) port map(CLK, RST, loadOUTBM, bm_in, bm_out);
+	
+	REG_RS:		regN generic map(N+P-1) port map(CLK, RST, loadRS, rs_in, rs_out);
+	REG_S1:		regN generic map(N+P-1) port map(CLK, RST, loadS1, s1_in, s1_out);
+	
+		-- MUXS
+	MUX_BM:		mux2N generic map(2*P-1) port map(selOUTBM, OUT_BM, bm_out, bm_in);
+	
+		-- ADDERS
+	ADDER1:		adderNotCout generic map(2*P-1) port map(bm_out, rs_out((2*P-1+P_SHIFT) downto P_SHIFT), adder1_out((2*P-1+P_SHIFT) downto P_SHIFT));
+	
+end struct;

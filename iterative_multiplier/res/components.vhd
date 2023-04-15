@@ -1,5 +1,7 @@
 
--- components.vhd for res module
+-- components.vhd
+
+-- for multilplier res module
 
 library ieee;
 use ieee.std_logic_1164.all;

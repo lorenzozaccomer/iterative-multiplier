@@ -107,6 +107,9 @@ architecture struct of res_datapath is
 	signal adder1_out:						std_logic_vector(N+P-1 downto 0);
 	
 	
+	signal zeros20:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
+	
+	
 				
 	begin
 		-- REGISTERS
@@ -114,15 +117,18 @@ architecture struct of res_datapath is
 	
 	REG_RS:		regN generic map(N+P-1) port map(CLK, RST, loadRS, rs_in, rs_out);
 	REG_S1:		regN generic map(N+P-1) port map(CLK, RST, loadS1, s1_in, s1_out);
+	REG_S2:		regN generic map(N+P-1) port map(CLK, RST, loadS2, s2_in, s2_out);
 	
 		-- MUXS
 	MUX_BM:		mux2N generic map(2*P-1) port map(selOUTBM, OUT_BM, bm_out, bm_in);
+	MUX_RS:		mux4N generic map(2*P-1) port map(selRS, zeros20, shift_rs, rs_out, zeros20, rs_in);
+	MUX_S1:		mux2N generic map(2*P-1) port map(selS1, xyz, s1_out, s1_in);
+	MUX_S2:		mux2N generic map(2*P-1) port map(selS2, xyz, s2_out, s2_in);
 	
 		-- ADDERS
 	-- ADDER1:		adderNotCout generic map(2*P-1) port map(bm_out, rs_out((2*P-1+P_SHIFT) downto P_SHIFT), adder1_out((2*P-1+P_SHIFT) downto P_SHIFT));
 	
 		-- SHIFTERS
-	SHIFT1:		leftshiftN generic map() port map();
-	SHIFT2:		leftshiftN generic map() port map();
+	SHIFT1:		leftshiftN generic map(2*N,P) port map(rs_out, shift_rs);
 	
 end struct;

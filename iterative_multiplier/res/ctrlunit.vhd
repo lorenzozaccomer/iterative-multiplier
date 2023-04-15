@@ -234,9 +234,11 @@ architecture behavior of res_ctrlunit is
 							
 		loadRS			<=	'1' when state=ACC1 else
 							'0';
-		selRS			<=	'1' when state=SUM1 or 
+		selRS			<=	"01" when state=SHIFT1 or
+								state=SHIFT2 else
+							"10" when state=SUM1 or 
 								state=SUM2 else
-							'0';
+							"00";
 							
 		loadS2			<=	'1' when state=SUM2 else
 							'0';

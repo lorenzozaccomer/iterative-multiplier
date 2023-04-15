@@ -45,9 +45,8 @@ package res_ctrlunit_package is
 			loadRES:		out std_logic;
 			selRES:			out std_logic;
 				-- status signals from datapath
-			P_SHIFT:		in std_logic_vector(P-1 downto 0);
-			N_SHIFT:		in std_logic_vector(P downto 0);
-			CNT_R:			in std_logic_vector(P downto 0)
+			P_SHIFT:		in std_logic_vector(1 downto 0);
+			N_SHIFT:		in std_logic_vector(P downto 0)
 		);
 	end component;
 end res_ctrlunit_package;
@@ -92,9 +91,8 @@ entity res_ctrlunit is
 			loadRES:		out std_logic;
 			selRES:			out std_logic;
 				-- status signals from datapath
-			P_SHIFT:		in std_logic_vector(P-1 downto 0);
-			N_SHIFT:		in std_logic_vector(P downto 0);
-			CNT_R:			in std_logic_vector(P downto 0)
+			P_SHIFT:		in std_logic_vector(1 downto 0);
+			N_SHIFT:		in std_logic_vector(P downto 0)
 		);
 end entity;
 
@@ -104,9 +102,9 @@ end entity;
 architecture behavior of res_ctrlunit is
 
 
-	type statetype is (INIT, RESET, LOAD_DATA, SUM1, ACC1, INC_CNT, UP_ADV_AM,
-						INC_P, P_WAITDATA, SUM2, ACC2, WAIT2, DOWN_ADV_AM, 
-						INC_N, RESET_P, ACC3, OUTDATA);
+	type statetype is (INIT, RESET, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,
+						INC_P, P_WAITDATA, WAITSELS, SHIFT2, SUM2, ACC2, WAIT2, DOWN_ADV_AM, 
+						INC_N, RESET_P, ACC3, OUTDATA, WAIT1);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -127,12 +125,21 @@ architecture behavior of res_ctrlunit is
 			when RESET =>
 				nextstate <= LOAD_DATA;
 			when LOAD_DATA =>
+				if P_SHIFT = "00" then	-- b'00 = 0
+					nextstate <= SUM1;
+				else
+					nextstate <= SHIFT1;
+				end if;
+			when SHIFT1 =>
 				nextstate <= SUM1;
 			when SUM1 =>
-				nextstate <= INC_CNT;
-			when INC_CNT =>
-				if P_SHIFT = "1100" then	-- b'1100 = 12
-					nextstate <= SUM2;
+				nextstate <= ACC1;
+			when ACC1 =>
+				nextstate <= WAIT1;
+				
+			when WAIT1 =>
+				if P_SHIFT = "11" then	-- b'11 = 3
+					nextstate <= WAITSELS;
 				else
 					nextstate <= UP_ADV_AM;
 				end if;
@@ -150,16 +157,27 @@ architecture behavior of res_ctrlunit is
 				else
 					nextstate <= LOAD_DATA;
 				end if;
+			
+			when WAITSELS =>
+				if N_SHIFT = "00000" then	-- b'00000 = 0
+					nextstate <= SUM2;
+				else
+					nextstate <= SHIFT2;
+				end if;
+			when SHIFT2 =>
+				nextstate <= SUM2;
 			when SUM2 =>
-				nextstate <= ACC2;
-			when ACC2 =>
 				nextstate <= WAIT2;
 			when WAIT2 =>
-				if CNT_R = "10000" then	-- b10000 = 16
+				nextstate <= ACC2;
+				
+			when ACC2 =>
+				if N_SHIFT = "10000" then	-- b10000 = 16
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;
 				end if;
+				
 			when DOWN_ADV_AM =>
 				if NW_PRD = '1' then
 					nextstate <= INC_N;
@@ -174,6 +192,7 @@ architecture behavior of res_ctrlunit is
 				else
 					nextstate <= LOAD_DATA;
 				end if;
+				
 			when ACC3 =>
 				nextstate <= OUTDATA;
 			when OUTDATA =>

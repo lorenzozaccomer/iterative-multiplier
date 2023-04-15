@@ -1,7 +1,7 @@
 
 -- datapath.vhd
 
--- for multilplier select
+-- for multilplier res module
 
 ----------------------------------------------------------------------
 library ieee;
@@ -42,8 +42,7 @@ package res_datapath_package is
 			selRES:			in std_logic;
 				-- status signals from datapath
 			P_SHIFT:		out std_logic_vector(P-1 downto 0);
-			N_SHIFT:		out std_logic_vector(P downto 0);
-			CNT_R:			out std_logic_vector(P downto 0)
+			N_SHIFT:		out std_logic_vector(P downto 0)
 		);
 	end component;
 end res_datapath_package;
@@ -89,8 +88,7 @@ entity res_datapath is
 		selRES:			in std_logic;
 			-- status signals from datapath
 		P_SHIFT:		out std_logic_vector(P-1 downto 0);
-		N_SHIFT:		out std_logic_vector(P downto 0);
-		CNT_R:			out std_logic_vector(P downto 0)
+		N_SHIFT:		out std_logic_vector(P downto 0)
 	);
 end entity;
 
@@ -98,12 +96,17 @@ end entity;
 architecture struct of res_datapath is
 
 	-- signals
-	signal out_bm_in, out_bm_out:			std_logic_vector(2*P-1 downto 0);
-	signal bm_in, bm_out:					std_logic_vector(2*P-1 downto 0);
+	signal out_bm_in, out_bm_out:			std_logic_vector(M-1 downto 0);
+	signal bm_in, bm_out:					std_logic_vector(M-1 downto 0);
+	
+	signal p_shift_in, p_shift_out:			std_logic_vector(M downto 0);
+	signal n_shift_in, n_shift_out:			std_logic_vector(M downto 0);
 	
 	signal rs_in, rs_out:					std_logic_vector(N+P-1 downto 0);
 	signal s1_in, s1_out:					std_logic_vector(N+P-1 downto 0);
 	signal adder1_out:						std_logic_vector(N+P-1 downto 0);
+	
+	
 				
 	begin
 		-- REGISTERS
@@ -116,6 +119,10 @@ architecture struct of res_datapath is
 	MUX_BM:		mux2N generic map(2*P-1) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
 		-- ADDERS
-	ADDER1:		adderNotCout generic map(2*P-1) port map(bm_out, rs_out((2*P-1+P_SHIFT) downto P_SHIFT), adder1_out((2*P-1+P_SHIFT) downto P_SHIFT));
+	-- ADDER1:		adderNotCout generic map(2*P-1) port map(bm_out, rs_out((2*P-1+P_SHIFT) downto P_SHIFT), adder1_out((2*P-1+P_SHIFT) downto P_SHIFT));
+	
+		-- SHIFTERS
+	SHIFT1:		leftshiftN generic map() port map();
+	SHIFT2:		leftshiftN generic map() port map();
 	
 end struct;

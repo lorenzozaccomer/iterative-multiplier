@@ -42,8 +42,8 @@ package res_datapath_package is
 			loadRES:		in std_logic;
 			selRES:			in std_logic;
 				-- status signals from datapath
-			P_SHIFT:		out std_logic_vector(P-1 downto 0);
-			N_SHIFT:		out std_logic_vector(P downto 0)
+			P_SHIFT:		out std_logic_vector(1 downto 0);
+			N_SHIFT:		out std_logic_vector(1 downto 0)
 		);
 	end component;
 end res_datapath_package;
@@ -88,8 +88,8 @@ entity res_datapath is
 		loadRES:		in std_logic;
 		selRES:			in std_logic;
 			-- status signals from datapath
-		P_SHIFT:		out std_logic_vector(P-1 downto 0);
-		N_SHIFT:		out std_logic_vector(P downto 0)
+		P_SHIFT:		out std_logic_vector(1 downto 0);
+		N_SHIFT:		out std_logic_vector(1 downto 0)
 	);
 end entity;
 
@@ -101,8 +101,8 @@ architecture struct of res_datapath is
 	signal pshift_in, pshift_out:			std_logic_vector(1 downto 0);
 	signal p_out:							std_logic_vector(1 downto 0);
 	
-	signal nshift_in, nshift_out:			std_logic_vector(P downto 0);
-	signal n_out:							std_logic_vector(P downto 0);
+	signal nshift_in, nshift_out:			std_logic_vector(1 downto 0);
+	signal n_out:							std_logic_vector(1 downto 0);
 	
 	signal out_bm_in, out_bm_out:			std_logic_vector(M-1 downto 0);
 	signal bm_in, bm_out:					std_logic_vector(M-1 downto 0);
@@ -124,6 +124,7 @@ architecture struct of res_datapath is
 		-- REGISTERS
 	REG_P:		regN generic map(2) port map(CLK, RST, loadPSHIFT, pshift_in, pshift_out);
 	REG_N:		regN generic map(2) port map(CLK, RST, loadNSHIFT, nshift_in, nshift_out);
+	
 	REG_BM:		regN generic map(2*P-1) port map(CLK, RST, loadOUTBM, bm_in, bm_out);
 	
 	REG_RS:		regN generic map(2*N-1) port map(CLK, RST, loadRS, rs_in, rs_out);
@@ -131,8 +132,8 @@ architecture struct of res_datapath is
 	REG_S2:		regN generic map(2*N-1) port map(CLK, RST, loadS2, s2_in, s2_out);
 	
 		-- MUXS
-	MUX_P:		mux2N generic map(2) port map(selPSHIFT, "00", bm_out, pshift_in);
-	MUX_N:		mux2N generic map(P) port map(selNSHIFT, "00000", bm_out, nshift_in);
+	MUX_P:		mux2N generic map(2) port map(selPSHIFT, "00", p_out, pshift_in);
+	MUX_N:		mux2N generic map(2) port map(selNSHIFT, "00", n_out, nshift_in);
 	MUX_BM:		mux2N generic map(M-1) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
 	MUX_S1:		mux2N generic map(2*N-1) port map(selS1, zeros32, s1_out, s1_in);
@@ -146,7 +147,7 @@ architecture struct of res_datapath is
 	ADDER2:		adderNotCout generic map(2*N-1) port map(bm_out, rs_out, adder2_out);
 	
 	INC_P:		adderNotCout generic map(2) port map(pshift_out, "01", p_out);
-	INC_N:		adderNotCout generic map(P) port map(nshift_out, "00001", n_out);
+	INC_N:		adderNotCout generic map(P) port map(nshift_out, "01", n_out);
 	
 		-- SHIFTERS
 	SHIFT1:		leftshiftN generic map(2*N,P) port map(rs_out, shift_rs);

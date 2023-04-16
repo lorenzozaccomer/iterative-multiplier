@@ -46,7 +46,7 @@ package res_ctrlunit_package is
 			selRES:			out std_logic;
 				-- status signals from datapath
 			P_SHIFT:		in std_logic_vector(1 downto 0);
-			N_SHIFT:		in std_logic_vector(P downto 0)
+			N_SHIFT:		in std_logic_vector(1 downto 0)
 		);
 	end component;
 end res_ctrlunit_package;
@@ -92,7 +92,7 @@ entity res_ctrlunit is
 			selRES:			out std_logic;
 				-- status signals from datapath
 			P_SHIFT:		in std_logic_vector(1 downto 0);
-			N_SHIFT:		in std_logic_vector(P downto 0)
+			N_SHIFT:		in std_logic_vector(1 downto 0)
 		);
 end entity;
 
@@ -159,7 +159,7 @@ architecture behavior of res_ctrlunit is
 				end if;
 			
 			when WAITSELS =>
-				if N_SHIFT = "00000" then	-- b'00000 = 0
+				if N_SHIFT = "00" then	-- b'00 = 0
 					nextstate <= SUM2;
 				else
 					nextstate <= SHIFT2;
@@ -172,7 +172,7 @@ architecture behavior of res_ctrlunit is
 				nextstate <= ACC2;
 				
 			when ACC2 =>
-				if N_SHIFT = "10000" then	-- b10000 = 16
+				if N_SHIFT = "11" then	-- b11 = 3
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;

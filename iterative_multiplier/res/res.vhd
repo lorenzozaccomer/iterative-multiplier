@@ -20,7 +20,7 @@ package res_package is
 				-- data inputs
 			OUT_BM:			in std_logic_vector(M-1 downto 0);
 				-- data outputs
-			RES:			out std_logic_vector(2*N-1 downto 0);
+			RESULT:			out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
 			NW_PRD:			in std_logic;
@@ -52,7 +52,7 @@ entity res is
 			-- data inputs
 		OUT_BM:			in std_logic_vector(M-1 downto 0);
 			-- data outputs
-		RES:			out std_logic_vector(2*N-1 downto 0);
+		RESULT:			out std_logic_vector(2*N-1 downto 0);
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
 		NW_PRD:			in std_logic;
@@ -85,7 +85,7 @@ architecture struct of res is
 	signal selRES:			 std_logic;
 				-- status signals from datapath
 	signal P_SHIFT:		std_logic_vector(1 downto 0);
-	signal N_SHIFT:		std_logic_vector(P downto 0);
+	signal N_SHIFT:		std_logic_vector(1 downto 0);
 	
 	begin
 	CTRL: res_ctrlunit 
@@ -113,7 +113,7 @@ architecture struct of res is
 		);
 		
 	DP: res_datapath 
-		port map(CLK, RST, OUT_BM, RES,
+		port map(CLK, RST, OUT_BM, RESULT,
 			loadNSHIFT,
 			selNSHIFT,
 			loadPSHIFT,

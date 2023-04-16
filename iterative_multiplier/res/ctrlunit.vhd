@@ -265,7 +265,9 @@ architecture behavior of res_ctrlunit is
 							"11";
 		DATAOUT			<=	'1' when state=OUTDATA else
 							'0';
-		READY			<=	'1' when state=INIT else
+		READY			<=	'1' when state=INIT or 
+								state=P_WAITDATA or 
+								state=RESET_P else
 							'0';
 		
 		

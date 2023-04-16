@@ -100,7 +100,6 @@ architecture struct of res_datapath is
 	
 	signal pshift_in, pshift_out:			std_logic_vector(1 downto 0);
 	signal p_out:							std_logic_vector(1 downto 0);
-	
 	signal nshift_in, nshift_out:			std_logic_vector(1 downto 0);
 	signal n_out:							std_logic_vector(1 downto 0);
 	
@@ -111,6 +110,8 @@ architecture struct of res_datapath is
 	signal s1_in, s1_out:					std_logic_vector(2*N-1 downto 0);
 	signal s2_in, s2_out:					std_logic_vector(2*N-1 downto 0);
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0);
+	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
+	
 	signal adder1_out:						std_logic_vector(2*N-1 downto 0);
 	signal adder2_out:						std_logic_vector(2*N-1 downto 0);
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
@@ -130,26 +131,35 @@ architecture struct of res_datapath is
 	REG_RS:		regN generic map(2*N-1) port map(CLK, RST, loadRS, rs_in, rs_out);
 	REG_S1:		regN generic map(2*N-1) port map(CLK, RST, loadS1, s1_in, s1_out);
 	REG_S2:		regN generic map(2*N-1) port map(CLK, RST, loadS2, s2_in, s2_out);
+	REG_ACCR:	regN generic map(2*N-1) port map(CLK, RST, loadACCR, accr_in, accr_out);
+	REG_RES:	regN generic map(2*N-1) port map(CLK, RST, loadRES, res_in, res_out);
 	
 		-- MUXS
 	MUX_P:		mux2N generic map(2) port map(selPSHIFT, "00", p_out, pshift_in);
 	MUX_N:		mux2N generic map(2) port map(selNSHIFT, "00", n_out, nshift_in);
 	MUX_BM:		mux2N generic map(M-1) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
-	MUX_S1:		mux2N generic map(2*N-1) port map(selS1, zeros32, s1_out, s1_in);
-	MUX_S2:		mux2N generic map(2*N-1) port map(selS2, zeros32, s2_out, s2_in);
-	MUX_A2:		mux2N generic map(2*N-1) port map(selACCR, accr_out, s2_out, accr_in);
-	
+	MUX_S1:		mux2N generic map(2*N-1) port map(selS1, adder1_out, s1_out, s1_in);
+	MUX_S2:		mux2N generic map(2*N-1) port map(selS2, adder2_out, s2_out, s2_in);
+	MUX_ACCR:	mux2N generic map(2*N-1) port map(selACCR, accr_out, s2_out, accr_in);
+	MUX_RES:	mux2N generic map(2*N-1) port map(selRES, res_out, accr_out, res_in);
 	MUX_RS:		mux4N generic map(2*N-1) port map(selRS, zeros32, shift_rs, rs_out, s1_out, rs_in);
 	
 		-- ADDERS
 	ADDER1:		adderNotCout generic map(M-1) port map(bm_out, rs_out(2*N-1 downto M+N-1), adder1_out(2*N-1 downto M+N-1));
-	ADDER2:		adderNotCout generic map(2*N-1) port map(bm_out, rs_out, adder2_out);
+	ADDER2:		adderNotCout generic map(2*N-1) port map(accr_out, rs_out, adder2_out);
 	
+	-- increment PSHIFT and NSHIFT
 	INC_P:		adderNotCout generic map(2) port map(pshift_out, "01", p_out);
-	INC_N:		adderNotCout generic map(P) port map(nshift_out, "01", n_out);
+	INC_N:		adderNotCout generic map(2) port map(nshift_out, "01", n_out);
 	
 		-- SHIFTERS
 	SHIFT1:		leftshiftN generic map(2*N,P) port map(rs_out, shift_rs);
 	
+		-- status signals
+	P_SHIFT <= pshift_out;
+	N_SHIFT <= nshift_out;
+	
+		-- data outputs
+	RES <= res_out;
 end struct;

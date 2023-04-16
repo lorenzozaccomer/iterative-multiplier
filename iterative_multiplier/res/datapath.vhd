@@ -115,6 +115,7 @@ architecture struct of res_datapath is
 	signal adder1_out:						std_logic_vector(2*N-1 downto 0);
 	signal adder2_out:						std_logic_vector(2*N-1 downto 0);
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
+	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
 	
 	
 	signal zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');

@@ -104,7 +104,7 @@ architecture behavior of res_ctrlunit is
 
 	type statetype is (INIT, RESET, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,
 						INC_P, P_WAITDATA, WAITSELS, SHIFT2, SUM2, ACC2, WAIT2, DOWN_ADV_AM, 
-						INC_N, RESET_P, ACC3, OUTDATA, WAIT1);
+						INC_N, RESET_P, ACC3, OUTDATA, WAIT1, WAIT3);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -194,9 +194,12 @@ architecture behavior of res_ctrlunit is
 				end if;
 				
 			when ACC3 =>
+				nextstate <= WAIT3;
+			when WAIT3 =>
 				nextstate <= OUTDATA;
 			when OUTDATA =>
 				nextstate <= INIT;
+				
 			when others =>
 				nextstate <= INIT;
 		end case;
@@ -229,15 +232,14 @@ architecture behavior of res_ctrlunit is
 							
 		loadS1			<=	'1' when state=SUM1 else
 							'0';
-		selS1			<=	'1' when state=ACC1 else
-							'0' when state=SUM1;
+		selS1			<=	'0' when state=SUM1 else
+							'1';
 							
 		loadRS			<=	'1' when state=ACC1 or 
 								state=SHIFT1 or 
 								state=SHIFT2 else
 							'0';
-		selRS			<=	"01" when state=SHIFT1 or
-								 state=SHIFT2 else
+		selRS			<=	"01" when state=SHIFT1 else
 							"10" when state=SUM1 or 
 								 state=SUM2 else
 							"11" when state=ACC1 else

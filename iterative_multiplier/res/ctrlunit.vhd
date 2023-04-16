@@ -102,7 +102,7 @@ end entity;
 architecture behavior of res_ctrlunit is
 
 
-	type statetype is (INIT, RESET, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,
+	type statetype is (INIT, START, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,
 						INC_P, P_WAITDATA, WAITSELS, SHIFT2, SUM2, ACC2, WAIT2, DOWN_ADV_AM, 
 						INC_N, RESET_P, ACC3, OUTDATA, WAIT1, WAIT3);
 	signal state, nextstate : statetype;
@@ -120,9 +120,9 @@ architecture behavior of res_ctrlunit is
 				if DATAIN = '0' then
 					nextstate <= INIT;
 				else
-					nextstate <= RESET;
+					nextstate <= START;
 				end if;
-			when RESET =>
+			when START =>
 				nextstate <= LOAD_DATA;
 			when LOAD_DATA =>
 				if P_SHIFT = "00" then	-- b'00 = 0
@@ -206,19 +206,19 @@ architecture behavior of res_ctrlunit is
 	end process;
 	
 		-- OUTPUTS
-		loadNSHIFT		<=	'1' when state=RESET or
+		loadNSHIFT		<=	'1' when state=START or
 								state=INC_N else
 							'0';
-		selNSHIFT		<=	'0' when state=RESET else
+		selNSHIFT		<=	'0' when state=START else
 							'1' when state=INC_N;
 							
-		loadPSHIFT		<= 	'1' when state=RESET or
+		loadPSHIFT		<= 	'1' when state=START or
 								state=INC_P or 
 								state=RESET_P else
 							'0';
-		selPSHIFT		<=	'0' when state=RESET or 
+		selPSHIFT		<=	'0' when state=START or 
 								state=RESET_P else
-							'1' when state=INC_N;
+							'1' when state=INC_P;
 							
 		loadOUTBM		<=	'1' when state=LOAD_DATA else
 							'0';
@@ -236,8 +236,7 @@ architecture behavior of res_ctrlunit is
 							'1';
 							
 		loadRS			<=	'1' when state=ACC1 or 
-								state=SHIFT1 or 
-								state=SHIFT2 else
+								state=SHIFT1 else
 							'0';
 		selRS			<=	"01" when state=SHIFT1 else
 							"10" when state=SUM1 or 

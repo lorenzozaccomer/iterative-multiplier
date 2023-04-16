@@ -71,8 +71,8 @@ architecture struct of res is
 	signal selPSHIFT:		 std_logic;
 	signal loadOUTBM:		 std_logic;
 	signal selOUTBM:		 std_logic;
-	signal loadBM:			 std_logic;
-	signal selBM:			 std_logic;
+	signal loadBM:			 std_logic; -- da togliere
+	signal selBM:			 std_logic; -- da togliere
 	signal loadS1:			 std_logic;
 	signal selS1:			 std_logic;
 	signal loadRS:			 std_logic;

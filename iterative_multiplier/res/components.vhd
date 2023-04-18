@@ -16,7 +16,7 @@ package res_components_package is
 		);
 	end component;
 	
-	component leftshiftN is
+	component rightshiftN is
 		generic(
 			N: 	integer := 4;
 			SH:	integer := 1);
@@ -133,7 +133,7 @@ use ieee.numeric_std.all;
 use work.constants_components_package.all;
 
 
-entity leftshiftN is
+entity rightshiftN is
 	generic(
 		N: 	integer := 4;
 		SH:	integer := 1);
@@ -143,9 +143,9 @@ entity leftshiftN is
 	);
 end entity;
 
-architecture behavior of leftshiftN is
+architecture behavior of rightshiftN is
 	begin
-		Y <= std_logic_vector(shift_left(unsigned(X), SH));
+		Y <= std_logic_vector(shift_right(unsigned(X), SH));
 end behavior;
 ----------------------------------------------------------------------
 

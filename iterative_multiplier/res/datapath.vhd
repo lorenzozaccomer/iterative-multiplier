@@ -155,8 +155,8 @@ architecture struct of res_datapath is
 	INC_N:		adderNotCout generic map(2) port map(nshift_out, "01", n_out);
 	
 		-- SHIFTERS
-	SHIFTER1:	leftshiftN generic map(2*N,P) port map(rs_out, shift_rs);
-	SHIFTER2:	leftshiftN generic map(2*N,P) port map(accr_out, shift_accr);
+	SHIFTER1:	rightshiftN generic map(2*N,P) port map(rs_out, shift_rs);
+	SHIFTER2:	rightshiftN generic map(2*N,P) port map(accr_out, shift_accr);
 	
 		-- status signals
 	P_SHIFT <= pshift_out;

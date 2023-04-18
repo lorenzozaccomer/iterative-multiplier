@@ -225,39 +225,38 @@ architecture behavior of res_ctrlunit is
 		loadOUTBM		<=	'1' when state=LOAD_DATA else
 							'0';
 		selOUTBM		<=	'0' when state=LOAD_DATA else
-							'1';
+							'1' when state=SUM1;
 							
 		-- loadBM			<=	'1' when state=LOAD_DATA else
 							-- '0';
 		-- selBM			<=	'1' when state=SUM1 else
 							-- '0';
 							
-		loadS1			<=	'1' when state=SUM1 or 
-								state=SHIFT1 or 
-								state=ACC1 else
+		loadS1			<=	'1' when state=SUM1 else
 							'0';
-		selS1			<=	'0' when state=SUM1 or
-								state=ACC1 else
-							'1';
+		selS1			<=	'0' when state=SUM1 else
+							'1' when state=ACC1;
 							
 		loadRS			<=	'1' when state=ACC1 or 
-								state=SHIFT1 else
+								state=SHIFT1 or 
+								state=START else
 							'0';
-		selRS			<=	"01" when state=SHIFT1 else
+		selRS			<=	"00" when state=START else
+							"01" when state=SHIFT1 else
 							"10" when state=SUM1 or 
 								 state=SUM2 else
-							"11" when state=ACC1 else
-							"00" when state=START;
+							"11" when state=ACC1;
 							
 		loadS2			<=	'1' when state=SUM2 else
 							'0';
 		selS2			<=	'0' when state=SUM2 else
-							'1';	
+							'1' when state=ACC2;	
 							
 		loadACCR		<=	'1' when state=ACC2 else
 							'0';
 		selACCR			<=	'1' when state=ACC2 else
-							'0';
+							'0' when state=ACC3 or
+									 state=SUM2;
 							
 		loadRES			<=	'1' when state=ACC3 else
 							'0';

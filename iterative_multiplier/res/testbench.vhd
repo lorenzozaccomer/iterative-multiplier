@@ -41,7 +41,7 @@ architecture behavior of tb is
 	signal RESULT:				std_logic_vector(2*N-1 downto 0)	:= (others=>'0');
 	signal DATAIN:				std_logic	:= '0';
 	signal ADV_AM:				std_logic_vector(1 downto 0)	:= "00";
-	signal NW_PRD:				std_logic;
+	signal NW_PRD:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
 	-- signal CALC:				std_logic;

@@ -103,7 +103,7 @@ architecture struct of res_datapath is
 	signal nshift_in, nshift_out:			std_logic_vector(1 downto 0);
 	signal n_out:							std_logic_vector(1 downto 0);
 	
-	signal out_bm_in, out_bm_out:			std_logic_vector(M-1 downto 0);
+	signal out_bm_in, out_bm_out:			std_logic_vector(M-1 downto 0); -- da togliere
 	signal bm_in, bm_out:					std_logic_vector(M-1 downto 0);
 		
 	signal rs_in, rs_out:					std_logic_vector(2*N-1 downto 0);
@@ -112,7 +112,7 @@ architecture struct of res_datapath is
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0);
 	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
 	
-	signal adder1_out:						std_logic_vector(2*N-1 downto 0);
+	signal adder1_out:						std_logic_vector(2*N-1 downto 0) := (others=>'0');
 	signal adder2_out:						std_logic_vector(2*N-1 downto 0);
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);

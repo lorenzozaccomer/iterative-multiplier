@@ -1,7 +1,7 @@
 
 -- datapath.vhd
 
--- for multilplier res module
+-- for multilplier resolver module
 
 ----------------------------------------------------------------------
 library ieee;

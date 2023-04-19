@@ -109,6 +109,7 @@ architecture struct of res_datapath is
 	signal s2_in, s2_out:					std_logic_vector(2*N-1 downto 0);
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0);
 	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
+	signal int_in, int_out:					std_logic_vector(2*N-1 downto 0);
 	
 	signal adder1_out:						std_logic_vector(M-1 downto 0) := (others=>'0');
 	signal adder2_out:						std_logic_vector(2*N-1 downto 0);
@@ -131,6 +132,7 @@ architecture struct of res_datapath is
 	REG_S2:		regN generic map(2*N) port map(CLK, RST, loadS2, s2_in, s2_out);
 	REG_ACCR:	regN generic map(2*N) port map(CLK, RST, loadACCR, accr_in, accr_out);
 	REG_RES:	regN generic map(2*N) port map(CLK, RST, loadRES, res_in, res_out);
+	REG_INT:	regN generic map(2*N) port map(CLK, RST, loadINT, int_in, int_out);
 	
 		-- MUXS
 	MUX_P:		mux2N generic map(2) port map(selPSHIFT, "00", p_out, pshift_in);
@@ -142,6 +144,7 @@ architecture struct of res_datapath is
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
+	MUX_INT:	mux2N generic map(2*N) port map(selINT, int_out, rs_out, int_in);
 	
 		-- ADDERS
 	ADDER1:		adderNotCout generic map(M) port map(bm_out, rs_out(2*N-1 downto M+N), adder1_out);

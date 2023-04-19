@@ -225,7 +225,7 @@ architecture behavior of res_ctrlunit is
 		loadOUTBM		<=	'1' when state=LOAD_DATA else
 							'0';
 		selOUTBM		<=	'0' when state=LOAD_DATA else
-							'1' when state=SUM1;
+							'1';
 							
 		-- loadBM			<=	'1' when state=LOAD_DATA else
 							-- '0';
@@ -235,7 +235,7 @@ architecture behavior of res_ctrlunit is
 		loadS1			<=	'1' when state=SUM1 else
 							'0';
 		selS1			<=	'0' when state=SUM1 else
-							'1' when state=ACC1;
+							'1';
 							
 		loadRS			<=	'1' when state=ACC1 or 
 								state=SHIFT1 or 
@@ -243,9 +243,8 @@ architecture behavior of res_ctrlunit is
 							'0';
 		selRS			<=	"00" when state=START else
 							"01" when state=SHIFT1 else
-							"10" when state=SUM1 or 
-								 state=SUM2 else
-							"11" when state=ACC1;
+							"10" when state=ACC1 else
+							"11";
 							
 		loadS2			<=	'1' when state=SUM2 else
 							'0';

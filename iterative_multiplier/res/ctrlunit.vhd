@@ -254,13 +254,12 @@ architecture behavior of res_ctrlunit is
 		loadACCR		<=	'1' when state=ACC2 else
 							'0';
 		selACCR			<=	'1' when state=ACC2 else
-							'0' when state=ACC3 or
-									 state=SUM2;
+							'0' when state=ACC3;
 							
 		loadRES			<=	'1' when state=ACC3 else
 							'0';
-		selRES			<=	'1' when state=ACC3 else
-							'0';
+		selRES			<=	'0' when state=ACC3 else
+							'1';
 											
 							
 		---

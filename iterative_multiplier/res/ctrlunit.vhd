@@ -32,7 +32,7 @@ package res_ctrlunit_package is
 			selPSHIFT:		out std_logic;
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
-			loadBM:			out std_logic; -- da togliere
+			loadINT:			out std_logic; -- da togliere
 			selINT:			out std_logic; -- da togliere
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
@@ -78,7 +78,7 @@ entity res_ctrlunit is
 			selPSHIFT:		out std_logic;
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
-			loadBM:			out std_logic; -- da togliere
+			loadINT:			out std_logic; -- da togliere
 			selINT:			out std_logic; -- da togliere
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
@@ -227,10 +227,10 @@ architecture behavior of res_ctrlunit is
 		selOUTBM		<=	'0' when state=LOAD_DATA else
 							'1';
 							
-		-- loadBM			<=	'1' when state=LOAD_DATA else
-							-- '0';
-		-- selINT			<=	'1' when state=SUM1 else
-							-- '0';
+		loadINT			<=	'1' when state=WAITSHIFT else
+							'0';
+		selINT			<=	'1' when state=WAITSHIFT else
+							'0';
 							
 		loadS1			<=	'1' when state=SUM1 else
 							'0';

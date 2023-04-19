@@ -105,7 +105,7 @@ architecture struct of res_datapath is
 	signal bm_in, bm_out:					std_logic_vector(M-1 downto 0);
 		
 	signal rs_in, rs_out:					std_logic_vector(2*N-1 downto 0);
-	signal s1_in, s1_out:					std_logic_vector(2*N-1 downto 0);
+	signal s1_in, s1_out:					std_logic_vector(2*N-1 downto 0) := (others=>'0');
 	signal s2_in, s2_out:					std_logic_vector(2*N-1 downto 0);
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0);
 	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
@@ -137,7 +137,7 @@ architecture struct of res_datapath is
 	MUX_N:		mux2N generic map(2) port map(selNSHIFT, "00", n_out, nshift_in);
 	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
-	MUX_S1:		mux2N generic map(2*N) port map(selS1, adder1_out, s1_out, s1_in);
+	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, "00000000", s1_in(2*N-1 downto M+N));
 	MUX_S2:		mux2N generic map(2*N) port map(selS2, adder2_out, s2_out, s2_in);
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);

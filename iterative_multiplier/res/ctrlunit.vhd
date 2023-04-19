@@ -33,7 +33,7 @@ package res_ctrlunit_package is
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
 			loadBM:			out std_logic; -- da togliere
-			selBM:			out std_logic; -- da togliere
+			selINT:			out std_logic; -- da togliere
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
 			loadRS:			out std_logic;
@@ -79,7 +79,7 @@ entity res_ctrlunit is
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
 			loadBM:			out std_logic; -- da togliere
-			selBM:			out std_logic; -- da togliere
+			selINT:			out std_logic; -- da togliere
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
 			loadRS:			out std_logic;
@@ -229,7 +229,7 @@ architecture behavior of res_ctrlunit is
 							
 		-- loadBM			<=	'1' when state=LOAD_DATA else
 							-- '0';
-		-- selBM			<=	'1' when state=SUM1 else
+		-- selINT			<=	'1' when state=SUM1 else
 							-- '0';
 							
 		loadS1			<=	'1' when state=SUM1 else

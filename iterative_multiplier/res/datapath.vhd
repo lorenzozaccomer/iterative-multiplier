@@ -30,7 +30,7 @@ package res_datapath_package is
 			loadOUTBM:		in std_logic;
 			selOUTBM:		in std_logic;
 			loadBM:			in std_logic;
-			selBM:			in std_logic;
+			selINT:			in std_logic;
 			loadS1:			in std_logic;
 			selS1:			in std_logic;
 			loadRS:			in std_logic;
@@ -76,7 +76,7 @@ entity res_datapath is
 		loadOUTBM:		in std_logic;
 		selOUTBM:		in std_logic;
 		loadBM:			in std_logic; -- da togliere
-		selBM:			in std_logic; -- da togliere
+		selINT:			in std_logic; -- da togliere
 		loadS1:			in std_logic;
 		selS1:			in std_logic;
 		loadRS:			in std_logic;

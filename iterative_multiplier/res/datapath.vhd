@@ -110,7 +110,7 @@ architecture struct of res_datapath is
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0);
 	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
 	
-	signal adder1_out:						std_logic_vector(2*N-1 downto 0) := (others=>'0');
+	signal adder1_out:						std_logic_vector(M-1 downto 0) := (others=>'0');
 	signal adder2_out:						std_logic_vector(2*N-1 downto 0);
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
@@ -144,7 +144,7 @@ architecture struct of res_datapath is
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
 	
 		-- ADDERS
-	ADDER1:		adderNotCout generic map(M) port map(bm_out, rs_out(2*N-1 downto M+N), adder1_out(2*N-1 downto M+N));
+	ADDER1:		adderNotCout generic map(M) port map(bm_out, rs_out(2*N-1 downto M+N), adder1_out);
 	ADDER2:		adderNotCout generic map(2*N) port map(accr_out, rs_out, adder2_out);
 	
 	-- increment PSHIFT and NSHIFT

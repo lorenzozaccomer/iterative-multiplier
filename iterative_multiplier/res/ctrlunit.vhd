@@ -232,7 +232,8 @@ architecture behavior of res_ctrlunit is
 		selINT			<=	'1' when state=WAITSHIFT else
 							'0';
 							
-		loadS1			<=	'1' when state=SUM1 else
+		loadS1			<=	'1' when state=SUM1 or
+								state=WAIT1 else
 							'0';
 		selS1			<=	'0' when state=SUM1 else
 							'1';
@@ -248,8 +249,8 @@ architecture behavior of res_ctrlunit is
 							
 		loadS2			<=	'1' when state=SUM2 else
 							'0';
-		selS2			<=	'0' when state=SUM2 else
-							'1' when state=ACC2;	
+		selS2			<=	'0' when state=WAIT1 else
+							'1';	
 							
 		loadACCR		<=	'1' when state=ACC2 else
 							'0';

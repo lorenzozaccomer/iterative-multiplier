@@ -116,6 +116,8 @@ architecture struct of res_datapath is
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
 	
+	signal zeros8:						std_logic_vector(M-1 downto 0):= (others=>'0');
+	signal zeros24:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
 	signal zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
 	
 	
@@ -139,15 +141,15 @@ architecture struct of res_datapath is
 	MUX_N:		mux2N generic map(2) port map(selNSHIFT, "00", n_out, nshift_in);
 	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
-	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, "00000000", s1_in(2*N-1 downto M+N));
-	MUX_S2:		mux2N generic map(2*N) port map(selS2, adder2_out, s2_out, s2_in);
+	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto M+N));
+	MUX_S2:		mux2N generic map(M+N) port map(selS2, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
 	MUX_INT:	mux2N generic map(2*N) port map(selINT, int_out, rs_out, int_in);
 	
 		-- ADDERS
-	ADDER1:		adderNotCout generic map(M) port map(bm_out, rs_out(2*N-1 downto M+N), adder1_out);
+	ADDER1:		adderNotCout generic map(M) port map(bm_out, int_out(2*N-1 downto M+N), adder1_out);
 	ADDER2:		adderNotCout generic map(2*N) port map(accr_out, rs_out, adder2_out);
 	
 	-- increment PSHIFT and NSHIFT

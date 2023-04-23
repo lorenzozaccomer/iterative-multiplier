@@ -257,10 +257,21 @@ architecture behavior of res_ctrlunit is
 							"10" when state=ACC1 else
 							"11";
 							
-		loadS2			<=	'1' when state=SUM2 else
+		
+		loadINT2		<=	'1' when state=WAITSELS else
 							'0';
+		selINT2			<=	'1' when state=WAITSELS else
+							'0';					
+		loadS2			<=	'1' when state=SUM2 or 
+								state=WAIT2 else
+							'0';
+		selS2			<=	'0' when state=SUM2 else
+							'1';
+					
 		selOPT1			<=	'0' when state=WAIT1 else
 							'1';	
+		selOPT2			<=	'0' when state=WAIT2 else
+							'1';
 							
 		loadACCR		<=	'1' when state=ACC2 else
 							'0';

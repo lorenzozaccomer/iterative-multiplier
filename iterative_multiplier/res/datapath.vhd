@@ -36,7 +36,7 @@ package res_datapath_package is
 			loadRS:			in std_logic;
 			selRS:			in std_logic_vector(1 downto 0);
 			loadS2:			in std_logic;
-			selS2:			in std_logic;
+			selOPT1:			in std_logic;
 			loadACCR:		in std_logic;
 			selACCR:		in std_logic;
 			loadRES:		in std_logic;
@@ -82,7 +82,7 @@ entity res_datapath is
 		loadRS:			in std_logic;
 		selRS:			in std_logic_vector(1 downto 0);
 		loadS2:			in std_logic;
-		selS2:			in std_logic;
+		selOPT1:			in std_logic;
 		loadACCR:		in std_logic;
 		selACCR:		in std_logic;
 		loadRES:		in std_logic;
@@ -142,7 +142,7 @@ architecture struct of res_datapath is
 	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
 	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto M+N));
-	MUX_S2:		mux2N generic map(M+N) port map(selS2, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
+	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);

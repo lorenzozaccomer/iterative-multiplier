@@ -78,7 +78,7 @@ architecture struct of res is
 	signal loadRS:			 std_logic;
 	signal selRS:			 std_logic_vector(1 downto 0);
 	signal loadS2:			 std_logic;
-	signal selS2:			 std_logic;
+	signal selOPT1:			 std_logic;
 	signal loadACCR:		 std_logic;
 	signal selACCR:			 std_logic;
 	signal loadRES:			 std_logic;
@@ -103,7 +103,7 @@ architecture struct of res is
 			loadRS,
 			selRS,
 			loadS2,
-			selS2,
+			selOPT1,
 			loadACCR,
 			selACCR,
 			loadRES,
@@ -127,7 +127,7 @@ architecture struct of res is
 			loadRS,
 			selRS,
 			loadS2,
-			selS2,
+			selOPT1,
 			loadACCR,
 			selACCR,
 			loadRES,

@@ -39,7 +39,7 @@ package res_ctrlunit_package is
 			loadRS:			out std_logic;
 			selRS:			out std_logic_vector(1 downto 0);
 			loadS2:			out std_logic;
-			selS2:			out std_logic;
+			selOPT1:			out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;
@@ -85,7 +85,7 @@ entity res_ctrlunit is
 			loadRS:			out std_logic;
 			selRS:			out std_logic_vector(1 downto 0);
 			loadS2:			out std_logic;
-			selS2:			out std_logic;
+			selOPT1:			out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;
@@ -249,7 +249,7 @@ architecture behavior of res_ctrlunit is
 							
 		loadS2			<=	'1' when state=SUM2 else
 							'0';
-		selS2			<=	'0' when state=WAIT1 else
+		selOPT1			<=	'0' when state=WAIT1 else
 							'1';	
 							
 		loadACCR		<=	'1' when state=ACC2 else

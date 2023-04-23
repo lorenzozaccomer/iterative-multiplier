@@ -32,14 +32,17 @@ package res_ctrlunit_package is
 			selPSHIFT:		out std_logic;
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
-			loadINT:			out std_logic; -- da togliere
-			selINT:			out std_logic; -- da togliere
+			loadINT:		out std_logic;
+			selINT:			out std_logic;
+			loadINT2:		out std_logic;
+			selINT2:		out std_logic;
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
 			loadRS:			out std_logic;
 			selRS:			out std_logic_vector(1 downto 0);
 			loadS2:			out std_logic;
-			selOPT1:			out std_logic;
+			selS2:			out std_logic;
+			selOPT1:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;
@@ -78,14 +81,17 @@ entity res_ctrlunit is
 			selPSHIFT:		out std_logic;
 			loadOUTBM:		out std_logic;
 			selOUTBM:		out std_logic;
-			loadINT:			out std_logic; -- da togliere
-			selINT:			out std_logic; -- da togliere
+			loadINT:		out std_logic;
+			selINT:			out std_logic;
+			loadINT2:		out std_logic;
+			selINT2:		out std_logic;
 			loadS1:			out std_logic;
 			selS1:			out std_logic;
 			loadRS:			out std_logic;
 			selRS:			out std_logic_vector(1 downto 0);
 			loadS2:			out std_logic;
-			selOPT1:			out std_logic;
+			selS2:			out std_logic;
+			selOPT1:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;

@@ -31,12 +31,15 @@ package res_datapath_package is
 			selOUTBM:		in std_logic;
 			loadINT:		in std_logic;
 			selINT:			in std_logic;
+			loadINT2:		in std_logic;
+			selINT2:		in std_logic;
 			loadS1:			in std_logic;
 			selS1:			in std_logic;
 			loadRS:			in std_logic;
 			selRS:			in std_logic_vector(1 downto 0);
 			loadS2:			in std_logic;
-			selOPT1:			in std_logic;
+			selS2:			in std_logic;
+			selOPT1:		in std_logic;
 			loadACCR:		in std_logic;
 			selACCR:		in std_logic;
 			loadRES:		in std_logic;
@@ -75,14 +78,17 @@ entity res_datapath is
 		selPSHIFT:		in std_logic;
 		loadOUTBM:		in std_logic;
 		selOUTBM:		in std_logic;
-		loadINT:		in std_logic; -- da togliere
-		selINT:			in std_logic; -- da togliere
+		loadINT:		in std_logic;
+		selINT:			in std_logic;
+		loadINT2:		in std_logic;
+		selINT2:		in std_logic;
 		loadS1:			in std_logic;
 		selS1:			in std_logic;
 		loadRS:			in std_logic;
 		selRS:			in std_logic_vector(1 downto 0);
+		selS2:			in std_logic;
 		loadS2:			in std_logic;
-		selOPT1:			in std_logic;
+		selOPT1:		in std_logic;
 		loadACCR:		in std_logic;
 		selACCR:		in std_logic;
 		loadRES:		in std_logic;

@@ -44,7 +44,6 @@ architecture behavior of tb is
 	signal NW_PRD:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
-	-- signal CALC:				std_logic;
 		
 	signal index:	integer	:= 1;
 	
@@ -107,39 +106,12 @@ architecture behavior of tb is
 				done <= 1;
 			end if;
 		end if;
-
-		-- if (CLK = '0') and (DATAOUT ='1') then
-			-- if(index < sequence_ADV_BM'length) then
-				-- index <= index + 1;
-				-- ADV_AM <= sequence_ADV_BM(index);
-				-- -- sel2 <= sequence_NW_PRD(index);
-			-- else
-				-- index <= 1;
-			-- end if;
-		-- end if;
 		
 		if (CLK = '0') and (ADV_AM ="00" or ADV_AM="01") then
 			NW_PRD <= '1';
 		end if;
 		
 	end process;
-	
-	
-	-- -- CALC
-	-- calc_process: process
-		-- begin
-			-- if CALC = '0' then
-				-- CALC <= '1';
-				-- wait for 50 ns;
-			-- else
-				-- CALC <= '0';
-				-- wait for 200 ns;
-			-- end if;
-			-- if done = 1 then
-				-- wait;
-			-- end if;
-		-- end process;
-	
 	
 	-- terminate the simulation when there are no more data in datafile
 	done_process: process(done)

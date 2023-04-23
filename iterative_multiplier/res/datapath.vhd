@@ -40,6 +40,7 @@ package res_datapath_package is
 			loadS2:			in std_logic;
 			selS2:			in std_logic;
 			selOPT1:		in std_logic;
+			selOPT2:		in std_logic;
 			loadACCR:		in std_logic;
 			selACCR:		in std_logic;
 			loadRES:		in std_logic;
@@ -89,6 +90,7 @@ entity res_datapath is
 		selS2:			in std_logic;
 		loadS2:			in std_logic;
 		selOPT1:		in std_logic;
+		selOPT2:		in std_logic;
 		loadACCR:		in std_logic;
 		selACCR:		in std_logic;
 		loadRES:		in std_logic;

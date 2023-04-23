@@ -43,6 +43,7 @@ package res_ctrlunit_package is
 			loadS2:			out std_logic;
 			selS2:			out std_logic;
 			selOPT1:		out std_logic;
+			selOPT2:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;
@@ -92,6 +93,7 @@ entity res_ctrlunit is
 			loadS2:			out std_logic;
 			selS2:			out std_logic;
 			selOPT1:		out std_logic;
+			selOPT2:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
 			loadRES:		out std_logic;

@@ -104,7 +104,7 @@ architecture behavior of res_ctrlunit is
 
 	type statetype is (INIT, START, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,
 						INC_P, P_WAITDATA, WAITSELS, SHIFT2, SUM2, ACC2, WAIT2, DOWN_ADV_AM, 
-						INC_N, RESET_P, ACC3, OUTDATA, WAIT1, WAIT3, WAITSHIFT);
+						INC_N, RESET_P, ACC3, OUTDATA, WAIT1, WAIT3, WAITSHIFT,WAITSHIFT2);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -167,13 +167,15 @@ architecture behavior of res_ctrlunit is
 					nextstate <= SHIFT2;
 				end if;
 			when SHIFT2 =>
+				nextstate <= WAITSHIFT2;
+			when WAITSHIFT2 =>
 				nextstate <= SUM2;
 			when SUM2 =>
-				nextstate <= WAIT2;
-			when WAIT2 =>
 				nextstate <= ACC2;
-				
 			when ACC2 =>
+				nextstate <= WAIT2;
+				
+			when WAIT2 =>
 				if N_SHIFT = "11" then	-- b11 = 3
 					nextstate <= ACC3;
 				else

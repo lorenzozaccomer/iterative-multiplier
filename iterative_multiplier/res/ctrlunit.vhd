@@ -279,10 +279,11 @@ architecture behavior of res_ctrlunit is
 		selOPT2			<=	'0' when state=WAIT2 else
 							'1';
 							
-		loadACCR		<=	'1' when state=ACC2 else
+		loadACCR		<=	'1' when state=ACC2 or 
+								state=SHIFT2 else
 							'0';
 		selACCR			<=	'1' when state=ACC2 else
-							'0';
+							'0' when state=SHIFT2;
 							
 		loadRES			<=	'1' when state=ACC3 else
 							'0';

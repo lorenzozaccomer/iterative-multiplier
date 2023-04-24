@@ -157,7 +157,7 @@ architecture struct of res_datapath is
 	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zeros20, s2_in(2*N-1 downto M+P));
 	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
 	MUX_OPT2:	mux2N generic map(M+P) port map(selOPT2, zeros12, int2_out(M+P-1 downto 0), s2_in(M+P-1 downto 0));
-	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
+	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, shift_accr, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
 	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros32, rs_out, int_in);

@@ -250,9 +250,11 @@ architecture behavior of res_ctrlunit is
 							
 		loadRS			<=	'1' when state=ACC1 or 
 								state=SHIFT1 or 
-								state=START else
+								state=START or 
+								state=RESET_P else
 							'0';
-		selRS			<=	"00" when state=START else
+		selRS			<=	"00" when state=START or
+								 state=RESET_P else
 							"01" when state=SHIFT1 else
 							"10" when state=ACC1 else
 							"11";

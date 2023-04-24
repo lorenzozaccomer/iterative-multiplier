@@ -238,7 +238,8 @@ architecture behavior of res_ctrlunit is
 							'1';
 							
 		loadINT			<=	'1' when state=WAITSHIFT or 
-								state=RESET_P else
+								state=RESET_P or 
+								state=START else
 							'0';
 		selINT			<=	'1' when state=WAITSHIFT else
 							'0';
@@ -262,7 +263,8 @@ architecture behavior of res_ctrlunit is
 							
 		
 		loadINT2		<=	'1' when state=WAITSELS  or 
-								state=RESET_P else
+								state=RESET_P or 
+								state=START else
 							'0';
 		selINT2			<=	'1' when state=WAITSELS else
 							'0';					

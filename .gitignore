@@ -18,6 +18,7 @@
 /register/work/
 /shift_register/work/
 test/
+simulations/
 components/adder/work/
 components/leftshift/work/
 components/multiplier/work/

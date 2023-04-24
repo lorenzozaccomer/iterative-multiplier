@@ -20,6 +20,12 @@ test/classical_multiplier/work/
 test/reg/work/
 test/reg32/work/
 test/shifter/work/
+components/adder/work/
+components/leftshift/work/
+components/multiplier/work/
+components/register/work/
+components/rightshifter/work/
+components/shift_register/work/
 
 # Object files
 *.o

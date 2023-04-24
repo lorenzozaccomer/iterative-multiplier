@@ -3,7 +3,6 @@
 
 -- for multilplier resolver module
 
-
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;

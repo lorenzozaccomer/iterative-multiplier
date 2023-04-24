@@ -1,7 +1,7 @@
 
 -- testbench.vhd
 
--- for multilplier res module
+-- for multilplier resolver module
 
 ----------------------------------------------------------------------
 

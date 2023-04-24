@@ -226,10 +226,10 @@ architecture behavior of res_ctrlunit is
 							
 		loadPSHIFT		<= 	'1' when state=START or
 								state=INC_P or 
-								state=RESET_P else
+								state=INC_N else
 							'0';
 		selPSHIFT		<=	'0' when state=START or 
-								state=RESET_P else
+								state=INC_N else
 							'1' when state=INC_P;
 							
 		loadOUTBM		<=	'1' when state=LOAD_DATA else

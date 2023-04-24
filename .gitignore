@@ -6,6 +6,9 @@
 *.dat
 *.psm
 *.prw
+*.wlf
+*.mpf
+*.mti
 
 # Simulation folder
 /iterative_multiplier/work/
@@ -21,6 +24,9 @@ components/multiplier/work/
 components/register/work/
 components/rightshifter/work/
 components/shift_register/work/
+iterative_multiplier/res/work/
+iterative_multiplier/bm_sel/work/
+iterative_multiplier/m_sel/work/
 
 # Object files
 *.o

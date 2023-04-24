@@ -160,8 +160,8 @@ architecture struct of res_datapath is
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, accr_out, s2_out, accr_in);
 	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, res_out, res_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
-	MUX_INT:	mux2N generic map(2*N) port map(selINT, int_out, rs_out, int_in);
-	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, int2_out, rs_out, int2_in);
+	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros32, rs_out, int_in);
+	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros32, rs_out, int2_in);
 	
 		-- ADDERS
 	--8 bit: S1 = BM + INT(31,24)

@@ -1,5 +1,5 @@
 
--- bmsel.vhdl
+-- basic_mult.vhdl
 
 
 ----------------------------------------------------------------------
@@ -7,8 +7,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package bmsel_package is
-	component bmsel is
+package basic_mult_package is
+	component basic_mult is
 		generic(
 			M 	: integer := 4);
 		port(
@@ -26,7 +26,7 @@ package bmsel_package is
 			READY:				out std_logic
 		);
 	end component;
-end bmsel_package;
+end basic_mult_package;
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -34,10 +34,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.bmsel_datapath_package.all;
-use work.bmsel_ctrlunit_package.all;
+use work.basic_mult_datapath_package.all;
+use work.basic_mult_ctrlunit_package.all;
 
-entity bmsel is
+entity basic_mult is
 	generic(
 		Q 	: integer := 2;
 		M 	: integer := 4);
@@ -59,7 +59,7 @@ entity bmsel is
 end entity;
 
 
-architecture struct of bmsel is
+architecture struct of basic_mult is
 	
 		-- control signals to datapath
 	signal selOPA:				std_logic;
@@ -90,7 +90,7 @@ architecture struct of bmsel is
 	signal ADV_BM:				std_logic;	
 	
 	begin
-	CTRL: bmsel_ctrlunit 
+	CTRL: basic_mult_ctrlunit 
 		port map(CLK, RST, DATAIN, DATAOUT, READY,
 			selOPA,
 			selOPB,
@@ -118,7 +118,7 @@ architecture struct of bmsel is
 			ADV_BM
 		);
 		
-	DP:	bmsel_datapath 
+	DP:	basic_mult_datapath 
 		port map(CLK, RST, RA_BM, RB_BM, ROUT_BM,
 			selOPA,
 			selOPB,

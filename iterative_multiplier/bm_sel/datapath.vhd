@@ -6,8 +6,8 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-package bmsel_datapath_package is
-    component bmsel_datapath is
+package basic_mult_datapath_package is
+    component basic_mult_datapath is
 		generic(
 			Q 	: integer := 2;
 			M 	: integer := 4);
@@ -46,7 +46,7 @@ package bmsel_datapath_package is
 			ADV_BM:				out std_logic
 			);
 	end component;
-end bmsel_datapath_package;
+end basic_mult_datapath_package;
 ----------------------------------------------------------------------
 
 
@@ -56,7 +56,7 @@ use ieee.numeric_std.all;
 use work.components_package.all;
 
 	-- interface
-entity bmsel_datapath is
+entity basic_mult_datapath is
 	generic(
 		Q 	: integer := 2;
 		M 	: integer := 4);
@@ -96,7 +96,7 @@ entity bmsel_datapath is
 		);
 end entity;
 
-architecture struct of bmsel_datapath is
+architecture struct of basic_mult_datapath is
 	
 		-- signals
 	signal adv_in:						std_logic;

@@ -7,8 +7,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package bmsel_ctrlunit_package is
-	component bmsel_ctrlunit is
+package basic_mult_ctrlunit_package is
+	component basic_mult_ctrlunit is
 		generic(
 			Q 	: integer := 2;
 			M 	: integer := 4);
@@ -49,7 +49,7 @@ package bmsel_ctrlunit_package is
 			ADV_BM:				in std_logic				
 			);
 	end component;
-end bmsel_ctrlunit_package;
+end basic_mult_ctrlunit_package;
 ----------------------------------------------------------------------
 
 -- libraries
@@ -58,7 +58,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-entity bmsel_ctrlunit is
+entity basic_mult_ctrlunit is
 	generic(
 		Q 	: integer := 2;
 		M 	: integer := 4);
@@ -98,10 +98,10 @@ entity bmsel_ctrlunit is
 		CNT_BM:				in std_logic_vector(Q downto 0);
 		ADV_BM:				in std_logic				
 		);
-end bmsel_ctrlunit;
+end basic_mult_ctrlunit;
 
 
-architecture behavior of bmsel_ctrlunit is
+architecture behavior of basic_mult_ctrlunit is
 
 	type statetype is (INIT_BM, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 

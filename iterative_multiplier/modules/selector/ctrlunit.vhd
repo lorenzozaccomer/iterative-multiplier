@@ -9,8 +9,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package msel_ctrlunit_package is
-	component msel_ctrlunit is
+package selector_ctrlunit_package is
+	component selector_ctrlunit is
 		generic(
 			N	: integer := 16;
 			M	: integer := 4
@@ -41,14 +41,14 @@ package msel_ctrlunit_package is
 			INC_M:			in std_logic_vector(M downto 0)
 		);
 	end component;
-end msel_ctrlunit_package;
+end selector_ctrlunit_package;
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-entity msel_ctrlunit is
+entity selector_ctrlunit is
 	generic(
 		N	: integer := 16;
 		M	: integer := 4
@@ -81,7 +81,7 @@ entity msel_ctrlunit is
 end entity;
 
 
-architecture behavior of msel_ctrlunit is
+architecture behavior of selector_ctrlunit is
 
 
 	type statetype is (INIT_M, SAVE_OPS, WAIT_M, SHIFT_AM, NEW_PRODUCT,

@@ -62,7 +62,7 @@ architecture behavior of tb is
 										   -- );
 	
 		-- DUT declaration
-	component msel is
+	component selector is
 		generic(
 			N	: integer := 16;
 			M	: integer := 4
@@ -89,7 +89,7 @@ architecture behavior of tb is
 	end component;
 	
 	begin
-	DUT: msel
+	DUT: selector
 		port map(CLK, RST,
 			A_M,
 			B_M,
@@ -106,7 +106,7 @@ architecture behavior of tb is
 	-- read from datafile
 	read_file_process: process(CLK)
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\m_sel\inputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\modules\selector\inputdata.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);

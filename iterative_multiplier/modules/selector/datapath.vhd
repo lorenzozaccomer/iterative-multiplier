@@ -1,15 +1,15 @@
 
 -- datapath.vhd
 
--- for multilplier select
+-- for multilplier selector
 
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package msel_datapath_package is
-	component msel_datapath is
+package selector_datapath_package is
+	component selector_datapath is
 		generic(
 			N	: integer := 16;
 			M	: integer := 4
@@ -38,17 +38,17 @@ package msel_datapath_package is
 			INC_M:			out std_logic_vector(M downto 0)
 		);
 	end component;
-end msel_datapath_package;
+end selector_datapath_package;
 ----------------------------------------------------------------------
 
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.msel_components_package.all;
+use work.selector_components_package.all;
 
 	-- interface
-entity msel_datapath is
+entity selector_datapath is
 	generic(
 		N	: integer := 16;
 		M	: integer := 4
@@ -78,7 +78,7 @@ entity msel_datapath is
 	);
 end entity;
 
-architecture struct of msel_datapath is
+architecture struct of selector_datapath is
 
 	-- signals
 	signal a_bm_in, a_bm_out:			std_logic_vector(M-1 downto 0);

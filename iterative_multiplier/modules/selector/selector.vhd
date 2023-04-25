@@ -1,5 +1,5 @@
 
--- msel.vhdl
+-- selector.vhdl
 
 
 ----------------------------------------------------------------------
@@ -7,8 +7,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package msel_package is
-	component msel is
+package selector_package is
+	component selector is
 		generic(
 			N	: integer := 16;
 			M	: integer := 4
@@ -31,7 +31,7 @@ package msel_package is
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
 	end component;
-end msel_package;
+end selector_package;
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -39,10 +39,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.msel_datapath_package.all;
-use work.msel_ctrlunit_package.all;
+use work.selector_datapath_package.all;
+use work.selector_ctrlunit_package.all;
 
-entity msel is
+entity selector is
 	generic(
 		N	: integer := 16;
 		M	: integer := 4
@@ -66,7 +66,7 @@ entity msel is
 	);
 end entity;
 
-architecture struct of msel is
+architecture struct of selector is
 
 			-- control signal to datapath
 	signal selAM:			std_logic;
@@ -84,7 +84,7 @@ architecture struct of msel is
 	signal INC_M:			std_logic_vector(M downto 0);
 	
 	begin
-	CTRL: msel_ctrlunit 
+	CTRL: selector_ctrlunit 
 		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, DATAOUT, READY,
 			selAM,
 			selBM,
@@ -99,7 +99,7 @@ architecture struct of msel is
 			INC_M
 		);
 		
-	DP: msel_datapath 
+	DP: selector_datapath 
 		port map(CLK, RST, A_M, B_M, A_BM, B_BM,
 			selAM,
 			selBM,

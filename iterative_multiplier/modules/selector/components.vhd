@@ -4,7 +4,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-package msel_components_package is
+package selector_components_package is
 
 
 	component regN is
@@ -59,7 +59,7 @@ package msel_components_package is
 	end component;
 	
 			
-end msel_components_package;
+end selector_components_package;
 ----------------------------------------------------------------------
 
 

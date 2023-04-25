@@ -38,6 +38,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.it_mult16_components_package.all;
+use work.resolver_components_package.all;
 
 	-- interface
 entity it_mult16_datapath is

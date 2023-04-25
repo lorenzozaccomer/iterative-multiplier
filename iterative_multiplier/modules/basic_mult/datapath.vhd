@@ -53,7 +53,7 @@ end basic_mult_datapath_package;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.components_package.all;
+use work.basic_mult_components_package.all;
 
 	-- interface
 entity basic_mult_datapath is

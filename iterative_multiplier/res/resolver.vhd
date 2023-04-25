@@ -38,8 +38,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.res_datapath_package.all;
-use work.res_ctrlunit_package.all;
+use work.resolver_datapath_package.all;
+use work.resolver_ctrlunit_package.all;
 
 entity resolver is
 	generic(
@@ -93,7 +93,7 @@ architecture struct of resolver is
 	signal N_SHIFT:		std_logic_vector(1 downto 0);
 	
 	begin
-	CTRL: res_ctrlunit 
+	CTRL: resolver_ctrlunit 
 		port map(CLK, RST, DATAIN, NW_PRD, ADV_AM, DATAOUT, READY,
 			loadNSHIFT,
 			selNSHIFT,
@@ -121,7 +121,7 @@ architecture struct of resolver is
 			N_SHIFT
 		);
 		
-	DP: res_datapath 
+	DP: resolver_datapath 
 		port map(CLK, RST, OUT_BM, RESULT,
 			loadNSHIFT,
 			selNSHIFT,

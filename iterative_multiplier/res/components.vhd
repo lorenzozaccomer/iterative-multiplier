@@ -8,7 +8,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-package res_components_package is
+package resolver_components_package is
 	component regN is
 		generic(N 	: integer := 4);
 		port(
@@ -58,7 +58,7 @@ package res_components_package is
 		Y:		out std_logic_vector(N-1 downto 0)
 		);
 	end component;
-end res_components_package;
+end resolver_components_package;
 ----------------------------------------------------------------------
 
 

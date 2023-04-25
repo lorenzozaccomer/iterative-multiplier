@@ -8,8 +8,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package res_ctrlunit_package is
-	component res_ctrlunit is
+package resolver_ctrlunit_package is
+	component resolver_ctrlunit is
 		generic(
 			N	: integer := 16;
 			M	: integer := 8;
@@ -52,14 +52,14 @@ package res_ctrlunit_package is
 			N_SHIFT:		in std_logic_vector(1 downto 0)
 		);
 	end component;
-end res_ctrlunit_package;
+end resolver_ctrlunit_package;
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-entity res_ctrlunit is
+entity resolver_ctrlunit is
 	generic(
 		N	: integer := 16;
 		M	: integer := 8;
@@ -106,7 +106,7 @@ end entity;
 
 
 
-architecture behavior of res_ctrlunit is
+architecture behavior of resolver_ctrlunit is
 
 
 	type statetype is (INIT, START, LOAD_DATA, SHIFT1, SUM1, ACC1, UP_ADV_AM,

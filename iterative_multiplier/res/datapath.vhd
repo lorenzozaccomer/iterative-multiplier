@@ -8,8 +8,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package res_datapath_package is
-	component res_datapath is
+package resolver_datapath_package is
+	component resolver_datapath is
 		generic(
 			N	: integer := 16;
 			M	: integer := 8;
@@ -50,17 +50,17 @@ package res_datapath_package is
 			N_SHIFT:		out std_logic_vector(1 downto 0)
 		);
 	end component;
-end res_datapath_package;
+end resolver_datapath_package;
 ----------------------------------------------------------------------
 
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.res_components_package.all;
+use work.resolver_components_package.all;
 
 	-- interface
-entity res_datapath is
+entity resolver_datapath is
 	generic(
 		N	: integer := 16;
 		M	: integer := 8;
@@ -102,7 +102,7 @@ entity res_datapath is
 end entity;
 
 
-architecture struct of res_datapath is
+architecture struct of resolver_datapath is
 
 	-- signals
 	

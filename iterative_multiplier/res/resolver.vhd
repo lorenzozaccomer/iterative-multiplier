@@ -8,8 +8,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package res_package is
-	component res is
+package resolver_package is
+	component resolver is
 		generic(
 			N	: integer := 16;
 			M	: integer := 8;
@@ -30,7 +30,7 @@ package res_package is
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
 	end component;
-end res_package;
+end resolver_package;
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ use ieee.numeric_std.all;
 use work.res_datapath_package.all;
 use work.res_ctrlunit_package.all;
 
-entity res is
+entity resolver is
 	generic(
 		N	: integer := 16;
 		M	: integer := 8;
@@ -63,7 +63,7 @@ entity res is
 	);
 end entity;
 
-architecture struct of res is
+architecture struct of resolver is
 
 		-- control signal to datapath
 	signal loadNSHIFT:		 std_logic;

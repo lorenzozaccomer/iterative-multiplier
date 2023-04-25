@@ -49,7 +49,7 @@ architecture behavior of tb is
 	
 	type seq_array is array (natural range <>) of std_logic_vector(1 downto 0);
 	
-	component res is
+	component resolver is
 	generic(
 		N	: integer := 16;
 		M	: integer := 8;
@@ -72,7 +72,7 @@ architecture behavior of tb is
 	end component;
 	
 	begin
-	DUT: res
+	DUT: resolver
 		port map(CLK, RST,
 			OUT_BM,
 			RESULT,

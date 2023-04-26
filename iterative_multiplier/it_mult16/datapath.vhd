@@ -29,20 +29,20 @@ package it_mult16_datapath_package is
 			selA:			in std_logic;
 			loadB:			in std_logic;
 			selB:			in std_logic;
-			sel_EN1:		in std_logic;
-			load_EN1:		in std_logic;
-			sel_OPA:		in std_logic;
-			load_OPA:		in std_logic;
-			sel_OPB:		in std_logic;
-			load_OPB:		in std_logic;
-			sel_EN2:		in std_logic;
-			load_EN2:		in std_logic;
-			sel_OUTBM:		in std_logic;
-			load_OUTBM:		in std_logic;
-			sel_EN3:		in std_logic;
-			load_EN3:		in std_logic;
-			sel_OUT16:		in std_logic;
-			load_OUT16:		in std_logic;
+			selEN1:			in std_logic;
+			loadEN1:		in std_logic;
+			selOPA:			in std_logic;
+			loadOPA:		in std_logic;
+			selOPB:			in std_logic;
+			loadOPB:		in std_logic;
+			selEN2:			in std_logic;
+			loadEN2:		in std_logic;
+			selOUTBM:		in std_logic;
+			loadOUTBM:		in std_logic;
+			selEN3:			in std_logic;
+			loadEN3:		in std_logic;
+			selOUT16:		in std_logic;
+			loadOUT16:		in std_logic;
 				-- status signals from datapath
 			ADV_BM:			out std_logic_vector(1 downto 0);
 			DATAOUT_SEL:	out std_logic;
@@ -84,20 +84,20 @@ entity it_mult16_datapath is
 		selA:			in std_logic;
 		loadB:			in std_logic;
 		selB:			in std_logic;
-		sel_EN1:		in std_logic;
-		load_EN1:		in std_logic;
-		sel_OPA:		in std_logic;
-		load_OPA:		in std_logic;
-		sel_OPB:		in std_logic;
-		load_OPB:		in std_logic;
-		sel_EN2:		in std_logic;
-		load_EN2:		in std_logic;
-		sel_OUTBM:		in std_logic;
-		load_OUTBM:		in std_logic;
-		sel_EN3:		in std_logic;
-		load_EN3:		in std_logic;
-		sel_OUT16:		in std_logic;
-		load_OUT16:		in std_logic;
+		selEN1:			in std_logic;
+		loadEN1:		in std_logic;
+		selOPA:			in std_logic;
+		loadOPA:		in std_logic;
+		selOPB:			in std_logic;
+		loadOPB:		in std_logic;
+		selEN2:			in std_logic;
+		loadEN2:		in std_logic;
+		selOUTBM:		in std_logic;
+		loadOUTBM:		in std_logic;
+		selEN3:			in std_logic;
+		loadEN3:		in std_logic;
+		selOUT16:		in std_logic;
+		loadOUT16:		in std_logic;
 			-- status signals from datapath
 		ADV_BM:			out std_logic_vector(1 downto 0);
 		DATAOUT_SEL:	out std_logic;
@@ -132,6 +132,8 @@ architecture struct of it_mult16_datapath is
 		-- MUXS
 	MUX_A:		mux2N generic map(M) port map(selA, A, a_out, a_in);
 	MUX_B:		mux2N generic map(M) port map(selB, B, b_out, b_in);
+	MUX_A_M:	mux2N generic map(M) port map(selA, A, a_out, a_in);
+	MUX_B_M:	mux2N generic map(M) port map(selB, B, b_out, b_in);
 	MUX_BM:		mux2N generic map(M) port map(selRESULT, accr_out, result_out, result_in);
 	
 		-- ADDERS

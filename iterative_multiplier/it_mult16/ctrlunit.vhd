@@ -27,18 +27,18 @@ package it_mult16_ctrlunit_package is
 			selA:			out std_logic;
 			loadB:			out std_logic;
 			selB:			out std_logic;
-			sel_SEL:		out std_logic;
-			load_SEL:		out std_logic;
+			sel_EN1:		out std_logic;
+			load_EN1:		out std_logic;
 			sel_OPA:		out std_logic;
 			load_OPA:		out std_logic;
 			sel_OPB:		out std_logic;
 			load_OPB:		out std_logic;
-			sel_BM:			out std_logic;
-			load_BM:		out std_logic;
+			sel_EN2:			out std_logic;
+			load_EN2:		out std_logic;
 			sel_OUTBM:		out std_logic;
 			load_OUTBM:		out std_logic;
-			sel_RES:		out std_logic;
-			load_RES:		out std_logic;
+			sel_EN3:		out std_logic;
+			load_EN3:		out std_logic;
 			sel_OUT16:		out std_logic;
 			load_OUT16:		out std_logic;
 				-- status signals from datapath
@@ -72,18 +72,18 @@ entity it_mult16_ctrlunit is
 			selA:			out std_logic;
 			loadB:			out std_logic;
 			selB:			out std_logic;
-			sel_SEL:		out std_logic;
-			load_SEL:		out std_logic;
+			sel_EN1:		out std_logic;
+			load_EN1:		out std_logic;
 			sel_OPA:		out std_logic;
 			load_OPA:		out std_logic;
 			sel_OPB:		out std_logic;
 			load_OPB:		out std_logic;
-			sel_BM:			out std_logic;
-			load_BM:		out std_logic;
+			sel_EN2:			out std_logic;
+			load_EN2:		out std_logic;
 			sel_OUTBM:		out std_logic;
 			load_OUTBM:		out std_logic;
-			sel_RES:		out std_logic;
-			load_RES:		out std_logic;
+			sel_EN3:		out std_logic;
+			load_EN3:		out std_logic;
 			sel_OUT16:		out std_logic;
 			load_OUT16:		out std_logic;
 				-- status signals from datapath
@@ -187,9 +187,9 @@ architecture behavior of it_mult16_ctrlunit is
 						'0';
 					
 			-- SELECTOR
-		sel_SEL		<=  '1' when state=ENABLE_SEL else
+		sel_EN1		<=  '1' when state=ENABLE_SEL else
 					'0';
-		load_SEL	<=	'1' when state=ENABLE_SEL else
+		load_EN1	<=	'1' when state=ENABLE_SEL else
 					'0';
 		sel_OPA		<=	'1' when state=SAVE_OPS_BM else
 						'0';
@@ -201,9 +201,9 @@ architecture behavior of it_mult16_ctrlunit is
 						'0';
 		
 			-- BASIC_MULT
-		sel_BM		<=  '1' when state=ENABLE_BM else
+		sel_EN2		<=  '1' when state=ENABLE_BM else
 						'0';
-		load_BM		<=	'1' when state=ENABLE_BM else
+		load_EN2	<=	'1' when state=ENABLE_BM else
 						'0';
 		sel_OUTBM	<=  '1' when state=SAVE_OP_RES else
 						'0';
@@ -211,9 +211,9 @@ architecture behavior of it_mult16_ctrlunit is
 						'0';
 						
 			-- RESOLVER
-		sel_RES		<=  '1' when state=ENABLE_RES else
+		sel_EN3		<=  '1' when state=ENABLE_RES else
 						'0';
-		load_RES		<=	'1' when state=ENABLE_RES else
+		load_EN3	<=	'1' when state=ENABLE_RES else
 						'0';
 		
 			-- SAVE OUT

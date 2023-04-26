@@ -33,7 +33,7 @@ package it_mult16_ctrlunit_package is
 			load_OPA:		out std_logic;
 			sel_OPB:		out std_logic;
 			load_OPB:		out std_logic;
-			sel_EN2:			out std_logic;
+			sel_EN2:		out std_logic;
 			load_EN2:		out std_logic;
 			sel_OUTBM:		out std_logic;
 			load_OUTBM:		out std_logic;
@@ -42,6 +42,7 @@ package it_mult16_ctrlunit_package is
 			sel_OUT16:		out std_logic;
 			load_OUT16:		out std_logic;
 				-- status signals from datapath
+			ADV_BM:			in std_logic_vector(1 downto 0);
 			DATAOUT_SEL:	in std_logic;
 			DATAOUT_BM:		in std_logic;
 			DATAOUT_RES:	in std_logic
@@ -78,7 +79,7 @@ entity it_mult16_ctrlunit is
 			load_OPA:		out std_logic;
 			sel_OPB:		out std_logic;
 			load_OPB:		out std_logic;
-			sel_EN2:			out std_logic;
+			sel_EN2:		out std_logic;
 			load_EN2:		out std_logic;
 			sel_OUTBM:		out std_logic;
 			load_OUTBM:		out std_logic;

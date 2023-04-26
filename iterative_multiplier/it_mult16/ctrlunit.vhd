@@ -27,20 +27,20 @@ package it_mult16_ctrlunit_package is
 			selA:			out std_logic;
 			loadB:			out std_logic;
 			selB:			out std_logic;
-			sel_EN1:		out std_logic;
-			load_EN1:		out std_logic;
-			sel_OPA:		out std_logic;
-			load_OPA:		out std_logic;
-			sel_OPB:		out std_logic;
-			load_OPB:		out std_logic;
-			sel_EN2:		out std_logic;
-			load_EN2:		out std_logic;
-			sel_OUTBM:		out std_logic;
-			load_OUTBM:		out std_logic;
-			sel_EN3:		out std_logic;
-			load_EN3:		out std_logic;
-			sel_OUT16:		out std_logic;
-			load_OUT16:		out std_logic;
+			selEN1:			out std_logic;
+			loadEN1:		out std_logic;
+			selOPA:			out std_logic;
+			loadOPA:		out std_logic;
+			selOPB:			out std_logic;
+			loadOPB:		out std_logic;
+			selEN2:			out std_logic;
+			loadEN2:		out std_logic;
+			selOUTBM:		out std_logic;
+			loadOUTBM:		out std_logic;
+			selEN3:			out std_logic;
+			loadEN3:		out std_logic;
+			selOUT16:		out std_logic;
+			loadOUT16:		out std_logic;
 				-- status signals from datapath
 			ADV_BM:			in std_logic_vector(1 downto 0);
 			DATAOUT_SEL:	in std_logic;
@@ -73,20 +73,20 @@ entity it_mult16_ctrlunit is
 			selA:			out std_logic;
 			loadB:			out std_logic;
 			selB:			out std_logic;
-			sel_EN1:		out std_logic;
-			load_EN1:		out std_logic;
-			sel_OPA:		out std_logic;
-			load_OPA:		out std_logic;
-			sel_OPB:		out std_logic;
-			load_OPB:		out std_logic;
-			sel_EN2:		out std_logic;
-			load_EN2:		out std_logic;
-			sel_OUTBM:		out std_logic;
-			load_OUTBM:		out std_logic;
-			sel_EN3:		out std_logic;
-			load_EN3:		out std_logic;
-			sel_OUT16:		out std_logic;
-			load_OUT16:		out std_logic;
+			selEN1:			out std_logic;
+			loadEN1:		out std_logic;
+			selOPA:			out std_logic;
+			loadOPA:		out std_logic;
+			selOPB:			out std_logic;
+			loadOPB:		out std_logic;
+			selEN2:			out std_logic;
+			loadEN2:		out std_logic;
+			selOUTBM:		out std_logic;
+			loadOUTBM:		out std_logic;
+			selEN3:			out std_logic;
+			loadEN3:		out std_logic;
+			selOUT16:		out std_logic;
+			loadOUT16:		out std_logic;
 				-- status signals from datapath
 			ADV_BM:			in std_logic_vector(1 downto 0);
 			DATAOUT_SEL:	in std_logic;
@@ -188,39 +188,39 @@ architecture behavior of it_mult16_ctrlunit is
 						'0';
 					
 			-- SELECTOR
-		sel_EN1		<=  '1' when state=ENABLE_SEL else
-					'0';
-		load_EN1	<=	'1' when state=ENABLE_SEL else
-					'0';
-		sel_OPA		<=	'1' when state=SAVE_OPS_BM else
+		selEN1		<=  '1' when state=ENABLE_SEL else
 						'0';
-		load_OPA	<=	'1' when state=SAVE_OPS_BM else
+		loadEN1		<=	'1' when state=ENABLE_SEL else
 						'0';
-		sel_OPB		<=	'1' when state=SAVE_OPS_BM else
+		selOPA		<=	'1' when state=SAVE_OPS_BM else
 						'0';
-		load_OPB	<=	'1' when state=SAVE_OPS_BM else
+		loadOPA		<=	'1' when state=SAVE_OPS_BM else
+						'0';
+		selOPB		<=	'1' when state=SAVE_OPS_BM else
+						'0';
+		loadOPB		<=	'1' when state=SAVE_OPS_BM else
 						'0';
 		
 			-- BASIC_MULT
-		sel_EN2		<=  '1' when state=ENABLE_BM else
+		selEN2		<=  '1' when state=ENABLE_BM else
 						'0';
-		load_EN2	<=	'1' when state=ENABLE_BM else
+		loadEN2		<=	'1' when state=ENABLE_BM else
 						'0';
-		sel_OUTBM	<=  '1' when state=SAVE_OP_RES else
+		selOUTBM	<=  '1' when state=SAVE_OP_RES else
 						'0';
-		load_OUTBM	<=	'1' when state=SAVE_OP_RES else
+		loadOUTBM	<=	'1' when state=SAVE_OP_RES else
 						'0';
 						
 			-- RESOLVER
-		sel_EN3		<=  '1' when state=ENABLE_RES else
+		selEN3		<=  '1' when state=ENABLE_RES else
 						'0';
-		load_EN3	<=	'1' when state=ENABLE_RES else
+		loadEN3		<=	'1' when state=ENABLE_RES else
 						'0';
 		
 			-- SAVE OUT
-		sel_OUT16	<=  '1' when state=SAVE_OUT else
+		selOUT16	<=  '1' when state=SAVE_OUT else
 						'0';
-		load_OUT16	<=	'1' when state=SAVE_OUT else
+		loadOUT16	<=	'1' when state=SAVE_OUT else
 						'0';
 		
 		--

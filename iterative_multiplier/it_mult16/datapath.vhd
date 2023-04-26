@@ -75,8 +75,8 @@ entity it_mult16_datapath is
 		CLK:			in std_logic;
 		RST:			in std_logic;
 			-- data inputs
-		A_M:			in std_logic_vector(N-1 downto 0);
-		B_M:			in std_logic_vector(N-1 downto 0);
+		A:				in std_logic_vector(N-1 downto 0);
+		B:				in std_logic_vector(N-1 downto 0);
 			-- data outputs
 		OUT_MULT16:		out std_logic_vector(2*N-1 downto 0);
 			-- control signal to datapath
@@ -111,30 +111,32 @@ end entity;
 architecture struct of it_mult16_datapath is
 
 	-- signals	
-	signal datain, nw_prd:					std_logic;
+	signal new_product:						std_logic;
+	signal datain1, datain2, datain3:		std_logic;
 	signal dataout1, dataout2, dataout3:	std_logic;
+	signal ready_sel, data_bm, ready_res:	std_logic;
+	signal advance_bm:						std_logic_vector(1 downto 0);
 	
 	signal am_in, am_out:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	signal bm_in, bm_out:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	
 	signal a_in, a_out:						std_logic_vector(N-1 downto 0) := (others=>'0');
 	signal b_in, b_out:						std_logic_vector(N-1 downto 0) := (others=>'0');
-	signal result_in, result_out:			std_logic_vector(2*N-1 downto 0) := (others=>'0');
-	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0) := (others=>'0');
+	signal out16_in, out_16_out:			std_logic_vector(2*N-1 downto 0) := (others=>'0');
+	signal result_out:						std_logic_vector(2*N-1 downto 0) := (others=>'0');
 	
 				
 	begin
 		-- REGISTERS
 	REG_A:		regN generic map(N) port map(CLK, RST, loadA, a_in, a_out);
 	REG_B:		regN generic map(N) port map(CLK, RST, loadB, b_in, b_out);
-	REG_RESULT:	regN generic map(N) port map(CLK, RST, loadRESULT, result_in, result_out);
+	REG_RESULT:	regN generic map(N) port map(CLK, RST, loadOUT16, out16_in, out_16_out);
 	
 		-- MUXS
 	MUX_A:		mux2N generic map(M) port map(selA, A, a_out, a_in);
 	MUX_B:		mux2N generic map(M) port map(selB, B, b_out, b_in);
 	MUX_A_M:	mux2N generic map(M) port map(selA, A, a_out, a_in);
 	MUX_B_M:	mux2N generic map(M) port map(selB, B, b_out, b_in);
-	MUX_BM:		mux2N generic map(M) port map(selRESULT, accr_out, result_out, result_in);
 	
 		-- ADDERS
 		
@@ -143,7 +145,7 @@ architecture struct of it_mult16_datapath is
 	--COSTUM MODULES
 	
 		-- SELECTOR
-	SEL1: selector port map(CLK, RST, a_out, b_out, am_out, bm_out, datain, nw_prd, adv_am, dataout_sel, ready_sel);
+	SEL1: selector port map(CLK, RST, a_out, b_out, am_out, bm_out, datain1, advance_bm, new_product, dataout1, ready_sel);
 		
 		-- BASIC_MULT
 	-- BM1: basic_mult port map(CLK, RST, a_out, b_out, am_out, bm_out, datain, nw_prd, adv_am, dataout_sel, ready_sel);		
@@ -154,10 +156,11 @@ architecture struct of it_mult16_datapath is
 		-- status signals
 
 		-- data outputs
+	ADV_BM		<= advance_bm;
 	DATAOUT_SEL <= dataout1;
 	DATAOUT_BM 	<= dataout2;
 	DATAOUT_RES <= dataout3;
 	
-	OUT_MULT16 <= result_out;
+	OUT_MULT16 	<= result_out;
 	
 end struct;

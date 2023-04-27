@@ -120,7 +120,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate when rising_edge(CLK);
 				
 				
-	process(state, DATAIN, NW_PRD)
+	process(state, DATAIN, NW_PRD, P_SHIFT, N_SHIFT)
 	begin
 		case state is
 			when INIT =>

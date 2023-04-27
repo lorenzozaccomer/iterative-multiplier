@@ -124,11 +124,11 @@ architecture struct of resolver_datapath is
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
 	
-	signal zeros8:						std_logic_vector(M-1 downto 0):= (others=>'0');
-	signal zeros12:						std_logic_vector(M+P-1 downto 0):= (others=>'0');
-	signal zeros20:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
-	signal zeros24:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
-	signal zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
+	constant zeros8:						std_logic_vector(M-1 downto 0):= (others=>'0');
+	constant zeros12:						std_logic_vector(M+P-1 downto 0):= (others=>'0');
+	constant zeros20:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
+	constant zeros24:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
+	constant zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
 	
 	
 				

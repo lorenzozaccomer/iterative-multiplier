@@ -180,12 +180,12 @@ architecture behavior of it_mult16_ctrlunit is
 		-- OUTPUTS
 		loadA		<=  '1' when state=LOAD_OPS else
 						'0';
-		selA		<=	'1' when state=LOAD_OPS else
-						'0';
+		selA		<=	'0' when state=LOAD_OPS else
+						'1';
 		loadB		<=  '1' when state=LOAD_OPS else
 						'0';
-		selB		<=	'1' when state=LOAD_OPS else
-						'0';
+		selB		<=	'0' when state=LOAD_OPS else
+						'1';
 					
 			-- SELECTOR
 		selEN1		<=  '1' when state=ENABLE_SEL else

@@ -84,7 +84,7 @@ end entity;
 architecture behavior of selector_ctrlunit is
 
 
-	type statetype is (INIT_M, SAVE_OPS, WAIT_M, SHIFT_AM, NEW_PRODUCT,
+	type statetype is (INIT_M, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
 						INC, SAVE_OPS_BM, OUTDATA_BM, WAITSELS);
 	signal state, nextstate : statetype;
 	
@@ -93,7 +93,7 @@ architecture behavior of selector_ctrlunit is
 			state <= INIT_M when RST='1' else
 				nextstate when rising_edge(CLK);
 				
-	process(state, DATAIN, ADV_AM)
+	process(state, DATAIN, ADV_AM, INC_M)
 	begin
 		case state is
 			when INIT_M =>

@@ -10,6 +10,17 @@ use ieee.std_logic_1164.all;
 
 
 package it_mult16_components_package is
+
+	component reg is
+		port(
+		CLK:	in std_logic;
+		RST:	in std_logic;
+		LOAD:	in std_logic;
+		D : 	in std_logic;
+		Q : 	out std_logic
+		);
+	end component;
+	
 	component regN is
 		generic(N 	: integer := 4);
 		port(
@@ -248,6 +259,39 @@ begin
              I2 when "10",
              I3 when others;
 end behavior;
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.constants_components_package.all;
+
+
+entity reg is
+	port(
+		CLK:	in std_logic;
+		RST:	in std_logic;
+		LOAD:	in std_logic;
+		D : 	in std_logic;
+		Q : 	out std_logic
+	);
+end reg;
+
+architecture behavior of reg is
+	begin
+	process(CLK, RST)
+	begin
+		if(RST = '1') then
+			Q <= '0';
+		elsif rising_edge(CLK) and LOAD='1' then
+			Q <= D;
+		end if;
+	end process;
+end behavior;
+
+
 ----------------------------------------------------------------------
 
 

@@ -112,11 +112,13 @@ architecture struct of it_mult16_datapath is
 
 	-- signals	
 	signal new_product:						std_logic;
+	signal enable1, enable2, enable3:		std_logic;
 	signal datain1, datain2, datain3:		std_logic;
 	signal dataout1, dataout2, dataout3:	std_logic;
 	signal ready_sel, data_bm, ready_res:	std_logic;
 	signal advance_bm:						std_logic_vector(1 downto 0);
 	
+	signal a_sel, b_sel:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	signal a4_in, a4_out:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	signal b4_in, b4_out:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	
@@ -127,12 +129,14 @@ architecture struct of it_mult16_datapath is
 	
 	constant zero:							std_logic := '0';
 	constant one:							std_logic := '1';
+	
+	constant zeros4:						std_logic_vector(P-1 downto 0) := (others=>'0');
 				
 	begin
 		-- REGISTERS
-	-- REG_SEL1:	regN generic map(1) port map(CLK, RST, loadEN1, a4_in, a4_out);
-	-- REG_BM1:	regN generic map(1) port map(CLK, RST, loadA, a4_in, a4_out);
-	-- REG_RES1:	regN generic map(1) port map(CLK, RST, loadA, a4_in, a4_out);
+	REG_EN1:	reg port map(CLK, RST, loadEN1, enable1, datain1);
+	REG_EN2:	reg port map(CLK, RST, loadEN2, enable2, datain2);
+	REG_EN3:	reg port map(CLK, RST, loadEN3, enable3, datain3);
 	
 	REG_A4:		regN generic map(P) port map(CLK, RST, loadA, a4_in, a4_out);
 	REG_B4:		regN generic map(P) port map(CLK, RST, loadB, b4_in, b4_out);
@@ -142,15 +146,15 @@ architecture struct of it_mult16_datapath is
 	REG_OUT16:	regN generic map(2*N) port map(CLK, RST, loadOUT16, out16_in, out_16_out);
 	
 		-- MUXS
-	MUX_EN1:	mux2 port map(selEN1, '0', '1', datain1);
-	MUX_EN2:	mux2 port map(selEN2, '0', '1', datain2);
-	MUX_EN3:	mux2 port map(selEN3, '0', '1', datain3);
+	MUX_EN1:	mux2 port map(selEN1, '0', '1', enable1);
+	MUX_EN2:	mux2 port map(selEN2, '0', '1', enable2);
+	MUX_EN3:	mux2 port map(selEN3, '0', '1', enable3);
 	
 	MUX_BM1:	mux2N generic map(1) port map(selA, A, a4_out, a4_in);
 	MUX_RES1:	mux2N generic map(1) port map(selA, A, a4_out, a4_in);
 	
-	MUX_A4:		mux2N generic map(P) port map(selA, A, a4_out, a4_in);
-	MUX_B4:		mux2N generic map(P) port map(selB, B, b4_out, b4_in);
+	MUX_A4:		mux2N generic map(P) port map(selOPA, a4_out, a_sel, a4_in);
+	MUX_B4:		mux2N generic map(P) port map(selOPB, b4_out, b_sel, b4_in);
 	
 	MUX_A16:	mux2N generic map(N) port map(selA, A, a16_out, a16_in);
 	MUX_B16:	mux2N generic map(N) port map(selB, B, b16_out, b16_in);
@@ -161,7 +165,7 @@ architecture struct of it_mult16_datapath is
 		
 	--COSTUM MODULES
 		-- SELECTOR
-	SEL1: selector port map(CLK, RST, a16_out, b16_out, a4_out, b4_out, datain1, advance_bm, new_product, dataout1, ready_sel);
+	SEL1: selector port map(CLK, RST, a16_out, b16_out, a_sel, b_sel, datain1, advance_bm, new_product, dataout1, ready_sel);
 		
 		-- BASIC_MULT
 	-- BM1: basic_mult port map(CLK, RST, a16_out, b16_out, a4_out, b4_out, datain, nw_prd, adv_am, dataout_sel, ready_sel);		

@@ -37,6 +37,16 @@ package it_mult16_components_package is
 		  );
 	end component;
 	
+	
+	component mux2 is
+		port (
+		sel: 	in std_logic;
+		I0: 	in std_logic;
+		I1: 	in std_logic;
+		Y:		out std_logic
+		);
+	end component;
+	
 	component mux2N is
 		generic(N 	: integer := 8);
 		port (
@@ -97,6 +107,32 @@ end entity;
 architecture behavior of adderNotCOut is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
+end behavior;
+----------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.constants_components_package.all;
+
+
+entity mux2 is
+	port (
+	sel: 	in std_logic;
+	I0: 	in std_logic;
+	I1: 	in std_logic;
+	Y:		out std_logic
+	);
+end mux2;
+
+architecture behavior of mux2 is
+begin
+	with sel select
+		Y <= 	I0 when '0', 
+				I1 when others;
 end behavior;
 ----------------------------------------------------------------------
 

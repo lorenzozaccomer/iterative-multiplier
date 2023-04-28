@@ -42,7 +42,7 @@ package resolver_datapath_package is
 			selOPT1:		in std_logic;
 			selOPT2:		in std_logic;
 			loadACCR:		in std_logic;
-			selACCR:		in std_logic;
+			selACCR:		in std_logic_vector(1 downto 0);
 			loadRESULT:		in std_logic;
 			selRESULT:		in std_logic;
 				-- status signals from datapath
@@ -92,7 +92,7 @@ entity resolver_datapath is
 		selOPT1:		in std_logic;
 		selOPT2:		in std_logic;
 		loadACCR:		in std_logic;
-		selACCR:		in std_logic;
+		selACCR:		in std_logic_vector(1 downto 0);
 		loadRESULT:		in std_logic;
 		selRESULT:		in std_logic;
 			-- status signals from datapath
@@ -129,6 +129,7 @@ architecture struct of resolver_datapath is
 	constant zeros20:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
 	constant zeros24:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
 	constant zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
+	constant nulls32:						std_logic_vector(2*N-1 downto 0):= (others=>'-');
 	
 	
 				
@@ -156,7 +157,7 @@ architecture struct of resolver_datapath is
 	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zeros20, s2_in(2*N-1 downto M+P));
 	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
 	MUX_OPT2:	mux2N generic map(M+P) port map(selOPT2, zeros12, accr_out(M+P-1 downto 0), s2_in(M+P-1 downto 0));
-	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, shift_accr, s2_out, accr_in);
+	MUX_ACCR:	mux4N generic map(2*N) port map(selACCR, shift_accr, s2_out, zeros32, nulls32, accr_in);
 	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros32, result_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
 	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros32, rs_out, int_in);

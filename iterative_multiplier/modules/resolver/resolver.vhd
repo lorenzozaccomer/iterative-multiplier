@@ -85,7 +85,7 @@ architecture struct of resolver is
 	signal selOPT1:			 std_logic;
 	signal selOPT2:			 std_logic;
 	signal loadACCR:		 std_logic;
-	signal selACCR:			 std_logic;
+	signal selACCR:			 std_logic_vector(1 downto 0);
 	signal loadRESULT:		 std_logic;
 	signal selRESULT:		 std_logic;
 				-- status signals from datapath

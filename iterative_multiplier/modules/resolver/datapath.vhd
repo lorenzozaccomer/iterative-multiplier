@@ -43,8 +43,8 @@ package resolver_datapath_package is
 			selOPT2:		in std_logic;
 			loadACCR:		in std_logic;
 			selACCR:		in std_logic;
-			loadRES:		in std_logic;
-			selRES:			in std_logic;
+			loadRESULT:		in std_logic;
+			selRESULT:		in std_logic;
 				-- status signals from datapath
 			P_SHIFT:		out std_logic_vector(1 downto 0);
 			N_SHIFT:		out std_logic_vector(1 downto 0)
@@ -93,8 +93,8 @@ entity resolver_datapath is
 		selOPT2:		in std_logic;
 		loadACCR:		in std_logic;
 		selACCR:		in std_logic;
-		loadRES:		in std_logic;
-		selRES:			in std_logic;
+		loadRESULT:		in std_logic;
+		selRESULT:		in std_logic;
 			-- status signals from datapath
 		P_SHIFT:		out std_logic_vector(1 downto 0);
 		N_SHIFT:		out std_logic_vector(1 downto 0)
@@ -115,7 +115,7 @@ architecture struct of resolver_datapath is
 	signal s1_in, s1_out:					std_logic_vector(2*N-1 downto 0) := (others=>'0');
 	signal s2_in, s2_out:					std_logic_vector(2*N-1 downto 0) := (others=>'0');
 	signal accr_in, accr_out:				std_logic_vector(2*N-1 downto 0) := (others=>'0');
-	signal res_in, res_out:					std_logic_vector(2*N-1 downto 0);
+	signal result_in, result_out:			std_logic_vector(2*N-1 downto 0);
 	signal int_in, int_out:					std_logic_vector(2*N-1 downto 0);
 	signal int2_in, int2_out:				std_logic_vector(2*N-1 downto 0);
 	
@@ -143,7 +143,7 @@ architecture struct of resolver_datapath is
 	REG_S1:		regN generic map(2*N) port map(CLK, RST, loadS1, s1_in, s1_out);
 	REG_S2:		regN generic map(2*N) port map(CLK, RST, loadS2, s2_in, s2_out);
 	REG_ACCR:	regN generic map(2*N) port map(CLK, RST, loadACCR, accr_in, accr_out);
-	REG_RES:	regN generic map(2*N) port map(CLK, RST, loadRES, res_in, res_out);
+	REG_RES:	regN generic map(2*N) port map(CLK, RST, loadRESULT, result_in, result_out);
 	REG_INT:	regN generic map(2*N) port map(CLK, RST, loadINT, int_in, int_out);
 	REG_INT2:	regN generic map(2*N) port map(CLK, RST, loadINT2, int2_in, int2_out);
 	
@@ -157,7 +157,7 @@ architecture struct of resolver_datapath is
 	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
 	MUX_OPT2:	mux2N generic map(M+P) port map(selOPT2, zeros12, accr_out(M+P-1 downto 0), s2_in(M+P-1 downto 0));
 	MUX_ACCR:	mux2N generic map(2*N) port map(selACCR, shift_accr, s2_out, accr_in);
-	MUX_RES:	mux2N generic map(2*N) port map(selRES, accr_out, zeros32, res_in);
+	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros32, result_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
 	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros32, rs_out, int_in);
 	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros32, rs_out, int2_in);
@@ -181,5 +181,5 @@ architecture struct of resolver_datapath is
 	N_SHIFT <= nshift_out;
 	
 		-- data outputs
-	RESULT <= res_out;
+	RESULT <= result_out;
 end struct;

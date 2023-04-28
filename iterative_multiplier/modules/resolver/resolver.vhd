@@ -86,8 +86,8 @@ architecture struct of resolver is
 	signal selOPT2:			 std_logic;
 	signal loadACCR:		 std_logic;
 	signal selACCR:			 std_logic;
-	signal loadRES:			 std_logic;
-	signal selRES:			 std_logic;
+	signal loadRESULT:		 std_logic;
+	signal selRESULT:		 std_logic;
 				-- status signals from datapath
 	signal P_SHIFT:		std_logic_vector(1 downto 0);
 	signal N_SHIFT:		std_logic_vector(1 downto 0);
@@ -115,8 +115,8 @@ architecture struct of resolver is
 			selOPT2,
 			loadACCR,
 			selACCR,
-			loadRES,
-			selRES,
+			loadRESULT,
+			selRESULT,
 			P_SHIFT,
 			N_SHIFT
 		);
@@ -143,8 +143,8 @@ architecture struct of resolver is
 			selOPT2,
 			loadACCR,
 			selACCR,
-			loadRES,
-			selRES,
+			loadRESULT,
+			selRESULT,
 			P_SHIFT,
 			N_SHIFT
 		);

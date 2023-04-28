@@ -45,8 +45,8 @@ package resolver_ctrlunit_package is
 			selOPT2:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
-			loadRES:		out std_logic;
-			selRES:			out std_logic;
+			loadRESULT:		out std_logic;
+			selRESULT:		out std_logic;
 				-- status signals from datapath
 			P_SHIFT:		in std_logic_vector(1 downto 0);
 			N_SHIFT:		in std_logic_vector(1 downto 0)
@@ -95,8 +95,8 @@ entity resolver_ctrlunit is
 			selOPT2:		out std_logic;
 			loadACCR:		out std_logic;
 			selACCR:		out std_logic;
-			loadRES:		out std_logic;
-			selRES:			out std_logic;
+			loadRESULT:		out std_logic;
+			selRESULT:		out std_logic;
 				-- status signals from datapath
 			P_SHIFT:		in std_logic_vector(1 downto 0);
 			N_SHIFT:		in std_logic_vector(1 downto 0)
@@ -286,10 +286,10 @@ architecture behavior of resolver_ctrlunit is
 		selACCR			<=	'1' when state=ACC2 else
 							'0' when state=SHIFT2;
 							
-		loadRES			<=	'1' when state=ACC3 or
+		loadRESULT		<=	'1' when state=ACC3 or
 								state=START else
 							'0';
-		selRES			<=	'0' when state=ACC3 else
+		selRESULT		<=	'0' when state=ACC3 else
 							'1' when state=START;
 											
 							

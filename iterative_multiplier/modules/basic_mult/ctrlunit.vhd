@@ -103,21 +103,21 @@ end basic_mult_ctrlunit;
 
 architecture behavior of basic_mult_ctrlunit is
 
-	type statetype is (INIT_BM, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
+	type statetype is (INIT, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
 						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, OUTSTATE, WAITDATA);
 	signal state, nextstate : statetype;
 	
 	begin
 		-- FSM
-			state <= INIT_BM when RST='1' else
+			state <= INIT when RST='1' else
 				nextstate when rising_edge(CLK);
 	process(state, DATAIN, ADV_BM, CNT_BM)
 	begin
 		case state is
-			when INIT_BM =>
+			when INIT =>
 				if DATAIN /= '1' then
-					nextstate <= INIT_BM;
+					nextstate <= INIT;
 				else
 					nextstate <= LOAD_DATA;
 				end if;
@@ -166,7 +166,7 @@ architecture behavior of basic_mult_ctrlunit is
 			when SUBPRODUCT =>
 				nextstate <= OUTSTATE;
 			when OUTSTATE =>
-					nextstate <= WAITDATA;
+					nextstate <= INIT;
 			when WAITDATA =>
 				if DATAIN = '0' then
 					nextstate <= WAITDATA;
@@ -174,7 +174,7 @@ architecture behavior of basic_mult_ctrlunit is
 					nextstate <= LOAD_DATA;
 				end if;
 			when others =>
-				nextstate <= INIT_BM;
+				nextstate <= INIT;
 		end case;
 	end process;
 	
@@ -269,7 +269,7 @@ architecture behavior of basic_mult_ctrlunit is
 						
 		DATAOUT		<=	'1' when state=OUTSTATE else
 						'0';
-		READY		<=  '1'	 when state=INIT_BM or 
+		READY		<=  '1'	 when state=INIT or 
 							 state=WAITDATA else
 						'0';
 end behavior;

@@ -261,12 +261,14 @@ architecture behavior of resolver_ctrlunit is
 							"11";
 							
 		
-		loadINT2		<=	'1' when state=WAITSELS  or 
+		loadINT2		<=	'1' when state=WAITSELS or 
 								state=RESET_P or 
 								state=START else
 							'0';
 		selINT2			<=	'1' when state=WAITSELS else
-							'0';					
+							'0' when state=START or
+								state=RESET_P;	
+				
 		loadS2			<=	'1' when state=SUM2 or 
 								state=WAIT2 else
 							'0';
@@ -284,10 +286,11 @@ architecture behavior of resolver_ctrlunit is
 		selACCR			<=	'1' when state=ACC2 else
 							'0' when state=SHIFT2;
 							
-		loadRES			<=	'1' when state=ACC3 else
+		loadRES			<=	'1' when state=ACC3 or
+								state=START else
 							'0';
 		selRES			<=	'0' when state=ACC3 else
-							'1';
+							'1' when state=START;
 											
 							
 		---

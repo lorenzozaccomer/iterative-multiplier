@@ -189,8 +189,9 @@ architecture behavior of it_mult16_ctrlunit is
 					
 			-- SELECTOR
 		selEN1		<=  '1' when state=ENABLE_SEL else
-						'0';
-		loadEN1		<=	'1' when state=ENABLE_SEL else
+						'0' when state=INIT;
+		loadEN1		<=	'1' when state=ENABLE_SEL or 
+							state=INIT else
 						'0';
 		selOPA		<=	'1' when state=SAVE_OPS_BM else
 						'0';
@@ -203,8 +204,9 @@ architecture behavior of it_mult16_ctrlunit is
 		
 			-- BASIC_MULT
 		selEN2		<=  '1' when state=ENABLE_BM else
-						'0';
-		loadEN2		<=	'1' when state=ENABLE_BM else
+						'0' when state=INIT;
+		loadEN2		<=	'1' when state=ENABLE_BM or 
+							state=INIT else
 						'0';
 		selOUTBM	<=  '1' when state=SAVE_OP_RES else
 						'0';
@@ -213,8 +215,9 @@ architecture behavior of it_mult16_ctrlunit is
 						
 			-- RESOLVER
 		selEN3		<=  '1' when state=ENABLE_RES else
-						'0';
-		loadEN3		<=	'1' when state=ENABLE_RES else
+						'0' when state=INIT;
+		loadEN3		<=	'1' when state=ENABLE_RES or
+							state=INIT else
 						'0';
 		
 			-- SAVE OUT

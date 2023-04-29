@@ -115,7 +115,7 @@ architecture struct of it_mult16_datapath is
 	signal enable1, enable2, enable3:		std_logic;
 	signal datain1, datain2, datain3:		std_logic;
 	signal dataout1, dataout2, dataout3:	std_logic;
-	signal ready_sel, data_bm, ready_res:	std_logic;
+	signal ready_sel, ready_bm, ready_res:	std_logic;
 	signal advance_bm:						std_logic_vector(1 downto 0);
 	
 	signal a_sel, b_sel:					std_logic_vector(P-1 downto 0) := (others=>'0');
@@ -123,6 +123,7 @@ architecture struct of it_mult16_datapath is
 	signal opb_in, opb_out:					std_logic_vector(P-1 downto 0) := (others=>'0');
 	
 	signal bm_in, bm_out:					std_logic_vector(M-1 downto 0) := (others=>'0');
+	signal outbm:							std_logic_vector(M-1 downto 0) := (others=>'0');
 	
 	signal a16_in, a16_out:					std_logic_vector(N-1 downto 0) := (others=>'0');
 	signal b16_in, b16_out:					std_logic_vector(N-1 downto 0) := (others=>'0');
@@ -157,25 +158,19 @@ architecture struct of it_mult16_datapath is
 	MUX_OPA:	mux2N generic map(P) port map(selOPA, opa_out, a_sel, opa_in);
 	MUX_OPB:	mux2N generic map(P) port map(selOPB, opb_out, b_sel, opb_in);
 	
-	MUX_OUTBM:	mux2N generic map(M) port map(selOUTBM, opb_out, b_sel, opb_in);
-	
+	MUX_OUTBM:	mux2N generic map(M) port map(selOUTBM, bm_out, outbm, bm_in);
 	
 	MUX_A16:	mux2N generic map(N) port map(selA, A, a16_out, a16_in);
 	MUX_B16:	mux2N generic map(N) port map(selB, B, b16_out, b16_in);
 	
-		-- ADDERS
-		
-		-- SHIFTERS
-		
-	--COSTUM MODULES
 		-- SELECTOR
 	SEL1: selector port map(CLK, RST, a16_out, b16_out, a_sel, b_sel, datain1, advance_bm, new_product, dataout1, ready_sel);
 		
 		-- BASIC_MULT
-	-- BM1: basic_mult port map(CLK, RST, a16_out, b16_out, opa_out, opb_out, datain, nw_prd, adv_am, dataout_sel, ready_sel);		
+	BM1: basic_mult port map(CLK, RST, opa_out, opb_out, outbm, datain2, dataout2, ready_bm);		
 	
 		-- RESOLVER
-	-- RES1: resolver port map(CLK, RST, a16_out, b16_out, opa_out, opb_out, datain, nw_prd, adv_am, dataout_sel, ready_sel);
+	RES1: resolver port map(CLK, RST, bm_out, b16_out, datain3, new_product, advance_bm, dataout_sel, ready_sel);
 
 		-- status signals
 

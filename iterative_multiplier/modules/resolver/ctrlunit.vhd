@@ -289,11 +289,10 @@ architecture behavior of resolver_ctrlunit is
 							"10" when state=WAIT3 else
 							"11";
 							
-		loadRESULT		<=	'1' when state=ACC3 or
-								state=START else
+		loadRESULT		<=	'1' when state=ACC3 else
 							'0';
 		selRESULT		<=	'0' when state=ACC3 else
-							'1' when state=START;
+							'1';
 								
 				
 		---

@@ -28,25 +28,23 @@ architecture behavior of tb is
 	constant RESET_TIME:		time := 3*CLK_PERIOD + 9 ns;
 	
 		-- signals for debugging and tb control
-	signal count : std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_count : integer := 0;
-	signal start : integer := 0;
-	signal done : integer := 0;
-	signal counter_data : std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_counter_data : integer := 0;
+	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	signal int_count: 			integer := 0;
+	signal start: 				integer := 0;
+	signal done: 				integer := 0;
+	signal counter_data: 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	signal int_counter_data: 	integer := 0;
 	 
 		-- signals for DUT
 	signal CLK, RST: 			std_logic;
-	signal OUT_BM:				std_logic_vector(M-1 downto 0)	:= (others=>'0');
+	signal OUT_BM:				std_logic_vector(M-1 downto 0)		:= (others=>'0');
 	signal RESULT:				std_logic_vector(2*N-1 downto 0)	:= (others=>'0');
-	signal DATAIN:				std_logic	:= '0';
-	signal ADV_AM:				std_logic_vector(1 downto 0)	:= "00";
-	signal NW_PRD:				std_logic	:= '0';
+	signal DATAIN:				std_logic							:= '0';
+	signal ADV_AM:				std_logic_vector(1 downto 0)		:= "00";
+	signal NW_PRD:				std_logic							:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
-		
-	signal index:	integer	:= 1;
-	
+			
 	type seq_array is array (natural range <>) of std_logic_vector(1 downto 0);
 	
 	component resolver is
@@ -99,7 +97,6 @@ architecture behavior of tb is
 				read(inputline, in_A); OUT_BM <= to_UX01(in_A);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
-				index <= 1;
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);
 				int_counter_data <= int_counter_data + 1;
 			else

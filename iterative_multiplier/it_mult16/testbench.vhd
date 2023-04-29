@@ -37,8 +37,8 @@ architecture behavior of tb is
 	 
 		-- signals for DUT
 	signal CLK, RST: 			std_logic;
-	signal A_M:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
-	signal B_M:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
+	signal A:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
+	signal B:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
 	signal OUT_MULT16:			std_logic_vector(2*N-1 downto 0):= (others=>'0');
 	signal DATAIN:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
@@ -57,8 +57,8 @@ architecture behavior of tb is
 			CLK:			in std_logic;
 			RST:			in std_logic;
 				-- data inputs
-			A_M:			in std_logic_vector(N-1 downto 0);
-			B_M:			in std_logic_vector(N-1 downto 0);
+			A:				in std_logic_vector(N-1 downto 0);
+			B:				in std_logic_vector(N-1 downto 0);
 				-- data outputs
 			OUT_MULT16:		out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
@@ -71,8 +71,8 @@ architecture behavior of tb is
 	begin
 	DUT: it_mult16
 		port map(CLK, RST,
-			A_M,
-			B_M,
+			A,
+			B,
 			OUT_MULT16,
 			DATAIN,
 			DATAOUT,
@@ -85,17 +85,17 @@ architecture behavior of tb is
 		file infile: 			TEXT open READ_MODE is 
 		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult16\inputdata.txt";
 		variable inputline: 	LINE;
-		variable in_A:			bit_vector(A_M'range);
-		variable in_B:			bit_vector(B_M'range);
+		variable in_A:			bit_vector(A'range);
+		variable in_B:			bit_vector(B'range);
 		variable in_DATAIN: 	bit;
 	begin
 		if (CLK = '0') and (start = 1) and (READY = '1') then
 		-- read new data from file
 			if not endfile(infile) then
 				readline(infile, inputline);
-				read(inputline, in_A); A_M <= to_UX01(in_A);
+				read(inputline, in_A); A <= to_UX01(in_A);
 				readline(infile, inputline);
-				read(inputline, in_B); B_M <= to_UX01(in_B);
+				read(inputline, in_B); B <= to_UX01(in_B);
 				readline(infile, inputline);
 				read(inputline, in_DATAIN); DATAIN <= to_UX01(in_DATAIN);
 				counter_data<= std_logic_vector(unsigned(counter_data)+1);

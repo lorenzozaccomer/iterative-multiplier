@@ -11,23 +11,8 @@
 *.mti
 
 # Simulation folder
-/iterative_multiplier/work/
-/standard_multiplier/work/
-/adder/work/
-/basic_multiplier/work/
-/register/work/
-/shift_register/work/
 test/
 simulations/
-components/adder/work/
-components/leftshift/work/
-components/multiplier/work/
-components/register/work/
-components/rightshifter/work/
-components/shift_register/work/
-iterative_multiplier/res/work/
-iterative_multiplier/bm_sel/work/
-iterative_multiplier/m_sel/work/
 
 # Object files
 *.o

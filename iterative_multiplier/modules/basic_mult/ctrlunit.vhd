@@ -191,18 +191,15 @@ architecture behavior of basic_mult_ctrlunit is
 						'0';
 		selA_BM		<=	"00" when state=LOAD_DATA or 
 							 state=NEW_PRODUCT_BM else
-						"01" when state=NEW_OPERAND_BM or 
-							 state=NEW_OPA else 
-						"10" when state=SHIFT_OPA else
-						"11";
+						"01" when state=SHIFT_OPA else 
+						"10";
 								
 		loadB_BM	<= 	'1'  when state=LOAD_DATA or 
 							 state=SHIFT_RB_BM else 
 						'0';
 		selB_BM	<= 		"00" when state=LOAD_DATA else
-						"01" when state=NEW_OPERAND_BM else
-						"10" when state=SHIFT_RB_BM else
-						"11";
+						"01" when state=SHIFT_RB_BM else
+						"10";
 						
 		loadOPR 	<= 	'1'  when state=PRODUCT or
 							 state=SHIFT_PRODUCT or

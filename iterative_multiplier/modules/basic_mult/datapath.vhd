@@ -131,6 +131,8 @@ architecture struct of basic_mult_datapath is
 	constant zeros4:					std_logic_vector(M-1 downto 0)	:= (others=>'0');
 	constant zeros8:					std_logic_vector(2*M-1 downto 0):= (others=>'0');
 	
+	constant nulls4:					std_logic_vector(M-1 downto 0)	:= (others=>'-');
+	
 	begin
 		
 		-- REGISTERS
@@ -156,8 +158,8 @@ architecture struct of basic_mult_datapath is
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
 	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, zeros3, inc_cnt_bm_out, cnt_bm_in); 	
-	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, ra_bm_out, shift_ra_bm, zeros4, ra_bm_in);		
-	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, rb_bm_out, shift_rb_bm, zeros4, rb_bm_in);	
+	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, shift_ra_bm, ra_bm_out, nulls4, ra_bm_in);		
+	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, shift_rb_bm, rb_bm_out, nulls4, rb_bm_in);	
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, accbm_out, rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, sum_bm_out, sum_bm_in); 

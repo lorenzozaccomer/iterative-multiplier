@@ -127,9 +127,9 @@ architecture struct of basic_mult_datapath is
 	signal rpm_in, rpm_out:				std_logic_vector(2*M-1 downto 0);
 	
 		-- internal signals
-	signal zeros3:						std_logic_vector(Q downto 0)	:= (others=>'0');
-	signal zeros4:						std_logic_vector(M-1 downto 0)	:= (others=>'0');
-	signal zeros8:						std_logic_vector(2*M-1 downto 0):= (others=>'0');
+	constant zeros3:					std_logic_vector(Q downto 0)	:= (others=>'0');
+	constant zeros4:					std_logic_vector(M-1 downto 0)	:= (others=>'0');
+	constant zeros8:					std_logic_vector(2*M-1 downto 0):= (others=>'0');
 	
 	begin
 		

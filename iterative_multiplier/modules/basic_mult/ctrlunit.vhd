@@ -243,8 +243,7 @@ architecture behavior of basic_mult_ctrlunit is
 
 		loadINC_BM	<= 	'1'  when state = LOAD_DATA or 
 							 state=INC_CNT or 
-							 state=WAITDATA 
-							 else 
+							 state=WAITDATA else 
 						'0';
 		selINC_BM	<= 	'0'  when state=LOAD_DATA or 
 							 state=WAITDATA else

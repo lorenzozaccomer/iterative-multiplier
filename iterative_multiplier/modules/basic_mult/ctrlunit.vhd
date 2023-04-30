@@ -224,9 +224,8 @@ architecture behavior of basic_mult_ctrlunit is
 		loadSUM 	<= 	'1'  when state=SUM_BM or
 							 state=RESET_BM else 
 						'0';
-		selSUM		<= 	'0'  when state=ACC_BM or 
-							 state=SUM_BM else 
-						'1'  when state=RESET_BM;
+		selSUM		<= 	'0'  when state=SUM_BM else 
+						'1';
 
 		loadCNT_BM	<= 	'1'  when state=LOAD_DATA or 
 							 state=INC_CNT else 

@@ -29,7 +29,7 @@ package basic_mult_ctrlunit_package is
 			selACC_BM:			out std_logic_vector(Q-1 downto 0);
 			selSUM:				out std_logic;
 			selCNT_BM:			out std_logic;
-			selADV_BM:			out std_logic;
+			-- selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
 			selOUT:				out std_logic;
 			
@@ -41,12 +41,12 @@ package basic_mult_ctrlunit_package is
 			loadACC_BM:			out std_logic;
 			loadSUM:			out std_logic;
 			loadCNT_BM:			out std_logic;
-			loadADV_BM:			out std_logic;
+			-- loadADV_BM:			out std_logic;
 			loadOUT:			out std_logic;
 			loadRPM:			out std_logic;
 				-- status signals from datapath
-			CNT_BM:				in std_logic_vector(Q downto 0);
-			ADV_BM:				in std_logic				
+			-- ADV_BM:				in std_logic;				
+			CNT_BM:				in std_logic_vector(Q downto 0)
 			);
 	end component;
 end basic_mult_ctrlunit_package;
@@ -66,7 +66,6 @@ entity basic_mult_ctrlunit is
 		CLK:				in std_logic;
 		RST:				in std_logic;
 			-- control signals to/from extern
-		-- START:				in std_logic;	-- the module can go ahead
 		DATAIN:				in std_logic;	-- will be equal to 1 when the module has the datas to process
 		DATAOUT:			out std_logic;
 		READY:				out std_logic;	-- the modules can do another operation
@@ -79,7 +78,7 @@ entity basic_mult_ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selCNT_BM:			out std_logic;
-		selADV_BM:			out std_logic;
+		-- selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		selOUT:				out std_logic;
 				
@@ -91,12 +90,12 @@ entity basic_mult_ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadCNT_BM:			out std_logic;
-		loadADV_BM:			out std_logic;
+		-- loadADV_BM:			out std_logic;
 		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
 			-- status signals from datapath
-		CNT_BM:				in std_logic_vector(Q downto 0);
-		ADV_BM:				in std_logic				
+		-- ADV_BM:				in std_logic;				
+		CNT_BM:				in std_logic_vector(Q downto 0)
 		);
 end basic_mult_ctrlunit;
 
@@ -112,7 +111,7 @@ architecture behavior of basic_mult_ctrlunit is
 		-- FSM
 			state <= INIT when RST='1' else
 				nextstate when rising_edge(CLK);
-	process(state, DATAIN, ADV_BM, CNT_BM)
+	process(state, DATAIN, CNT_BM)
 	begin
 		case state is
 			when INIT =>
@@ -128,7 +127,7 @@ architecture behavior of basic_mult_ctrlunit is
 			when RESET_BM =>
 				nextstate <= PRODUCT;
 			when PRODUCT =>
-				if ADV_BM = '0' then
+				if CNT_BM = "000" or CNT_BM = "010" then
 					nextstate <= SUM_BM;
 				else
 					nextstate <= SHIFT_PRODUCT;
@@ -233,11 +232,11 @@ architecture behavior of basic_mult_ctrlunit is
 		selCNT_BM	<= 	'0'  when state=INC_CNT else
 						'1';
 		
-		loadADV_BM	<= 	'1'  when state=ADV or 
-							 state=RESET_BM else 
-						'0';
-		selADV_BM	<= 	'0'  when state=RESET_BM else
-						'1'  when state=ADV;
+		-- loadADV_BM	<= 	'1'  when state=ADV or 
+							 -- state=RESET_BM else 
+						-- '0';
+		-- selADV_BM	<= 	'0'  when state=RESET_BM else
+						-- '1'  when state=ADV;
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';

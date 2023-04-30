@@ -26,7 +26,7 @@ package basic_mult_datapath_package is
 			selACC_BM:			in std_logic_vector(Q-1 downto 0);
 			selSUM:				in std_logic;
 			selCNT_BM:			in std_logic;
-			selADV_BM:			in std_logic;
+			-- selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			selOUT:				in std_logic;
 					
@@ -38,12 +38,12 @@ package basic_mult_datapath_package is
 			loadACC_BM:			in std_logic;
 			loadSUM:			in std_logic;
 			loadCNT_BM:			in std_logic;
-			loadADV_BM:			in std_logic;
+			-- loadADV_BM:			in std_logic;
 			loadOUT:			in std_logic;
 			loadRPM:			in std_logic;
 				-- status signals from datapath
-			CNT_BM:				out std_logic_vector(Q downto 0);
-			ADV_BM:				out std_logic
+			-- ADV_BM:				out std_logic;						
+			CNT_BM:				out std_logic_vector(Q downto 0)	
 			);
 	end component;
 end basic_mult_datapath_package;
@@ -75,7 +75,7 @@ entity basic_mult_datapath is
 		selACC_BM:			in std_logic_vector(Q-1 downto 0);
 		selSUM:				in std_logic;
 		selCNT_BM:			in std_logic;
-		selADV_BM:			in std_logic;
+		-- selADV_BM:			in std_logic;
 		selRPM:				in std_logic;
 		selOUT:				in std_logic;
 		
@@ -87,21 +87,21 @@ entity basic_mult_datapath is
 		loadACC_BM:			in std_logic;
 		loadSUM:			in std_logic;
 		loadCNT_BM:			in std_logic;
-		loadADV_BM:			in std_logic;
+		-- loadADV_BM:			in std_logic;
 		loadOUT:			in std_logic;
 		loadRPM:			in std_logic;
 			-- status signals from datapath
-		CNT_BM:				out std_logic_vector(Q downto 0);
-		ADV_BM:				out std_logic							
+		-- ADV_BM:				out std_logic;						
+		CNT_BM:				out std_logic_vector(Q downto 0)	
 		);
 end entity;
 
 architecture struct of basic_mult_datapath is
 	
 		-- signals
-	signal adv_in:						std_logic;
-	signal adv_out: 					std_logic;
-	signal notport_out:					std_logic;
+	-- signal adv_in:						std_logic;
+	-- signal adv_out: 					std_logic;
+	-- signal notport_out:					std_logic;
 		
 	signal opa_in, opa_out:				std_logic_vector(Q-1 downto 0);
 	signal opb_in, opb_out:				std_logic_vector(Q-1 downto 0);
@@ -136,7 +136,7 @@ architecture struct of basic_mult_datapath is
 	begin
 		
 		-- REGISTERS
-	REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
+	-- REG_ADV:		reg port map(CLK, RST, loadADV_BM, adv_in, adv_out);
 	
 	REG_OPA:		regN generic map(Q) port map(CLK, RST, loadOPA, opa_in, opa_out);
 	REG_OPB:		regN generic map(Q) port map(CLK, RST, loadOPB, opb_in, opb_out);	
@@ -153,7 +153,7 @@ architecture struct of basic_mult_datapath is
 	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, rout_in, rout_bm);
 	
 		-- -- MUXS
-	MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
+	-- MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
 	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
@@ -176,7 +176,7 @@ architecture struct of basic_mult_datapath is
 	ADD_SUBPRD:		adderNotCOut generic map(2*M) port map(rpm_out, accbm_out, add_subproduct_out);	
 	
 		-- LOGIC PORTS
-	NOTPORT1:		notport port map(adv_out, notport_out);
+	-- NOTPORT1:		notport port map(adv_out, notport_out);
 	
 		-- SHIFTERS
 	SH_B_BM:		rightshiftN	generic map(M,Q) port map(rb_bm_out, shift_rb_bm);
@@ -188,7 +188,7 @@ architecture struct of basic_mult_datapath is
 	PRODUCT:		multiplierN port map(opa_out, opb_out, product_out(M-1 downto 0));
 	
 		-- status signals
-	ADV_BM 	<= adv_out;
+	-- ADV_BM 	<= adv_out;
 	CNT_BM <= cnt_bm_out;
 	
 		-- data output

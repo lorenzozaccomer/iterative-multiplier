@@ -70,7 +70,7 @@ architecture struct of basic_mult is
 	signal selACC_BM:			std_logic_vector(Q-1 downto 0);
 	signal selSUM:				std_logic;
 	signal selCNT_BM:			std_logic;
-	signal selADV_BM:			std_logic;
+	-- signal selADV_BM:			std_logic;
 	signal selRPM:				std_logic;
 	signal selOUT:				std_logic;
 		
@@ -82,7 +82,7 @@ architecture struct of basic_mult is
 	signal loadACC_BM:			std_logic;
 	signal loadSUM:				std_logic;
 	signal loadCNT_BM:			std_logic;
-	signal loadADV_BM:			std_logic;
+	-- signal loadADV_BM:			std_logic;
 	signal loadOUT:				std_logic;
 	signal loadRPM:				std_logic;
 		-- status signals from datapath
@@ -100,7 +100,7 @@ architecture struct of basic_mult is
 			selACC_BM,
 			selSUM,
 			selCNT_BM,
-			selADV_BM,
+			-- selADV_BM,
 			selRPM,
 			selOUT,
 			loadOPA,
@@ -111,11 +111,11 @@ architecture struct of basic_mult is
 			loadACC_BM,
 			loadSUM,
 			loadCNT_BM,
-			loadADV_BM,
+			-- loadADV_BM,
 			loadOUT,
 			loadRPM,
-			CNT_BM,
-			ADV_BM
+			-- ADV_BM,
+			CNT_BM
 		);
 		
 	DP:	basic_mult_datapath 
@@ -128,7 +128,7 @@ architecture struct of basic_mult is
 			selACC_BM,
 			selSUM,
 			selCNT_BM,
-			selADV_BM,
+			-- selADV_BM,
 			selRPM,
 			selOUT,
 			loadOPA,
@@ -139,10 +139,10 @@ architecture struct of basic_mult is
 			loadACC_BM,
 			loadSUM,
 			loadCNT_BM,
-			loadADV_BM,
+			-- loadADV_BM,
 			loadOUT,
 			loadRPM,
-			CNT_BM,
-			ADV_BM
+			-- ADV_BM,
+			CNT_BM
 		);
 end struct;

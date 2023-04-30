@@ -105,7 +105,7 @@ architecture behavior of basic_mult_ctrlunit is
 
 	type statetype is (INIT, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
-						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, OUTSTATE, WAITDATA);
+						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, OUTSTATE);
 	signal state, nextstate : statetype;
 	
 	begin
@@ -167,12 +167,6 @@ architecture behavior of basic_mult_ctrlunit is
 				nextstate <= OUTSTATE;
 			when OUTSTATE =>
 					nextstate <= INIT;
-			when WAITDATA =>
-				if DATAIN = '0' then
-					nextstate <= WAITDATA;
-				else
-					nextstate <= LOAD_DATA;
-				end if;
 			when others =>
 				nextstate <= INIT;
 		end case;
@@ -203,11 +197,9 @@ architecture behavior of basic_mult_ctrlunit is
 						"11";
 								
 		loadB_BM	<= 	'1'  when state=LOAD_DATA or 
-							 state=SHIFT_RB_BM or
-							 state=WAITDATA else 
+							 state=SHIFT_RB_BM else 
 						'0';
-		selB_BM	<= 		"00" when state=LOAD_DATA or
-							 state=WAITDATA else
+		selB_BM	<= 		"00" when state=LOAD_DATA else
 						"01" when state=NEW_OPERAND_BM else
 						"10" when state=SHIFT_RB_BM else
 						"11";
@@ -241,12 +233,10 @@ architecture behavior of basic_mult_ctrlunit is
 							 state=SUM_BM else 
 						'1'  when state=RESET_BM;
 
-		loadINC_BM	<= 	'1'  when state = LOAD_DATA or 
-							 state=INC_CNT or 
-							 state=WAITDATA else 
+		loadINC_BM	<= 	'1'  when state=LOAD_DATA or 
+							 state=INC_CNT else 
 						'0';
-		selINC_BM	<= 	'0'  when state=LOAD_DATA or 
-							 state=WAITDATA else
+		selINC_BM	<= 	'0'  when state=LOAD_DATA else
 						'1'	 when state=INC_CNT;
 		
 		loadADV_BM	<= 	'1'  when state=ADV or 
@@ -268,7 +258,6 @@ architecture behavior of basic_mult_ctrlunit is
 						
 		DATAOUT		<=	'1' when state=OUTSTATE else
 						'0';
-		READY		<=  '1'	 when state=INIT or 
-							 state=WAITDATA else
+		READY		<=  '1'	 when state=INIT else
 						'0';
 end behavior;

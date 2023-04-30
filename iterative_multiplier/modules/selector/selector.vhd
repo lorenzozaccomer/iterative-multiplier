@@ -69,8 +69,8 @@ end entity;
 architecture struct of selector is
 
 			-- control signal to datapath
-	signal selAM:			std_logic;
-	signal selBM:			std_logic;
+	signal selAM:			std_logic_vector (1 downto 0);
+	signal selBM:			std_logic_vector (1 downto 0);
 	signal selINC_M:		std_logic;
 	signal selA_BM:			std_logic;
 	signal selB_BM:			std_logic;

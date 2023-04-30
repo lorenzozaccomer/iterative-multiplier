@@ -21,13 +21,12 @@ package selector_ctrlunit_package is
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic_vector (1 downto 0);	-- new 4bits of A
-			-- CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 			NW_PRD:			out std_logic;
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 			READY:			out std_logic;	-- m_sel can accept new data input
 				-- control signal to datapath
-			selAM:			out std_logic;
-			selBM:			out std_logic;
+			selAM:			out std_logic_vector (1 downto 0);
+			selBM:			out std_logic_vector (1 downto 0);
 			selINC_M:		out std_logic;
 			selA_BM:		out std_logic;
 			selB_BM:		out std_logic;
@@ -59,13 +58,12 @@ entity selector_ctrlunit is
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
 		ADV_AM:			in std_logic_vector (1 downto 0);	-- new 4bits of A
-		-- CALC:			in std_logic;	-- wait for FR module to prepare new 4 bits operands
 		NW_PRD:			out std_logic;
 		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
 		READY:			out std_logic;	-- m_sel can accept new data input
 			-- control signal to datapath
-		selAM:			out std_logic;
-		selBM:			out std_logic;
+		selAM:			out std_logic_vector (1 downto 0);
+		selBM:			out std_logic_vector (1 downto 0);
 		selINC_M:		out std_logic;
 		selA_BM:		out std_logic;
 		selB_BM:		out std_logic;
@@ -84,29 +82,25 @@ end entity;
 architecture behavior of selector_ctrlunit is
 
 
-	type statetype is (INIT_M, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
+	type statetype is (INIT, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
 						INC, SAVE_OPS_BM, OUTDATA_BM, WAITSELS);
 	signal state, nextstate : statetype;
 	
 	begin
 		-- FSM
-			state <= INIT_M when RST='1' else
+			state <= INIT when RST='1' else
 				nextstate when rising_edge(CLK);
 				
 	process(state, DATAIN, ADV_AM, INC_M)
 	begin
 		case state is
-			when INIT_M =>
-				if DATAIN /= '1' then
-					nextstate <= INIT_M;
+			when INIT =>
+				if DATAIN = '0' then
+					nextstate <= INIT;
 				else
 					nextstate <= SAVE_OPS;
 				end if;
 			when SAVE_OPS =>
-				nextstate <= INC;
-			when SHIFT_AM =>
-				nextstate <= INC;
-			when NEW_PRODUCT =>
 				nextstate <= INC;
 			when INC =>
 				nextstate <= SAVE_OPS_BM;
@@ -114,7 +108,7 @@ architecture behavior of selector_ctrlunit is
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
 				if INC_M = "10000" then	-- b10000 = 16
-					nextstate <= INIT_M;
+					nextstate <= INIT;
 				else
 					nextstate <= WAITSELS;
 				end if;
@@ -126,8 +120,12 @@ architecture behavior of selector_ctrlunit is
 				else
 					nextstate <= WAITSELS;
 				end if;
+			when SHIFT_AM =>
+				nextstate <= INC;
+			when NEW_PRODUCT =>
+				nextstate <= INC;
 			when others =>
-				nextstate <= INIT_M;
+				nextstate <= INIT;
 		end case;
 	end process;
 	
@@ -136,21 +134,23 @@ architecture behavior of selector_ctrlunit is
 							 state=NEW_PRODUCT or 
 							 state=SHIFT_AM else
 						'0';
-		selAM		<=  '0'  when state=SAVE_OPS or
+		selAM		<=  "00"  when state=SAVE_OPS or
 							 state=NEW_PRODUCT else
-						'1'  when state=SHIFT_AM;
+						"01"  when state=SHIFT_AM else
+						"10";
 						
 		loadBM		<=  '1'  when state=SAVE_OPS or 
 							 state=NEW_PRODUCT else
 						'0';
-		selBM		<=  '0'  when state=SAVE_OPS else
-						'1'  when state=NEW_PRODUCT;
+		selBM		<=  "00"  when state=SAVE_OPS else
+						"01"  when state=NEW_PRODUCT else
+						"10";
 		
-		loadINC_M	<=	'1'  when state=INIT_M or
+		loadINC_M	<=	'1'  when state=INIT or
 							 state=INC else
 						'0';
-		selINC_M	<=  '0'  when state=INIT_M else
-						'1'  when state=INC;
+		selINC_M	<=  '1'  when state=INC else
+						'0';
 						
 		loadA_BM	<=	'1'  when state=SAVE_OPS_BM else
 						'0';
@@ -168,7 +168,7 @@ architecture behavior of selector_ctrlunit is
 						'0';
 		DATAOUT		<=  '1'	 when state=OUTDATA_BM else
 						'0';
-		READY		<=  '1'	 when state=INIT_M else
+		READY		<=  '1'	 when state=INIT else
 						'0';
 end behavior;
 				

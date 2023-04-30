@@ -230,8 +230,8 @@ architecture behavior of basic_mult_ctrlunit is
 		loadCNT_BM	<= 	'1'  when state=LOAD_DATA or 
 							 state=INC_CNT else 
 						'0';
-		selCNT_BM	<= 	'0'  when state=LOAD_DATA else
-						'1'	 when state=INC_CNT;
+		selCNT_BM	<= 	'0'  when state=INC_CNT else
+						'1';
 		
 		loadADV_BM	<= 	'1'  when state=ADV or 
 							 state=RESET_BM else 

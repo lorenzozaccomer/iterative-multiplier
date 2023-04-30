@@ -157,7 +157,7 @@ architecture struct of basic_mult_datapath is
 	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
-	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, zeros3, inc_cnt_bm_out, cnt_bm_in); 	
+	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, inc_cnt_bm_out, zeros3, cnt_bm_in); 	
 	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, shift_ra_bm, ra_bm_out, nulls4, ra_bm_in);		
 	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, shift_rb_bm, rb_bm_out, nulls4, rb_bm_in);	
 	

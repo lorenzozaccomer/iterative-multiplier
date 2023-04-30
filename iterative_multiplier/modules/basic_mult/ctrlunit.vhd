@@ -221,10 +221,8 @@ architecture behavior of basic_mult_ctrlunit is
 						'0';
 		selACC_BM	<=  "00" when state=RESET_BM else
 						"01" when state=SHIFT_ACC else
-						"10" when state=NEW_PRODUCT_BM or
-							 state=SUBPRODUCT or 
-							 state=SUM_BM else
-						"11" when state=ACC_BM;
+						"10" when state=ACC_BM else
+						"11";
 								
 		loadSUM 	<= 	'1'  when state=SUM_BM or
 							 state=RESET_BM else 

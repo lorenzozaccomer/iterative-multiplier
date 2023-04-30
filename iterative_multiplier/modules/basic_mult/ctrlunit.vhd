@@ -32,6 +32,8 @@ package basic_mult_ctrlunit_package is
 			-- selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
 			selOUT:				out std_logic;
+			selINT_A:			out std_logic;
+			selINT_B:			out std_logic;
 			
 			loadOPA:			out std_logic;
 			loadOPB:			out std_logic;
@@ -44,6 +46,8 @@ package basic_mult_ctrlunit_package is
 			-- loadADV_BM:			out std_logic;
 			loadRPM:			out std_logic;
 			loadOUT:			out std_logic;
+			loadINT_A:			out std_logic;
+			loadINT_B:			out std_logic;
 				-- status signals from datapath
 			-- ADV_BM:				in std_logic;				
 			CNT_BM:				in std_logic_vector(Q downto 0)
@@ -81,6 +85,8 @@ entity basic_mult_ctrlunit is
 		-- selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		selOUT:				out std_logic;
+		selINT_A:			out std_logic;
+		selINT_B:			out std_logic;
 				
 		loadOPA:			out std_logic;
 		loadOPB:			out std_logic;
@@ -93,6 +99,8 @@ entity basic_mult_ctrlunit is
 		-- loadADV_BM:			out std_logic;
 		loadRPM:			out std_logic;
 		loadOUT:			out std_logic;
+		loadINT_A:			out std_logic;
+		loadINT_B:			out std_logic;
 			-- status signals from datapath
 		-- ADV_BM:				in std_logic;				
 		CNT_BM:				in std_logic_vector(Q downto 0)
@@ -102,7 +110,7 @@ end basic_mult_ctrlunit;
 
 architecture behavior of basic_mult_ctrlunit is
 
-	type statetype is (INIT, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
+	type statetype is (INIT, LOAD_INTERNALS, LOAD_DATA, NEW_OPERAND_BM, RESET_BM, PRODUCT, SHIFT_PRODUCT, 
 						SUM_BM, ACC_BM, INC_CNT, ADV, WAIT_BM, SHIFT_OPA, SHIFT_ACC, 
 						NEW_OPA, SHIFT_RB_BM, NEW_PRODUCT_BM, SUBPRODUCT, OUTSTATE);
 	signal state, nextstate : statetype;
@@ -118,8 +126,10 @@ architecture behavior of basic_mult_ctrlunit is
 				if DATAIN /= '1' then
 					nextstate <= INIT;
 				else
-					nextstate <= LOAD_DATA;
+					nextstate <= LOAD_INTERNALS;
 				end if;
+			when LOAD_INTERNALS =>
+				nextstate <= LOAD_DATA;
 			when LOAD_DATA =>
 				nextstate <= NEW_OPERAND_BM;
 			when NEW_OPERAND_BM =>
@@ -184,9 +194,9 @@ architecture behavior of basic_mult_ctrlunit is
 		selOPB		<= 	'1'  when state=NEW_OPERAND_BM else 
 						'0';
 		
-		loadA_BM	<=	'1' when state=LOAD_DATA or 
-							state=NEW_PRODUCT_BM or 
-							state=SHIFT_OPA else
+		loadA_BM	<=	'1'  when state=LOAD_DATA or 
+							 state=NEW_PRODUCT_BM or 
+							 state=SHIFT_OPA else
 						'0';
 		selA_BM		<=	"00" when state=LOAD_DATA or 
 							 state=NEW_PRODUCT_BM else
@@ -249,7 +259,19 @@ architecture behavior of basic_mult_ctrlunit is
 		selOUT		<=	'1'  when state=SUBPRODUCT else
 						'0';
 						
-		DATAOUT		<=	'1' when state=OUTSTATE else
+		loadINT_A	<= 	'1'  when state=LOAD_INTERNALS else 
+						'0';
+						
+		selINT_A	<=	'1'  when state=LOAD_INTERNALS else
+						'0';
+						
+		loadINT_B	<= 	'1'  when state=LOAD_INTERNALS else 
+						'0';
+						
+		selINT_B	<=	'1'  when state=LOAD_INTERNALS else
+						'0';
+						
+		DATAOUT		<=	'1'  when state=OUTSTATE else
 						'0';
 		READY		<=  '1'	 when state=INIT else
 						'0';

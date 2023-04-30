@@ -39,10 +39,8 @@ architecture behavior of tb is
 	signal NW_PRD:				std_logic;
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
-	signal CALC:				std_logic;
 	
 	signal sel1:				std_logic	:= '0';
-	-- signal sel2:				std_logic	:= '0';
 	
 	signal index:	integer	:= 1;
 	
@@ -54,12 +52,6 @@ architecture behavior of tb is
 											 "00", "01", "01", "01",
 											 "00", "01", "01", "01"
 										   );
-	-- constant sequence_NW_PRD          : seq_array := (                    
-											 -- '0', '0', '0', '0',
-											 -- '1', '0', '0', '0',
-											 -- '1', '0', '0', '0',
-											 -- '1', '0', '0', '0'
-										   -- );
 	
 		-- DUT declaration
 	component selector is
@@ -79,8 +71,6 @@ architecture behavior of tb is
 				-- control inputs
 			DATAIN:			in std_logic;	-- new data to manipulate
 			ADV_AM:			in std_logic_vector(1 downto 0);
-			-- NW_PRD:			in std_logic;
-			-- CALC:			in std_logic;	-- wait for RES module to prepare new 4 bits operands
 				-- control outputs
 			NW_PRD:			out std_logic;
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -133,7 +123,6 @@ architecture behavior of tb is
 			if(index < sequence_ADV_BM'length) then
 				index <= index + 1;
 				ADV_AM <= sequence_ADV_BM(index);
-				-- sel2 <= sequence_NW_PRD(index);
 			else
 				index <= 1;
 			end if;
@@ -141,26 +130,9 @@ architecture behavior of tb is
 		
 		if (CLK = '0') and (NW_PRD ='1') then
 			ADV_AM <= "11";
-			-- NW_PRD <= sel2;
 		end if;
 		
 	end process;
-	
-	
-	-- CALC
-	calc_process: process
-		begin
-			if CALC = '0' then
-				CALC <= '1';
-				wait for 50 ns;
-			else
-				CALC <= '0';
-				wait for 200 ns;
-			end if;
-			if done = 1 then
-				wait;
-			end if;
-		end process;
 	
 	
 	-- terminate the simulation when there are no more data in datafile

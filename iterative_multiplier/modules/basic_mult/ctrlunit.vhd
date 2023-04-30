@@ -28,7 +28,7 @@ package basic_mult_ctrlunit_package is
 			selOPR:				out std_logic_vector(Q-1 downto 0);
 			selACC_BM:			out std_logic_vector(Q-1 downto 0);
 			selSUM:				out std_logic;
-			selINC_BM:			out std_logic;
+			selCNT_BM:			out std_logic;
 			selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
 			selOUT:				out std_logic;
@@ -40,7 +40,7 @@ package basic_mult_ctrlunit_package is
 			loadOPR:			out std_logic;
 			loadACC_BM:			out std_logic;
 			loadSUM:			out std_logic;
-			loadINC_BM:			out std_logic;
+			loadCNT_BM:			out std_logic;
 			loadADV_BM:			out std_logic;
 			loadOUT:			out std_logic;
 			loadRPM:			out std_logic;
@@ -78,7 +78,7 @@ entity basic_mult_ctrlunit is
 		selOPR:				out std_logic_vector(Q-1 downto 0);
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
-		selINC_BM:			out std_logic;
+		selCNT_BM:			out std_logic;
 		selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		selOUT:				out std_logic;
@@ -90,7 +90,7 @@ entity basic_mult_ctrlunit is
 		loadOPR:			out std_logic;
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
-		loadINC_BM:			out std_logic;
+		loadCNT_BM:			out std_logic;
 		loadADV_BM:			out std_logic;
 		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
@@ -233,10 +233,10 @@ architecture behavior of basic_mult_ctrlunit is
 							 state=SUM_BM else 
 						'1'  when state=RESET_BM;
 
-		loadINC_BM	<= 	'1'  when state=LOAD_DATA or 
+		loadCNT_BM	<= 	'1'  when state=LOAD_DATA or 
 							 state=INC_CNT else 
 						'0';
-		selINC_BM	<= 	'0'  when state=LOAD_DATA else
+		selCNT_BM	<= 	'0'  when state=LOAD_DATA else
 						'1'	 when state=INC_CNT;
 		
 		loadADV_BM	<= 	'1'  when state=ADV or 

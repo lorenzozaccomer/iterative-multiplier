@@ -25,7 +25,7 @@ package basic_mult_datapath_package is
 			selOPR:				in std_logic_vector(Q-1 downto 0);
 			selACC_BM:			in std_logic_vector(Q-1 downto 0);
 			selSUM:				in std_logic;
-			selINC_BM:			in std_logic;
+			selCNT_BM:			in std_logic;
 			selADV_BM:			in std_logic;
 			selRPM:				in std_logic;
 			selOUT:				in std_logic;
@@ -37,7 +37,7 @@ package basic_mult_datapath_package is
 			loadOPR:			in std_logic;
 			loadACC_BM:			in std_logic;
 			loadSUM:			in std_logic;
-			loadINC_BM:			in std_logic;
+			loadCNT_BM:			in std_logic;
 			loadADV_BM:			in std_logic;
 			loadOUT:			in std_logic;
 			loadRPM:			in std_logic;
@@ -74,7 +74,7 @@ entity basic_mult_datapath is
 		selOPR:				in std_logic_vector(Q-1 downto 0);
 		selACC_BM:			in std_logic_vector(Q-1 downto 0);
 		selSUM:				in std_logic;
-		selINC_BM:			in std_logic;
+		selCNT_BM:			in std_logic;
 		selADV_BM:			in std_logic;
 		selRPM:				in std_logic;
 		selOUT:				in std_logic;
@@ -86,7 +86,7 @@ entity basic_mult_datapath is
 		loadOPR:			in std_logic;
 		loadACC_BM:			in std_logic;
 		loadSUM:			in std_logic;
-		loadINC_BM:			in std_logic;
+		loadCNT_BM:			in std_logic;
 		loadADV_BM:			in std_logic;
 		loadOUT:			in std_logic;
 		loadRPM:			in std_logic;
@@ -106,8 +106,8 @@ architecture struct of basic_mult_datapath is
 	signal opa_in, opa_out:				std_logic_vector(Q-1 downto 0);
 	signal opb_in, opb_out:				std_logic_vector(Q-1 downto 0);
 	
-	signal inc_bm_in, inc_bm_out:		std_logic_vector(Q downto 0); 
-	signal add_inc_bm_out:				std_logic_vector(Q downto 0);
+	signal cnt_bm_in, cnt_bm_out:		std_logic_vector(Q downto 0); 
+	signal inc_cnt_bm_out:				std_logic_vector(Q downto 0);
 	
 	signal ra_bm_in, ra_bm_out:			std_logic_vector(M-1 downto 0);
 	signal rb_bm_in, rb_bm_out:			std_logic_vector(M-1 downto 0);
@@ -139,7 +139,7 @@ architecture struct of basic_mult_datapath is
 	REG_OPA:		regN generic map(Q) port map(CLK, RST, loadOPA, opa_in, opa_out);
 	REG_OPB:		regN generic map(Q) port map(CLK, RST, loadOPB, opb_in, opb_out);	
 	
-	REG_INC_BM:		regN generic map(Q+1) port map(CLK, RST, loadINC_BM, inc_bm_in, inc_bm_out);
+	REG_CNT_BM:		regN generic map(Q+1) port map(CLK, RST, loadCNT_BM, cnt_bm_in, cnt_bm_out);
 	
 	REG_A_BM:		regN generic map(M) port map(CLK, RST, loadA_BM, ra_bm_in, ra_bm_out);
 	REG_B_BM:		regN generic map(M) port map(CLK, RST, loadB_BM, rb_bm_in, rb_bm_out);
@@ -155,7 +155,7 @@ architecture struct of basic_mult_datapath is
 	
 	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
 	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
-	MUX_INC_BM:		mux2N generic map(Q+1) port map(selINC_BM, zeros3, add_inc_bm_out, inc_bm_in); 	
+	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, zeros3, inc_cnt_bm_out, cnt_bm_in); 	
 	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, ra_bm_out, shift_ra_bm, zeros4, ra_bm_in);		
 	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, rb_bm_out, shift_rb_bm, zeros4, rb_bm_in);	
 	
@@ -167,7 +167,7 @@ architecture struct of basic_mult_datapath is
 	
 		-- ADDERS
 	-- needed to increment CNT_BM
-	ADD_INC_BM:		adderNotCOut generic map(Q+1) port map(inc_bm_out, "001", add_inc_bm_out);		
+	INC_CNT_BM:		adderNotCOut generic map(Q+1) port map(cnt_bm_out, "001", inc_cnt_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_SUM:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_sum_out);		
 	-- ROUT = RPM + ACC
@@ -187,7 +187,7 @@ architecture struct of basic_mult_datapath is
 	
 		-- status signals
 	ADV_BM 	<= adv_out;
-	CNT_BM <= inc_bm_out;
+	CNT_BM <= cnt_bm_out;
 	
 		-- data output
 	ROUT_BM <= r_out_bm;

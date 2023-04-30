@@ -212,8 +212,8 @@ architecture behavior of basic_mult_ctrlunit is
 		selOPR		<=  "00" when state=RESET_BM or 
 							 state=NEW_OPA else 
 						"01" when state=SHIFT_PRODUCT else
-						"10" when state=SUM_BM else
-						"11" when state=PRODUCT;
+						"10" when state=PRODUCT else
+						"11";
 							
 		loadACC_BM	<= 	'1'  when state=ACC_BM or
 							 state=RESET_BM or

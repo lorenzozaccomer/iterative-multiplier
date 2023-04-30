@@ -161,7 +161,7 @@ architecture struct of basic_mult_datapath is
 	
 	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, accbm_out, rpm_out, rpm_in);		
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, sum_bm_out, sum_bm_in); 
-	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, product_out, opr_in);
+	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, product_out, opr_out, opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, sum_bm_out, accbm_in);
 	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, rout_bm, rout_in);
 	

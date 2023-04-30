@@ -74,12 +74,16 @@ architecture struct of selector is
 	signal selINC_M:		std_logic;
 	signal selA_BM:			std_logic;
 	signal selB_BM:			std_logic;
+	signal selINT_A:		std_logic;
+	signal selINT_B:		std_logic;
 				
 	signal loadAM:			std_logic;
 	signal loadBM:			std_logic;
 	signal loadINC_M:		std_logic;
 	signal loadA_BM:		std_logic;
 	signal loadB_BM:		std_logic;
+	signal loadINT_A:		std_logic;
+	signal loadINT_B:		std_logic;
 				-- status signals from datapath
 	signal INC_M:			std_logic_vector(M downto 0);
 	
@@ -91,11 +95,15 @@ architecture struct of selector is
 			selINC_M,
 			selA_BM,
 			selB_BM,
+			selINT_A,
+			selINT_B,
 			loadAM,
 			loadBM,
 			loadINC_M,
 			loadA_BM,
 			loadB_BM,
+			loadINT_A,
+			loadINT_B,
 			INC_M
 		);
 		
@@ -106,11 +114,15 @@ architecture struct of selector is
 			selINC_M,
 			selA_BM,
 			selB_BM,
+			selINT_A,
+			selINT_B,
 			loadAM,
 			loadBM,
 			loadINC_M,
 			loadA_BM,
 			loadB_BM,
+			loadINT_A,
+			loadINT_B,
 			INC_M
 		);
 end struct;

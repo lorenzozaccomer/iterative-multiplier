@@ -28,12 +28,16 @@ package selector_datapath_package is
 			selINC_M:		in std_logic;
 			selA_BM:		in std_logic;
 			selB_BM:		in std_logic;
+			selINT_A:		in std_logic;
+			selINT_B:		in std_logic;
 						
 			loadAM:			in std_logic;
 			loadBM:			in std_logic;
 			loadINC_M:		in std_logic;
 			loadA_BM:		in std_logic;
 			loadB_BM:		in std_logic;
+			loadINT_A:		in std_logic;
+			loadINT_B:		in std_logic;
 				-- status signals from datapath
 			INC_M:			out std_logic_vector(M downto 0)
 		);
@@ -67,12 +71,16 @@ entity selector_datapath is
 		selINC_M:		in std_logic;
 		selA_BM:		in std_logic;
 		selB_BM:		in std_logic;
+		selINT_A:		in std_logic;
+		selINT_B:		in std_logic;
 					
 		loadAM:			in std_logic;
 		loadBM:			in std_logic;
 		loadINC_M:		in std_logic;
 		loadA_BM:		in std_logic;
 		loadB_BM:		in std_logic;
+		loadINT_A:		in std_logic;
+		loadINT_B:		in std_logic;
 			-- status signals from datapath
 		INC_M:			out std_logic_vector(M downto 0)
 	);
@@ -89,6 +97,8 @@ architecture struct of selector_datapath is
 	
 	signal shift_am, shift_bm:			std_logic_vector(N-1 downto 0);
 	
+	signal a_in, a_out:					std_logic_vector(N-1 downto 0);
+	signal b_in, b_out:					std_logic_vector(N-1 downto 0);
 	signal am_in, am_out:				std_logic_vector(N-1 downto 0);
 	signal bm_in, bm_out:				std_logic_vector(N-1 downto 0);
 	
@@ -103,6 +113,8 @@ architecture struct of selector_datapath is
 	
 	REG_INC_M:	regN generic map(M+1) port map(CLK, RST, loadINC_M, inc_m_in, inc_m_out);
 	
+	REG_INTA:	regN generic map(N) port map(CLK, RST, loadINT_A, a_in, a_out);
+	REG_INTB:	regN generic map(N) port map(CLK, RST, loadINT_B, b_in, b_out);
 	REG_AM:		regN generic map(N) port map(CLK, RST, loadAM, am_in, am_out);
 	REG_BM:		regN generic map(N) port map(CLK, RST, loadBM, bm_in, bm_out);
 			
@@ -112,6 +124,8 @@ architecture struct of selector_datapath is
 	
 	MUX_INC_M:	mux2N generic map(M+1) port map(selINC_M, zeros5, add_inc_m_out, inc_m_in);
 	
+	MUX_INTA:	mux2N generic map(N) port map(selINT_A, a_out, A_M, a_in);
+	MUX_INTB:	mux2N generic map(N) port map(selINT_B, b_out, B_M, b_in);
 	MUX_AM:		mux4N generic map(N) port map(selAM, A_M, shift_am, am_out, nulls16, am_in);
 	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nulls16, bm_in);
 		

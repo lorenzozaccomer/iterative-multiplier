@@ -30,12 +30,16 @@ package selector_ctrlunit_package is
 			selINC_M:		out std_logic;
 			selA_BM:		out std_logic;
 			selB_BM:		out std_logic;
+			selINT_A:		out std_logic;
+			selINT_B:		out std_logic;
 						
 			loadAM:			out std_logic;
 			loadBM:			out std_logic;
 			loadINC_M:		out std_logic;
 			loadA_BM:		out std_logic;
 			loadB_BM:		out std_logic;
+			loadINT_A:		out std_logic;
+			loadINT_B:		out std_logic;
 				-- status signals from datapath
 			INC_M:			in std_logic_vector(M downto 0)
 		);
@@ -67,12 +71,16 @@ entity selector_ctrlunit is
 		selINC_M:		out std_logic;
 		selA_BM:		out std_logic;
 		selB_BM:		out std_logic;
+		selINT_A:		out std_logic;
+		selINT_B:		out std_logic;
 					
 		loadAM:			out std_logic;
 		loadBM:			out std_logic;
 		loadINC_M:		out std_logic;
 		loadA_BM:		out std_logic;
 		loadB_BM:		out std_logic;
+		loadINT_A:		out std_logic;
+		loadINT_B:		out std_logic;
 			-- status signals from datapath
 		INC_M:			in std_logic_vector(M downto 0)
 	);
@@ -82,7 +90,7 @@ end entity;
 architecture behavior of selector_ctrlunit is
 
 
-	type statetype is (INIT, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
+	type statetype is (INIT, LOAD_INTERNALS, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,
 						INC, SAVE_OPS_BM, OUTDATA_BM, WAITSELS);
 	signal state, nextstate : statetype;
 	
@@ -98,8 +106,10 @@ architecture behavior of selector_ctrlunit is
 				if DATAIN = '0' then
 					nextstate <= INIT;
 				else
-					nextstate <= SAVE_OPS;
+					nextstate <= LOAD_INTERNALS;
 				end if;
+			when LOAD_INTERNALS =>
+				nextstate <= SAVE_OPS;
 			when SAVE_OPS =>
 				nextstate <= INC;
 			when INC =>
@@ -160,6 +170,16 @@ architecture behavior of selector_ctrlunit is
 		loadB_BM	<=	'1'  when state=SAVE_OPS_BM else
 						'0';
 		selB_BM		<=	'1'  when state=SAVE_OPS_BM else
+						'0';
+						
+		loadINT_A	<=	'1'  when state=LOAD_INTERNALS else
+						'0';
+		selINT_A	<=	'1'  when state=LOAD_INTERNALS else
+						'0';
+						
+		loadINT_B	<=	'1'  when state=LOAD_INTERNALS else
+						'0';
+		selINT_B	<=	'1'  when state=LOAD_INTERNALS else
 						'0';
 						
 						

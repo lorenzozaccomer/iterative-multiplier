@@ -15,10 +15,10 @@ package basic_mult_package is
 			CLK:				in std_logic;
 			RST:				in std_logic;
 				-- data inputs
-			RA_BM:				in std_logic_vector(M-1 downto 0);
-			RB_BM:				in std_logic_vector(M-1 downto 0);
+			A_BM:				in std_logic_vector(M-1 downto 0);
+			B_BM:				in std_logic_vector(M-1 downto 0);
 				-- data outputs
-			ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
+			OUT_BM:			out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
 				-- control outputs
@@ -45,10 +45,10 @@ entity basic_mult is
 		CLK:				in std_logic;
 		RST:				in std_logic;
 			-- data inputs
-		RA_BM:				in std_logic_vector(M-1 downto 0);
-		RB_BM:				in std_logic_vector(M-1 downto 0);
+		A_BM:				in std_logic_vector(M-1 downto 0);
+		B_BM:				in std_logic_vector(M-1 downto 0);
 			-- data outputs
-		ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
+		OUT_BM:				out std_logic_vector(2*M-1 downto 0);
 			-- control inputs
 		DATAIN:				in std_logic;
 		-- START:				in std_logic;
@@ -119,7 +119,7 @@ architecture struct of basic_mult is
 		);
 		
 	DP:	basic_mult_datapath 
-		port map(CLK, RST, RA_BM, RB_BM, ROUT_BM,
+		port map(CLK, RST, A_BM, B_BM, OUT_BM,
 			selOPA,
 			selOPB,
 			selRA_BM,

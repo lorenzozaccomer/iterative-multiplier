@@ -16,7 +16,7 @@ package basic_mult_datapath_package is
 				-- data inputs
 			A_BM, B_BM:			in std_logic_vector(M-1 downto 0);
 				-- data outputs
-			ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
+			OUT_BM:				out std_logic_vector(2*M-1 downto 0);
 				-- control singals to datapath
 			selOPA:				in std_logic;
 			selOPB:				in std_logic;
@@ -65,7 +65,7 @@ entity basic_mult_datapath is
 			-- data inputs
 		A_BM, B_BM:			in std_logic_vector(M-1 downto 0);
 			-- data outputs
-		ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
+		OUT_BM:				out std_logic_vector(2*M-1 downto 0);
 			-- control signals to datapath
 		selOPA:				in std_logic;
 		selOPB:				in std_logic;
@@ -115,7 +115,7 @@ architecture struct of basic_mult_datapath is
 	signal shift_ra_bm:					std_logic_vector(M-1 downto 0);
 	
 	signal accbm_in, accbm_out:			std_logic_vector(2*M-1 downto 0);
-	signal rout_in, r_out_bm:			std_logic_vector(2*M-1 downto 0);
+	signal rout_in, rout_bm:			std_logic_vector(2*M-1 downto 0);
 	signal opr_in, opr_out:				std_logic_vector(2*M-1 downto 0);
 	
 	signal add_sum_out:					std_logic_vector(2*M-1 downto 0);
@@ -148,7 +148,7 @@ architecture struct of basic_mult_datapath is
 	REG_ACC_BM:		regN generic map(2*M) port map(CLK, RST, loadACC_BM, accbm_in, accbm_out);
 	REG_OPR:		regN generic map(2*M) port map(CLK, RST, loadOPR, opr_in, opr_out);
 	REG_PM:			regN generic map(2*M) port map(CLK, RST, loadRPM, rpm_in, rpm_out);
-	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, rout_in, r_out_bm);
+	REG_OUT_BM:		regN generic map(2*M) port map(CLK, RST, loadOUT, rout_in, rout_bm);
 	
 		-- -- MUXS
 	MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
@@ -163,7 +163,7 @@ architecture struct of basic_mult_datapath is
 	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, sum_bm_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, opr_out, product_out, opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, accbm_out, sum_bm_out, accbm_in);
-	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, r_out_bm, rout_in);
+	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, rout_bm, rout_in);
 	
 		-- ADDERS
 	-- needed to increment CNT_BM
@@ -190,6 +190,6 @@ architecture struct of basic_mult_datapath is
 	CNT_BM <= cnt_bm_out;
 	
 		-- data output
-	ROUT_BM <= r_out_bm;
+	OUT_BM <= rout_bm;
 	
 end struct;

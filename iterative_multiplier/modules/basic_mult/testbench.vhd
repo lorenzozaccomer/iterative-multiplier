@@ -32,7 +32,7 @@ architecture behavior of tb is
 	signal CLK, RST: 			std_logic;
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
-	signal ROUT_BM:				std_logic_vector(2*M-1 downto 0);
+	signal OUT_BM:				std_logic_vector(2*M-1 downto 0);
 	signal DATAIN:				std_logic	:= '0';
 	signal READY:				std_logic;
 	signal DATAOUT:				std_logic;
@@ -46,10 +46,10 @@ architecture behavior of tb is
 			CLK:				in std_logic;
 			RST:				in std_logic;
 				-- data inputs
-			RA_BM:				in std_logic_vector(M-1 downto 0);
-			RB_BM:				in std_logic_vector(M-1 downto 0);
+			A_BM:				in std_logic_vector(M-1 downto 0);
+			B_BM:				in std_logic_vector(M-1 downto 0);
 				-- data outputs
-			ROUT_BM:			out std_logic_vector(2*M-1 downto 0);
+			OUT_BM:			out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
 			-- START:				in std_logic;
@@ -64,7 +64,7 @@ architecture behavior of tb is
 		port map(CLK,RST,
 			A_BM,
 			B_BM,
-			ROUT_BM,
+			OUT_BM,
 			DATAIN,
 			DATAOUT,
 			READY

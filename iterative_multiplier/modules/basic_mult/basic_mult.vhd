@@ -112,8 +112,8 @@ architecture struct of basic_mult is
 			loadSUM,
 			loadCNT_BM,
 			-- loadADV_BM,
-			loadOUT,
 			loadRPM,
+			loadOUT,
 			-- ADV_BM,
 			CNT_BM
 		);
@@ -140,8 +140,8 @@ architecture struct of basic_mult is
 			loadSUM,
 			loadCNT_BM,
 			-- loadADV_BM,
-			loadOUT,
 			loadRPM,
+			loadOUT,
 			-- ADV_BM,
 			CNT_BM
 		);

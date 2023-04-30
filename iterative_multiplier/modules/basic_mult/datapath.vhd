@@ -39,8 +39,8 @@ package basic_mult_datapath_package is
 			loadSUM:			in std_logic;
 			loadCNT_BM:			in std_logic;
 			-- loadADV_BM:			in std_logic;
-			loadOUT:			in std_logic;
 			loadRPM:			in std_logic;
+			loadOUT:			in std_logic;
 				-- status signals from datapath
 			-- ADV_BM:				out std_logic;						
 			CNT_BM:				out std_logic_vector(Q downto 0)	
@@ -88,8 +88,8 @@ entity basic_mult_datapath is
 		loadSUM:			in std_logic;
 		loadCNT_BM:			in std_logic;
 		-- loadADV_BM:			in std_logic;
-		loadOUT:			in std_logic;
 		loadRPM:			in std_logic;
+		loadOUT:			in std_logic;
 			-- status signals from datapath
 		-- ADV_BM:				out std_logic;						
 		CNT_BM:				out std_logic_vector(Q downto 0)	

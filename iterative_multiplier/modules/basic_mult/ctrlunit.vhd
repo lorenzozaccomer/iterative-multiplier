@@ -42,8 +42,8 @@ package basic_mult_ctrlunit_package is
 			loadSUM:			out std_logic;
 			loadCNT_BM:			out std_logic;
 			-- loadADV_BM:			out std_logic;
-			loadOUT:			out std_logic;
 			loadRPM:			out std_logic;
+			loadOUT:			out std_logic;
 				-- status signals from datapath
 			-- ADV_BM:				in std_logic;				
 			CNT_BM:				in std_logic_vector(Q downto 0)
@@ -91,8 +91,8 @@ entity basic_mult_ctrlunit is
 		loadSUM:			out std_logic;
 		loadCNT_BM:			out std_logic;
 		-- loadADV_BM:			out std_logic;
-		loadOUT:			out std_logic;
 		loadRPM:			out std_logic;
+		loadOUT:			out std_logic;
 			-- status signals from datapath
 		-- ADV_BM:				in std_logic;				
 		CNT_BM:				in std_logic_vector(Q downto 0)

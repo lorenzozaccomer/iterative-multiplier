@@ -168,7 +168,7 @@ architecture struct of basic_mult_datapath is
 	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, rout_bm, rout_in);
 	
 		-- ADDERS
-	-- needed to increment CNT_BM
+	-- CNT_BM++
 	INC_CNT_BM:		adderNotCOut generic map(Q+1) port map(cnt_bm_out, "001", inc_cnt_bm_out);		
 	-- SUM_BUM = ACC_BM + OPR	
 	ADD_SUM:		adderNotCOut generic map(2*M) port map(opr_out, accbm_out, add_sum_out);		

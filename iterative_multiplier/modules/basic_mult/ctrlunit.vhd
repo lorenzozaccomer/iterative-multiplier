@@ -175,14 +175,14 @@ architecture behavior of basic_mult_ctrlunit is
 		loadOPA		<= 	'1'  when state=NEW_OPERAND_BM or
 							 state=NEW_OPA else 
 						'0';
-		selOPA		<= 	'0'  when state=NEW_OPERAND_BM or 
+		selOPA		<= 	'1'  when state=NEW_OPERAND_BM or 
 							 state=NEW_OPA else
-						'1';
+						'0';
 		
 		loadOPB 	<= 	'1'  when state=NEW_OPERAND_BM else 
 						'0';
-		selOPB		<= 	'0'  when state=NEW_OPERAND_BM else 
-						'1';
+		selOPB		<= 	'1'  when state=NEW_OPERAND_BM else 
+						'0';
 		
 		loadA_BM	<=	'1' when state=LOAD_DATA or 
 							state=NEW_PRODUCT_BM or 
@@ -223,14 +223,14 @@ architecture behavior of basic_mult_ctrlunit is
 		loadSUM 	<= 	'1'  when state=SUM_BM or
 							 state=RESET_BM else 
 						'0';
-		selSUM		<= 	'0'  when state=SUM_BM else 
-						'1';
+		selSUM		<= 	'1'  when state=SUM_BM else 
+						'0';
 
 		loadCNT_BM	<= 	'1'  when state=LOAD_DATA or 
 							 state=INC_CNT else 
 						'0';
-		selCNT_BM	<= 	'0'  when state=INC_CNT else
-						'1';
+		selCNT_BM	<= 	'1'  when state=INC_CNT else
+						'0';
 		
 		-- loadADV_BM	<= 	'1'  when state=ADV or 
 							 -- state=RESET_BM else 
@@ -240,14 +240,14 @@ architecture behavior of basic_mult_ctrlunit is
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';
-		selRPM		<= 	'0'  when state=NEW_PRODUCT_BM else
-						'1';
+		selRPM		<= 	'1'  when state=NEW_PRODUCT_BM else
+						'0';
 		
 		loadOUT		<= 	'1'  when state=SUBPRODUCT else 
 						'0';
 						
-		selOUT		<=	'0'  when state=SUBPRODUCT else
-						'1';
+		selOUT		<=	'1'  when state=SUBPRODUCT else
+						'0';
 						
 		DATAOUT		<=	'1' when state=OUTSTATE else
 						'0';

@@ -155,17 +155,17 @@ architecture struct of basic_mult_datapath is
 		-- -- MUXS
 	-- MUX_SHIFT_BM:	mux port map(selADV_BM, '0', notport_out, adv_in);		
 	
-	MUX_OPA:		mux2N generic map(Q) port map(selOPA, ra_bm_out(Q-1 downto 0), opa_out, opa_in);				
-	MUX_OPB:		mux2N generic map(Q) port map(selOPB, rb_bm_out(Q-1 downto 0), opb_out, opb_in);				
-	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, inc_cnt_bm_out, zeros3, cnt_bm_in); 	
+	MUX_OPA:		mux2N generic map(Q) port map(selOPA, opa_out, ra_bm_out(Q-1 downto 0), opa_in);				
+	MUX_OPB:		mux2N generic map(Q) port map(selOPB, opb_out, rb_bm_out(Q-1 downto 0), opb_in);				
+	MUX_CNT_BM:		mux2N generic map(Q+1) port map(selCNT_BM, zeros3, inc_cnt_bm_out, cnt_bm_in); 	
 	MUX_A_BM:		mux4N generic map(M) port map(selA_BM, A_BM, shift_ra_bm, ra_bm_out, nulls4, ra_bm_in);		
 	MUX_B_BM:		mux4N generic map(M) port map(selB_BM, B_BM, shift_rb_bm, rb_bm_out, nulls4, rb_bm_in);	
 	
-	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, accbm_out, rpm_out, rpm_in);		
-	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, add_sum_out, zeros8, sum_bm_in); 
+	MUX_RPM:		mux2N generic map(2*M) port map(selRPM, rpm_out, accbm_out, rpm_in);		
+	MUX_SUM:		mux2N generic map(2*M) port map(selSUM, zeros8, add_sum_out, sum_bm_in); 
 	MUX_OPR:		mux4N generic map(2*M) port map(selOPR, zeros8, shift_opr, product_out, opr_out, opr_in);
 	MUX_ACC_BM: 	mux4N generic map(2*M) port map(selACC_BM, zeros8, shift_acc_bm, sum_bm_out, accbm_out, accbm_in);
-	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, add_subproduct_out, rout_bm, rout_in);
+	MUX_OUT:		mux2N generic map(2*M) port map(selOUT, rout_bm, add_subproduct_out, rout_in);
 	
 		-- ADDERS
 	-- CNT_BM++

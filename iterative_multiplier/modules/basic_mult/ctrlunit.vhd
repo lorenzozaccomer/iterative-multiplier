@@ -123,7 +123,7 @@ architecture behavior of basic_mult_ctrlunit is
 	begin
 		case state is
 			when INIT =>
-				if DATAIN /= '1' then
+				if DATAIN = '0' then
 					nextstate <= INIT;
 				else
 					nextstate <= LOAD_INTERNALS;

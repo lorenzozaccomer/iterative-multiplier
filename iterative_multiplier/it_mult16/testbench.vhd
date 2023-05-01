@@ -62,9 +62,9 @@ architecture behavior of tb is
 				-- data outputs
 			OUT_MULT16:		out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
-			DATAIN:			in std_logic;	-- new data to manipulate
-			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
-			READY:			out std_logic	-- m_sel can accept new data input
+			DATAIN:			in std_logic;
+			DATAOUT:		out std_logic;
+			READY:			out std_logic
 		);
 	end component;
 	

@@ -141,8 +141,8 @@ architecture struct of it_mult16_datapath is
 	REG_EN2:	reg port map(CLK, RST, loadEN2, enable2, datain2);
 	REG_EN3:	reg port map(CLK, RST, loadEN3, enable3, datain3);
 	
-	REG_OPA:	regN generic map(P) port map(CLK, RST, loadA, opa_in, opa_out);
-	REG_OPB:	regN generic map(P) port map(CLK, RST, loadB, opb_in, opb_out);
+	REG_OPA:	regN generic map(P) port map(CLK, RST, loadOPA, opa_in, opa_out);
+	REG_OPB:	regN generic map(P) port map(CLK, RST, loadOPB, opb_in, opb_out);
 	
 	REG_OUTBM:	regN generic map(M) port map(CLK, RST, loadOUTBM, bm_in, bm_out);
 	

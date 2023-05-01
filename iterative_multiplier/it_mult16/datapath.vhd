@@ -160,8 +160,10 @@ architecture struct of it_mult16_datapath is
 	
 	MUX_OUTBM:	mux2N generic map(M) port map(selOUTBM, bm_out, outbm, bm_in);
 	
-	MUX_A16:	mux2N generic map(N) port map(selA, A, a16_out, a16_in);
-	MUX_B16:	mux2N generic map(N) port map(selB, B, b16_out, b16_in);
+	MUX_A16:	mux2N generic map(N) port map(selA, a16_out, A, a16_in);
+	MUX_B16:	mux2N generic map(N) port map(selB, b16_out, B, b16_in);
+	
+	MUX_OUT16:	mux2N generic map(2*N) port map(selOUT16, out_16_out, result_out, out16_in);
 	
 		-- SELECTOR
 	SEL1: selector port map(CLK, RST, a16_out, b16_out, a_sel, b_sel, datain1, advance_bm, new_product, dataout1, ready_sel);
@@ -170,7 +172,7 @@ architecture struct of it_mult16_datapath is
 	BM1: basic_mult port map(CLK, RST, opa_out, opb_out, outbm, datain2, dataout2, ready_bm);		
 	
 		-- RESOLVER
-	RES1: resolver port map(CLK, RST, bm_out, b16_out, datain3, new_product, advance_bm, dataout_sel, ready_sel);
+	RES1: resolver port map(CLK, RST, bm_out, result_out, datain3, new_product, advance_bm, dataout_sel, ready_sel);
 
 		-- status signals
 
@@ -180,6 +182,6 @@ architecture struct of it_mult16_datapath is
 	DATAOUT_BM 	<= dataout2;
 	DATAOUT_RES <= dataout3;
 	
-	OUT_MULT16 	<= result_out;
+	OUT_MULT16 	<= out_16_out;
 	
 end struct;

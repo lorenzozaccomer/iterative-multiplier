@@ -172,7 +172,7 @@ architecture struct of it_mult16_datapath is
 	BM1: basic_mult port map(CLK, RST, opa_out, opb_out, outbm, datain2, dataout2, ready_bm);		
 	
 		-- RESOLVER
-	RES1: resolver port map(CLK, RST, bm_out, result_out, datain3, new_product, advance_bm, dataout_sel, ready_sel);
+	RES1: resolver port map(CLK, RST, bm_out, result_out, datain3, new_product, advance_bm, dataout3, ready_res);
 
 		-- status signals
 

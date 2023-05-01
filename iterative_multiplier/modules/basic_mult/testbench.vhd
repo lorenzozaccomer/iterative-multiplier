@@ -98,6 +98,24 @@ architecture behavior of tb is
 	end process;
 	
 	
+		-- write result on output file
+	write_result_process: process(CLK)
+		file outputfile:			TEXT open WRITE_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\modules\basic_mult\result.txt";
+		variable inputline: 	LINE;
+	begin
+		if (CLK = '0') and (DATAOUT = '1') then
+		-- write result
+				write(inputline, A_BM);
+				writeline(outputfile, inputline);
+				write(inputline, B_BM);
+				writeline(outputfile, inputline);
+				write(inputline, OUT_BM);
+				writeline(outputfile, inputline);
+		end if;
+	end process;
+	
+	
 	-- terminate the simulation when there are no more data in datafile
 	done_process: process(done)
 	variable outputline : LINE;

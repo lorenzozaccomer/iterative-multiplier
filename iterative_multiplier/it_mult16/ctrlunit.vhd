@@ -128,9 +128,9 @@ architecture behavior of it_mult16_ctrlunit is
 					nextstate <= ENABLE_SEL;
 			when ENABLE_SEL =>
 					nextstate <= EXEC_SEL;
+			-- when EXEC_SEL =>
+					-- nextstate <= LOW_ENABLE1;
 			when EXEC_SEL =>
-					nextstate <= LOW_ENABLE1;
-			when LOW_ENABLE1 =>
 				if DATAOUT_SEL = '1' then
 					nextstate <= SAVE_OPS_BM;
 				else
@@ -142,13 +142,13 @@ architecture behavior of it_mult16_ctrlunit is
 				nextstate <= ENABLE_BM;
 			when ENABLE_BM =>
 				nextstate <= EXEC_BM;
+			-- when EXEC_BM =>
+				-- nextstate <= LOW_ENABLE2;
 			when EXEC_BM =>
-				nextstate <= LOW_ENABLE2;
-			when LOW_ENABLE2 =>
 				if DATAOUT_BM = '1' then
 					nextstate <= SAVE_OP_RES;
 				else
-					nextstate <= LOW_ENABLE2;
+					nextstate <= EXEC_BM;
 				end if;
 					
 				-- RESOLVER
@@ -156,19 +156,22 @@ architecture behavior of it_mult16_ctrlunit is
 				nextstate <= ENABLE_RES;
 			when ENABLE_RES =>
 				nextstate <= EXEC_RES; 
-			
 			when EXEC_RES =>
 				if ADV_BM="00" or ADV_BM="01" then
 					nextstate <= EXEC_SEL;
 				else
-					nextstate <= LOW_ENABLE3;
+					if DATAOUT_RES = '1' then
+						nextstate <= SAVE_OUT;
+					else
+						nextstate <= EXEC_RES;
+					end if;
 				end if;
-			when LOW_ENABLE3 =>
-				if DATAOUT_RES = '1' then
-					nextstate <= SAVE_OUT;
-				else
-					nextstate <= EXEC_RES;
-				end if;
+			-- when LOW_ENABLE3 =>
+				-- if DATAOUT_RES = '1' then
+					-- nextstate <= SAVE_OUT;
+				-- else
+					-- nextstate <= EXEC_RES;
+				-- end if;
 					
 				-- SAVE RESULT
 			when SAVE_OUT =>
@@ -194,10 +197,10 @@ architecture behavior of it_mult16_ctrlunit is
 					
 			-- SELECTOR
 		selEN1		<=  '1' when state=ENABLE_SEL else
-						'0' when state=LOW_ENABLE1 or 
+						'0' when state=EXEC_SEL or 
 							state=INIT;
 		loadEN1		<=	'1' when state=ENABLE_SEL or 
-							state=LOW_ENABLE1 or
+							state=EXEC_SEL or
 							state=INIT else
 						'0';
 		selOPA		<=	'1' when state=SAVE_OPS_BM else
@@ -211,10 +214,10 @@ architecture behavior of it_mult16_ctrlunit is
 		
 			-- BASIC_MULT
 		selEN2		<=  '1' when state=ENABLE_BM else
-						'0' when state=LOW_ENABLE2 or
+						'0' when state=EXEC_BM or
 							state=INIT;
 		loadEN2		<=	'1' when state=ENABLE_BM or 
-							state=LOW_ENABLE2 or
+							state=EXEC_BM or
 							state=INIT else
 						'0';
 		selOUTBM	<=  '1' when state=SAVE_OP_RES else
@@ -225,10 +228,10 @@ architecture behavior of it_mult16_ctrlunit is
 			-- RESOLVER
 		selEN3		<=  '1' when state=ENABLE_RES else
 						'0' when state=INIT or 
-							state=LOW_ENABLE3;
+							state=EXEC_RES;
 		loadEN3		<=	'1' when state=ENABLE_RES or
 							state=INIT or 
-							state=LOW_ENABLE3 else
+							state=EXEC_RES else
 						'0';
 		
 			-- SAVE OUT

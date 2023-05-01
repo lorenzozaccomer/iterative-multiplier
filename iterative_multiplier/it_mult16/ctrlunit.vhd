@@ -101,7 +101,7 @@ end entity;
 architecture behavior of it_mult16_ctrlunit is
 
 
-	type statetype is (INIT, LOAD_OPS, ENABLE_SEL, EXEC_SEL,
+	type statetype is (INIT, LOAD_OPERANDS, ENABLE_SEL, EXEC_SEL,
 						SAVE_OPS_BM, ENABLE_BM, EXEC_BM,
 						SAVE_OP_RES, ENABLE_RES, EXEC_RES, SAVE_OUT, 
 						OUTSTATE, LOW_ENABLE1, LOW_ENABLE2, LOW_ENABLE3);
@@ -120,11 +120,11 @@ architecture behavior of it_mult16_ctrlunit is
 				if DATAIN = '0' then
 					nextstate <= INIT;
 				else
-					nextstate <= LOAD_OPS;
+					nextstate <= LOAD_OPERANDS;
 				end if;
 				
 				-- SELECTOR
-			when LOAD_OPS =>
+			when LOAD_OPERANDS =>
 					nextstate <= ENABLE_SEL;
 			when ENABLE_SEL =>
 					nextstate <= EXEC_SEL;
@@ -183,14 +183,14 @@ architecture behavior of it_mult16_ctrlunit is
 	end process;
 	
 		-- OUTPUTS
-		loadA		<=  '1' when state=LOAD_OPS else
+		loadA		<=  '1' when state=LOAD_OPERANDS else
 						'0';
-		selA		<=	'0' when state=LOAD_OPS else
-						'1';
-		loadB		<=  '1' when state=LOAD_OPS else
+		selA		<=	'1' when state=LOAD_OPERANDS else
 						'0';
-		selB		<=	'0' when state=LOAD_OPS else
-						'1';
+		loadB		<=  '1' when state=LOAD_OPERANDS else
+						'0';
+		selB		<=	'1' when state=LOAD_OPERANDS else
+						'0';
 					
 			-- SELECTOR
 		selEN1		<=  '1' when state=ENABLE_SEL else

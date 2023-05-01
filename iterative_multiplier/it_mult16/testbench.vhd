@@ -103,9 +103,28 @@ architecture behavior of tb is
 			else
 				done <= 1;
 			end if;
-		end if;
-				
+		end if;			
 	end process;
+	
+	
+	-- write result on output file
+	write_result_process: process(CLK)
+		file outputfile:			TEXT open WRITE_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult16\result.txt";
+		variable inputline: 	LINE;
+		variable in_RESULT:		bit_vector(OUT_MULT16'range);
+	begin
+		if (CLK = '0') and (DATAOUT = '1') then
+		-- write result
+				write(inputline, A);
+				writeline(outputfile, inputline);
+				write(inputline, B);
+				writeline(outputfile, inputline);
+				write(inputline, OUT_MULT16);
+				writeline(outputfile, inputline);
+		end if;
+	end process;
+	
 	
 	-- terminate the simulation when there are no more data in datafile
 	done_process: process(done)

@@ -86,13 +86,13 @@ architecture behavior of tb is
 	end process;
 	
 	
-			-- write result on output file
+	-- --write result on output file
 	-- write_result_process: process is
-		-- file outputfile:			TEXT open WRITE_MODE is 
+		-- file outputfile:	TEXT open WRITE_MODE is 
 		-- "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\result.txt";
 		-- variable inputline: 	LINE;
 	-- begin
-		-- if (DATAOUT = '1') then
+		-- if (done = 0) then
 		-- -- write result
 				-- write(inputline, A);
 				-- writeline(outputfile, inputline);

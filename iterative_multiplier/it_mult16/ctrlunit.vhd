@@ -113,7 +113,7 @@ architecture behavior of it_mult16_ctrlunit is
 				nextstate when rising_edge(CLK);
 				
 				
-	process(state, DATAOUT_SEL, DATAOUT_BM, DATAOUT_RES, ADV_BM)
+	process(state, DATAIN, DATAOUT_SEL, DATAOUT_BM, DATAOUT_RES, ADV_BM)
 	begin
 		case state is
 			when INIT =>

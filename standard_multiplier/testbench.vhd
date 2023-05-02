@@ -69,6 +69,12 @@ architecture behavior of tb is
 		variable in_A:			bit_vector(A'range);
 		variable in_B:			bit_vector(B'range);
 		variable in_DATAIN: 	bit;
+		
+		--
+		file outputfile:	TEXT open WRITE_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\result.txt";
+		variable outputline: 	LINE;
+		
 		begin
 			if not endfile(infile) then
 				readline(infile, inputline);
@@ -82,26 +88,16 @@ architecture behavior of tb is
 			else
 				done <= 1;
 			end if;
-			wait for 200 ns;
+			
+			wait for 10 ns;
+			write(outputline, A);
+			writeline(outputfile, outputline);
+			write(outputline, B);
+			writeline(outputfile, outputline);
+			write(outputline, P);
+			writeline(outputfile, outputline);
 	end process;
-	
-	
-	-- --write result on output file
-	-- write_result_process: process is
-		-- file outputfile:	TEXT open WRITE_MODE is 
-		-- "C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\result.txt";
-		-- variable inputline: 	LINE;
-	-- begin
-		-- if (done = 0) then
-		-- -- write result
-				-- write(inputline, A);
-				-- writeline(outputfile, inputline);
-				-- write(inputline, B);
-				-- writeline(outputfile, inputline);
-				-- write(inputline, P);
-				-- writeline(outputfile, inputline);
-		-- end if;
-	-- end process;
+
 	
 	
 	-- terminate the simulation when there are no more data in datafile

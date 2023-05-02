@@ -9,7 +9,6 @@
 *.wlf
 *.mpf
 *.mti
-result.txt
 
 # Simulation folder
 test/

@@ -85,7 +85,7 @@ architecture struct of selector32 is
 	signal loadINT_A:		std_logic;
 	signal loadINT_B:		std_logic;
 				-- status signals from datapath
-	signal INC_M:			std_logic_vector(M+1 downto 0);
+	signal INC_M:			std_logic_vector(M+2 downto 0);
 	
 	begin
 	CTRL: selector32_ctrlunit 

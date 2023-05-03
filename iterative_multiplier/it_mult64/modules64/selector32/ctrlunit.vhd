@@ -41,7 +41,7 @@ package selector32_ctrlunit_package is
 			loadINT_A:		out std_logic;
 			loadINT_B:		out std_logic;
 				-- status signals from datapath
-			INC_M:			in std_logic_vector(M+1 downto 0)
+			INC_M:			in std_logic_vector(M+2 downto 0)
 		);
 	end component;
 end selector32_ctrlunit_package;
@@ -82,7 +82,7 @@ entity selector32_ctrlunit is
 		loadINT_A:		out std_logic;
 		loadINT_B:		out std_logic;
 			-- status signals from datapath
-		INC_M:			in std_logic_vector(M+1 downto 0)
+		INC_M:			in std_logic_vector(M+2 downto 0)
 	);
 end entity;
 
@@ -117,7 +117,7 @@ architecture behavior of selector32_ctrlunit is
 			when SAVE_OPS_BM =>
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				if INC_M = "100000" then	-- b100000 = 32
+				if INC_M = "1000000" then	-- b1000000 = 64
 					nextstate <= INIT;
 				else
 					nextstate <= WAITSELS;

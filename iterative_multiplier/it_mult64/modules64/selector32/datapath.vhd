@@ -105,10 +105,10 @@ architecture struct of selector32_datapath is
 	signal bm_in, bm_out:				std_logic_vector(N-1 downto 0);
 	
 	-- internal signals
-	constant zeros6:					std_logic_vector(M+1 downto 0)  := (others=>'0');
 	constant nulls32:					std_logic_vector(N-1 downto 0)	:= (others=>'-');
-	-- constant one:						std_logic_vector(K-1 downto 0)	:= to_unsigned(1);
-	
+	constant zeros:						std_logic_vector(K-1 downto 0)  := (others=>'0');
+	constant one:						std_logic_vector(K-1 downto 0)  := std_logic_vector(to_unsigned(1, K));
+		
 	begin
 		-- REGISTERS
 	REG_A_BM:	regN generic map(M) port map(CLK, RST, loadA_BM, a_bm_in, a_bm_out);
@@ -125,7 +125,7 @@ architecture struct of selector32_datapath is
 	MUX_A_BM:	mux2N generic map(M) port map(selA_BM, a_bm_out, am_out(M-1 downto 0), a_bm_in);
 	MUX_B_BM:	mux2N generic map(M) port map(selB_BM, b_bm_out, bm_out(M-1 downto 0), b_bm_in);
 	
-	MUX_INC_M:	mux2N generic map(K) port map(selINC_M, (others=>'0'), add_inc_m_out, inc_m_in);
+	MUX_INC_M:	mux2N generic map(K) port map(selINC_M, zeros, add_inc_m_out, inc_m_in);
 	
 	MUX_INTA:	mux2N generic map(N) port map(selINT_A, a_out, A_M, a_in);
 	MUX_INTB:	mux2N generic map(N) port map(selINT_B, b_out, B_M, b_in);
@@ -133,7 +133,7 @@ architecture struct of selector32_datapath is
 	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nulls32, bm_in);
 		
 		-- ADDERS
-	ADD_INC_M:	adderNotCOut generic map(K) port map(inc_m_out, "0000001", add_inc_m_out);
+	ADD_INC_M:	adderNotCOut generic map(K) port map(inc_m_out, one, add_inc_m_out);
 	
 		-- SHIFTERS
 	SH_AM:		rightshiftN generic map(N,M) port map(am_out, shift_am);

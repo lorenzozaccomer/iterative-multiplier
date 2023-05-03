@@ -14,6 +14,7 @@ package selector32_ctrlunit_package is
 		generic(
 			N	: integer := 32;
 			K	: integer := 7;
+			REF	: integer := 64;
 			M	: integer := 4
 			);
 		port(
@@ -56,6 +57,7 @@ entity selector32_ctrlunit is
 	generic(
 		N	: integer := 32;
 		K	: integer := 7;
+		REF	: integer := 64;
 		M	: integer := 4
 		);
 	port(
@@ -119,7 +121,7 @@ architecture behavior of selector32_ctrlunit is
 			when SAVE_OPS_BM =>
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				if INC_M = "1000000" then	-- b1000000 = 64
+				if INC_M = std_logic_vector(to_unsigned(REF, K)) then	-- b1000000 = 64
 					nextstate <= INIT;
 				else
 					nextstate <= WAITSELS;

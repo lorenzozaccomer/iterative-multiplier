@@ -12,6 +12,7 @@ package selector32_package is
 		generic(
 			N	: integer := 32;
 			K	: integer := 7;
+			REF	: integer := 64;
 			M	: integer := 4
 			);
 		port(
@@ -47,6 +48,7 @@ entity selector32 is
 	generic(
 		N	: integer := 32;
 		K	: integer := 7;
+		REF	: integer := 64;
 		M	: integer := 4
 	);
 	port(

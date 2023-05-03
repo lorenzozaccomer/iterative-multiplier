@@ -11,6 +11,7 @@ package selector32_package is
 	component selector32 is
 		generic(
 			N	: integer := 32;
+			K	: integer := 7;
 			M	: integer := 4
 			);
 		port(
@@ -45,6 +46,7 @@ use work.selector32_ctrlunit_package.all;
 entity selector32 is
 	generic(
 		N	: integer := 32;
+		K	: integer := 7;
 		M	: integer := 4
 	);
 	port(
@@ -85,7 +87,7 @@ architecture struct of selector32 is
 	signal loadINT_A:		std_logic;
 	signal loadINT_B:		std_logic;
 				-- status signals from datapath
-	signal INC_M:			std_logic_vector(M+2 downto 0);
+	signal INC_M:			std_logic_vector(K-1 downto 0);
 	
 	begin
 	CTRL: selector32_ctrlunit 

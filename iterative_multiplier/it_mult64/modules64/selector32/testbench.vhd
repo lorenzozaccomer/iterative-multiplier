@@ -61,6 +61,7 @@ architecture behavior of tb is
 	component selector32 is
 		generic(
 			N	: integer := 32;
+			K	: integer := 7;
 			M	: integer := 4
 			);
 		port(

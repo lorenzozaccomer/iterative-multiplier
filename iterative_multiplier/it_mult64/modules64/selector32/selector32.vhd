@@ -10,10 +10,10 @@ use ieee.numeric_std.all;
 package selector32_package is
 	component selector32 is
 		generic(
-			N	: integer := 32;
-			K	: integer := 7;
-			REF	: integer := 64;
-			M	: integer := 4
+			N			:	integer := 32;
+			DIM_CNT		:	integer := 7;
+			ITERATIONS	: 	integer := 64;
+			M			:	integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -46,10 +46,10 @@ use work.selector32_ctrlunit_package.all;
 
 entity selector32 is
 	generic(
-		N	: integer := 32;
-		K	: integer := 7;
-		REF	: integer := 64;
-		M	: integer := 4
+		N			:	integer := 32;
+		DIM_CNT		:	integer := 7;
+		ITERATIONS	: 	integer := 64;
+		M			:	integer := 4
 	);
 	port(
 		CLK:			in std_logic;
@@ -89,7 +89,7 @@ architecture struct of selector32 is
 	signal loadINT_A:		std_logic;
 	signal loadINT_B:		std_logic;
 				-- status signals from datapath
-	signal INC_M:			std_logic_vector(K-1 downto 0);
+	signal INC_M:			std_logic_vector(DIM_CNT-1 downto 0);
 	
 	begin
 	CTRL: selector32_ctrlunit 

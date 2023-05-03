@@ -12,10 +12,10 @@ use ieee.numeric_std.all;
 package selector32_ctrlunit_package is
 	component selector32_ctrlunit is
 		generic(
-			N	: integer := 32;
-			K	: integer := 7;
-			REF	: integer := 64;
-			M	: integer := 4
+			N			:	integer := 32;
+			DIM_CNT		:	integer := 7;
+			ITERATIONS	: 	integer := 64;
+			M			:	integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -43,7 +43,7 @@ package selector32_ctrlunit_package is
 			loadINT_A:		out std_logic;
 			loadINT_B:		out std_logic;
 				-- status signals from datapath
-			INC_M:			in std_logic_vector(K-1 downto 0)
+			INC_M:			in std_logic_vector(DIM_CNT-1 downto 0)
 		);
 	end component;
 end selector32_ctrlunit_package;
@@ -55,10 +55,10 @@ use ieee.numeric_std.all;
 	-- interface
 entity selector32_ctrlunit is
 	generic(
-		N	: integer := 32;
-		K	: integer := 7;
-		REF	: integer := 64;
-		M	: integer := 4
+		N			:	integer := 32;
+		DIM_CNT		:	integer := 7;
+		ITERATIONS	: 	integer := 64;
+		M			:	integer := 4
 		);
 	port(
 		CLK:			in std_logic;
@@ -86,7 +86,7 @@ entity selector32_ctrlunit is
 		loadINT_A:		out std_logic;
 		loadINT_B:		out std_logic;
 			-- status signals from datapath
-		INC_M:			in std_logic_vector(K-1 downto 0)
+		INC_M:			in std_logic_vector(DIM_CNT-1 downto 0)
 	);
 end entity;
 
@@ -121,7 +121,7 @@ architecture behavior of selector32_ctrlunit is
 			when SAVE_OPS_BM =>
 				nextstate <= OUTDATA_BM;
 			when OUTDATA_BM =>
-				if INC_M = std_logic_vector(to_unsigned(REF, K)) then	-- b1000000 = 64
+				if INC_M = std_logic_vector(to_unsigned(ITERATIONS, DIM_CNT)) then	-- b1000000 = 64
 					nextstate <= INIT;
 				else
 					nextstate <= WAITSELS;

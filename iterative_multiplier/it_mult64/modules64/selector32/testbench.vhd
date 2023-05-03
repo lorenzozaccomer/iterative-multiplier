@@ -60,10 +60,10 @@ architecture behavior of tb is
 		-- DUT declaration
 	component selector32 is
 		generic(
-			N	: integer := 32;
-			K	: integer := 7;
-			REF	: integer := 64;
-			M	: integer := 4
+			N			:	integer := 32;
+			DIM_CNT		:	integer := 7;
+			ITERATIONS	: 	integer := 64;
+			M			:	integer := 4
 			);
 		port(
 			CLK:			in std_logic;

@@ -6,27 +6,27 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 
-entity tb is
+entity tb16 is
 	generic(
 		N 	: integer := 16;
 		M 	: integer := 4
 	);
-end tb;
+end tb16;
 
-architecture behavior of tb is
+architecture behavior of tb16 is
 
 	constant CLK_SEMIPERIOD0: 	time := 25 ns;
 	constant CLK_SEMIPERIOD1: 	time := 25 ns;
 	constant CLK_PERIOD: 		time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	constant RESET_TIME:		time := 3*CLK_PERIOD + 9 ns;
 	
-		-- signals for debugging and tb control
-	signal count : std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_count : integer := 0;
-	signal start : integer := 0;
-	signal done : integer := 0;
-	signal counter_data : std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_counter_data : integer := 0;
+		-- signals for debugging and tb16 control
+	signal count : 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	signal int_count : 			integer 						 := 0;
+	signal start : 				integer 						 := 0;
+	signal done : 				integer 						 := 0;
+	signal counter_data : 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
+	signal int_counter_data : 	integer := 0;
 	 
 		-- signals for DUT
 	signal CLK, RST: 			std_logic;
@@ -34,13 +34,11 @@ architecture behavior of tb is
 	signal B_M:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
 	signal A_BM:				std_logic_vector(M-1 downto 0);
 	signal B_BM:				std_logic_vector(M-1 downto 0);
-	signal DATAIN:				std_logic	:= '0';
+	signal DATAIN:				std_logic						:= '0';
 	signal ADV_AM:				std_logic_vector(1 downto 0)	:= "00";
 	signal NW_PRD:				std_logic;
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
-	
-	signal sel1:				std_logic	:= '0';
 	
 	signal index:	integer	:= 1;
 	
@@ -56,8 +54,10 @@ architecture behavior of tb is
 		-- DUT declaration
 	component selector is
 		generic(
-			N	: integer := 16;
-			M	: integer := 4
+			N			:	integer := 32;
+			DIM_CNT		:	integer := 7;
+			ITERATIONS	: 	integer := 64;
+			M			:	integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -80,6 +80,10 @@ architecture behavior of tb is
 	
 	begin
 	DUT: selector
+		generic map(
+			N => 16,
+			ITERATIONS => 16
+			)
 		port map(CLK, RST,
 			A_M,
 			B_M,
@@ -96,7 +100,7 @@ architecture behavior of tb is
 	-- read from datafile
 	read_file_process: process(CLK)
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\modules\selector\inputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\selector32\inputdata16.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);

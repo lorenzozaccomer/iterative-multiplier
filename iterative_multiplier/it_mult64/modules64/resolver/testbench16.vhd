@@ -49,7 +49,7 @@ architecture behavior of tb16 is
 		N			: integer := 16;
 		DIM_CNT		: integer := 3;
 		M			: integer := 8;
-		PARTS	: integer := 4
+		REPETITION	: integer := 4
 		);
 		port(
 			CLK:			in std_logic;
@@ -71,7 +71,7 @@ architecture behavior of tb16 is
 	DUT: resolver
 		generic map(
 			N => 16,
-			PARTS => 4
+			REPETITION => 4
 		)
 		port map(CLK, RST,
 			OUT_BM,
@@ -117,7 +117,7 @@ architecture behavior of tb16 is
 	-- write result on output file
 	write_result_process: process(CLK)
 		file outputfile:			TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\resolver\result16.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\resolver\output16.txt";
 		variable inputline: 	LINE;
 		variable in_RESULT:		bit_vector(RESULT'range);
 	begin

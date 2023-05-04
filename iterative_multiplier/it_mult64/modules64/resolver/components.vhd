@@ -28,7 +28,7 @@ package resolver_components_package is
 		);
 	end component;
 			
-	component adderNotCOut is
+	component adderN is
 		generic(N 	: integer := 4);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -64,28 +64,13 @@ end resolver_components_package;
 
 
 ----------------------------------------------------------------------
-package constants_components_package is
-    constant Tadd           : time := 4 ns;
-    constant Tcomp          : time := 5 ns;
-    constant Tmux           : time := 2 ns;
-    constant TRco           : time := 1 ns;
-    constant TRsu           : time := 1 ns;
-    constant Tshift         : time := 0 ns;
-    constant Tlogic         : time := 0.4 ns;
-end constants_components_package;
-----------------------------------------------------------------------
-
-
-
-----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
 
 -- adder without carries
 
-entity adderNotCOut is
+entity adderN is
 	generic(N 	: integer := 4);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -93,7 +78,7 @@ entity adderNotCOut is
 	  );
 end entity;
 
-architecture behavior of adderNotCOut is
+architecture behavior of adderN is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;
@@ -105,7 +90,6 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
 
 
 entity mux2N is
@@ -132,7 +116,6 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
 
 
 entity rightshiftN is
@@ -156,7 +139,6 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
 
 
 entity regN is
@@ -188,7 +170,6 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
 
 
 entity mux4N is

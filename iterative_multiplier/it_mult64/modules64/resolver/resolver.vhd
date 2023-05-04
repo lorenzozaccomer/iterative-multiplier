@@ -11,9 +11,10 @@ use ieee.numeric_std.all;
 package resolver_package is
 	component resolver is
 		generic(
-			N	: integer := 16;
-			M	: integer := 8;
-			P	: integer := 4
+			N		: integer := 16;
+			DIM_CNT	: integer := 3;
+			M		: integer := 8;
+			P		: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -43,9 +44,10 @@ use work.resolver_ctrlunit_package.all;
 
 entity resolver is
 	generic(
-		N	: integer := 16;
-		M	: integer := 8;
-		P	: integer := 4
+		N		: integer := 16;
+		DIM_CNT	: integer := 3;
+		M		: integer := 8;
+		P		: integer := 4
 		);
 	port(
 		CLK:			in std_logic;
@@ -89,8 +91,8 @@ architecture struct of resolver is
 	signal loadRESULT:		 std_logic;
 	signal selRESULT:		 std_logic;
 				-- status signals from datapath
-	signal P_SHIFT:		std_logic_vector(1 downto 0);
-	signal N_SHIFT:		std_logic_vector(1 downto 0);
+	signal P_SHIFT:		std_logic_vector(DIM_CNT-1 downto 0);
+	signal N_SHIFT:		std_logic_vector(DIM_CNT-1 downto 0);
 	
 	begin
 	CTRL: resolver_ctrlunit 

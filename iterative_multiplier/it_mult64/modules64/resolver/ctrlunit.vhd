@@ -12,6 +12,7 @@ package resolver_ctrlunit_package is
 	component resolver_ctrlunit is
 		generic(
 			N	: integer := 16;
+			DIM_CNT	: integer := 3;
 			M	: integer := 8;
 			P	: integer := 4
 			);
@@ -48,8 +49,8 @@ package resolver_ctrlunit_package is
 			loadRESULT:		out std_logic;
 			selRESULT:		out std_logic;
 				-- status signals from datapath
-			P_SHIFT:		in std_logic_vector(1 downto 0);
-			N_SHIFT:		in std_logic_vector(1 downto 0)
+			P_SHIFT:		in std_logic_vector(DIM_CNT-1 downto 0);
+			N_SHIFT:		in std_logic_vector(DIM_CNT-1 downto 0)
 		);
 	end component;
 end resolver_ctrlunit_package;
@@ -61,9 +62,10 @@ use ieee.numeric_std.all;
 	-- interface
 entity resolver_ctrlunit is
 	generic(
-		N	: integer := 16;
-		M	: integer := 8;
-		P	: integer := 4
+		N		: integer := 16;
+		DIM_CNT	: integer := 3;
+		M		: integer := 8;
+		P		: integer := 4
 		);
 	port(
 			CLK:			in std_logic;
@@ -98,8 +100,8 @@ entity resolver_ctrlunit is
 			loadRESULT:		out std_logic;
 			selRESULT:		out std_logic;
 				-- status signals from datapath
-			P_SHIFT:		in std_logic_vector(1 downto 0);
-			N_SHIFT:		in std_logic_vector(1 downto 0)
+			P_SHIFT:		in std_logic_vector(DIM_CNT-1 downto 0);
+			N_SHIFT:		in std_logic_vector(DIM_CNT-1 downto 0)
 		);
 end entity;
 
@@ -132,7 +134,7 @@ architecture behavior of resolver_ctrlunit is
 			when START =>
 				nextstate <= LOAD_DATA;
 			when LOAD_DATA =>
-				if P_SHIFT = "00" then	-- b'00 = 0
+				if P_SHIFT = std_logic_vector(to_unsigned(0, DIM_CNT)) then	-- b'00 = 0
 					nextstate <= SUM1;
 				else
 					nextstate <= SHIFT1;
@@ -147,7 +149,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT1;
 				
 			when WAIT1 =>
-				if P_SHIFT = "11" then	-- b'11 = 3
+				if P_SHIFT = std_logic_vector(to_unsigned(P-1, DIM_CNT)) then	-- b'11 = 3
 					nextstate <= WAITSELS;
 				else
 					nextstate <= UP_ADV_AM;
@@ -168,7 +170,7 @@ architecture behavior of resolver_ctrlunit is
 				end if;
 			
 			when WAITSELS =>
-				if N_SHIFT = "00" then	-- b'00 = 0
+				if N_SHIFT = std_logic_vector(to_unsigned(0, DIM_CNT)) then	-- b'00 = 0
 					nextstate <= SUM2;
 				else
 					nextstate <= SHIFT2;
@@ -183,7 +185,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT2;
 				
 			when WAIT2 =>
-				if N_SHIFT = "11" then	-- b11 = 3
+				if N_SHIFT = std_logic_vector(to_unsigned(P-1, DIM_CNT)) then	-- b11 = 3
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;

@@ -156,14 +156,14 @@ architecture struct of resolver_datapath is
 		-- MUXS
 	MUX_P:		mux2N generic map(DIM_CNT) port map(selPSHIFT, zero, p_out, pshift_in);
 	MUX_N:		mux2N generic map(DIM_CNT) port map(selNSHIFT, zero, n_out, nshift_in);
-	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
+	MUX_BM:		mux2N generic map(M) port map(selOUTBM, bm_out, OUT_BM, bm_in);
 	
 	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto 2*N-M));
 	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zerosNP, s2_in(2*N-1 downto N-P));
 	MUX_OPT1:	mux2N generic map(2*N-M) port map(selOPT1, zerosMN, int_out(2*N-M-1 downto 0), s1_in(2*N-M-1 downto 0));
 	MUX_OPT2:	mux2N generic map(N-P) port map(selOPT2, zerosMP, accr_out(N-P-1 downto 0), s2_in(N-P-1 downto 0));
 	MUX_ACCR:	mux4N generic map(2*N) port map(selACCR, shift_accr, s2_out, zeros2N, nulls2N, accr_in);
-	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros2N, result_in);
+	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, zeros2N, accr_out, result_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros2N, shift_rs, s1_out, rs_out, rs_in);
 	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros2N, rs_out, int_in);
 	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros2N, rs_out, int2_in);

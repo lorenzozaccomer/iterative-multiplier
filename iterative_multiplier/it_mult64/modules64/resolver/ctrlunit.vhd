@@ -220,16 +220,15 @@ architecture behavior of resolver_ctrlunit is
 		loadNSHIFT		<=	'1' when state=START or
 								state=INC_N else
 							'0';
-		selNSHIFT		<=	'0' when state=START else
-							'1' when state=INC_N;
+		selNSHIFT		<=	'1' when state=INC_N else
+							'0';
 							
 		loadPSHIFT		<= 	'1' when state=START or
 								state=INC_P or 
 								state=INC_N else
 							'0';
-		selPSHIFT		<=	'0' when state=START or 
-								state=INC_N else
-							'1' when state=INC_P;
+		selPSHIFT		<=	'1' when state=INC_P else
+							'0';
 							
 		loadOUTBM		<=	'1' when state=LOAD_DATA else
 							'0';

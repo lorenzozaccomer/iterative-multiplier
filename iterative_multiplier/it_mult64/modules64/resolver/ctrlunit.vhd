@@ -11,10 +11,9 @@ use ieee.numeric_std.all;
 package resolver_ctrlunit_package is
 	component resolver_ctrlunit is
 		generic(
-			N	: integer := 16;
-			DIM_CNT	: integer := 3;
-			M	: integer := 8;
-			P	: integer := 4
+			N			: integer := 16;
+			DIM_CNT		: integer := 3;
+			PARTS		: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -62,10 +61,9 @@ use ieee.numeric_std.all;
 	-- interface
 entity resolver_ctrlunit is
 	generic(
-		N		: integer := 16;
-		DIM_CNT	: integer := 3;
-		M		: integer := 8;
-		P		: integer := 4
+		N			: integer := 16;
+		DIM_CNT		: integer := 3;
+		PARTS		: integer := 4
 		);
 	port(
 			CLK:			in std_logic;
@@ -149,7 +147,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT1;
 				
 			when WAIT1 =>
-				if P_SHIFT = std_logic_vector(to_unsigned(P-1, DIM_CNT)) then	-- b'11 = 3
+				if P_SHIFT = std_logic_vector(to_unsigned(PARTS-1, DIM_CNT)) then	-- b'11 = 3
 					nextstate <= WAITSELS;
 				else
 					nextstate <= UP_ADV_AM;
@@ -185,7 +183,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT2;
 				
 			when WAIT2 =>
-				if N_SHIFT = std_logic_vector(to_unsigned(P-1, DIM_CNT)) then	-- b11 = 3
+				if N_SHIFT = std_logic_vector(to_unsigned(PARTS-1, DIM_CNT)) then	-- b11 = 3
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;

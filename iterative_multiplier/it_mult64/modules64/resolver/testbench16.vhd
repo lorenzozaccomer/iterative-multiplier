@@ -49,7 +49,7 @@ architecture behavior of tb16 is
 		N			: integer := 16;
 		DIM_CNT		: integer := 3;
 		M			: integer := 8;
-		ITERATIONS	: integer := 4
+		PARTS	: integer := 4
 		);
 		port(
 			CLK:			in std_logic;
@@ -69,6 +69,10 @@ architecture behavior of tb16 is
 	
 	begin
 	DUT: resolver
+		generic map(
+			N => 16,
+			PARTS => 4
+		)
 		port map(CLK, RST,
 			OUT_BM,
 			RESULT,

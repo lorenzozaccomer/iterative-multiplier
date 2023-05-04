@@ -117,7 +117,7 @@ architecture behavior of tb16 is
 	-- write result on output file
 	write_result_process: process(CLK)
 		file outputfile:			TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\resolver\result.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\resolver\result16.txt";
 		variable inputline: 	LINE;
 		variable in_RESULT:		bit_vector(RESULT'range);
 	begin

@@ -16,18 +16,7 @@ package selector32_components_package is
 		);
 	end component;
 	
-	
-	component leftshiftN is
-		generic(
-			N: 	integer := 4;
-			SH:	integer := 1);
-		port(
-			X: in std_logic_vector(N-1 downto 0);
-			Y: out std_logic_vector(N-1 downto 0)
-		);
-	end component;
-	
-	
+		
 	component rightshiftN is
 		generic(
 			N: 	integer := 4;
@@ -39,7 +28,7 @@ package selector32_components_package is
 	end component;
 		
 		
-	component adderNotCOut is
+	component adderN is
 		generic(N 	: integer := 4);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -84,7 +73,7 @@ use work.constants_components_package.all;
 
 -- adder without carries
 
-entity adderNotCOut is
+entity adderN is
 	generic(N 	: integer := 4);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -92,7 +81,7 @@ entity adderNotCOut is
 	  );
 end entity;
 
-architecture behavior of adderNotCOut is
+architecture behavior of adderN is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;
@@ -122,31 +111,6 @@ begin
 	with sel select
 		Y <= 	I0 when '0', 
 				I1 when others;
-end behavior;
-----------------------------------------------------------------------
-
-
-
-----------------------------------------------------------------------
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use work.constants_components_package.all;
-
-
-entity leftshiftN is
-	generic(
-		N: 	integer := 4;
-		SH:	integer := 1);
-	port( 
-		X: in std_logic_vector(N-1 downto 0);
-		Y: out std_logic_vector(N-1 downto 0)
-	);
-end entity;
-
-architecture behavior of leftshiftN is
-	begin
-		Y <= std_logic_vector(shift_left(unsigned(X), SH));
 end behavior;
 ----------------------------------------------------------------------
 

@@ -133,7 +133,7 @@ architecture struct of selector32_datapath is
 	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nulls32, bm_in);
 		
 		-- ADDERS
-	ADD_INC_M:	adderNotCOut generic map(DIM_CNT) port map(inc_m_out, one, add_inc_m_out);
+	ADD_INC_M:	adderN generic map(DIM_CNT) port map(inc_m_out, one, add_inc_m_out);
 	
 		-- SHIFTERS
 	SH_AM:		rightshiftN generic map(N,M) port map(am_out, shift_am);

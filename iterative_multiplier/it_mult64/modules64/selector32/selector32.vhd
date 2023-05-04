@@ -92,7 +92,7 @@ architecture struct of selector32 is
 	signal INC_M:			std_logic_vector(DIM_CNT-1 downto 0);
 	
 	begin
-	CTRL: selector32_ctrlunit 
+	CTRL: selector32_ctrlunit
 		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, DATAOUT, READY,
 			selAM,
 			selBM,

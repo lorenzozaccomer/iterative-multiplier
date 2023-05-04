@@ -52,7 +52,6 @@ architecture behavior of tb is
 			OUT_BM:			out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
-			-- START:				in std_logic;
 				-- control outputs
 			DATAOUT:			out std_logic;
 			READY:				out std_logic
@@ -123,7 +122,7 @@ architecture behavior of tb is
 		if (done=1) then
 			write(outputline, string'("End simulation - "));
 			write(outputline, string'("cycle counter is "));
-			write(outputline, int_count);
+			write(outputline, int_counter_data);
 			writeline(output, outputline);
 		assert false
 			report "NONE. End of simulation."

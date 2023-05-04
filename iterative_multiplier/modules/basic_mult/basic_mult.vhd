@@ -18,11 +18,11 @@ package basic_mult_package is
 			A_BM:				in std_logic_vector(M-1 downto 0);
 			B_BM:				in std_logic_vector(M-1 downto 0);
 				-- data outputs
-			OUT_BM:			out std_logic_vector(2*M-1 downto 0);
+			OUT_BM:				out std_logic_vector(2*M-1 downto 0);
 				-- control inputs
 			DATAIN:				in std_logic;
 				-- control outputs
-			DATAOUT:			out std_logic;	-- new data for bm_sel are ready to used it
+			DATAOUT:			out std_logic;	
 			READY:				out std_logic
 		);
 	end component;
@@ -51,9 +51,8 @@ entity basic_mult is
 		OUT_BM:				out std_logic_vector(2*M-1 downto 0);
 			-- control inputs
 		DATAIN:				in std_logic;
-		-- START:				in std_logic;
 			-- control outputs
-		DATAOUT:			out std_logic;	-- new data for bm_sel are ready to used it
+		DATAOUT:			out std_logic;	
 		READY:				out std_logic
 	);
 end entity;
@@ -70,7 +69,6 @@ architecture struct of basic_mult is
 	signal selACC_BM:			std_logic_vector(Q-1 downto 0);
 	signal selSUM:				std_logic;
 	signal selCNT_BM:			std_logic;
-	-- signal selADV_BM:			std_logic;
 	signal selRPM:				std_logic;
 	signal selOUT:				std_logic;
 	signal selINT_A:			std_logic;
@@ -84,7 +82,6 @@ architecture struct of basic_mult is
 	signal loadACC_BM:			std_logic;
 	signal loadSUM:				std_logic;
 	signal loadCNT_BM:			std_logic;
-	-- signal loadADV_BM:			std_logic;
 	signal loadRPM:				std_logic;
 	signal loadOUT:				std_logic;
 	signal loadINT_A:			std_logic;
@@ -104,7 +101,6 @@ architecture struct of basic_mult is
 			selACC_BM,
 			selSUM,
 			selCNT_BM,
-			-- selADV_BM,
 			selRPM,
 			selOUT,
 			selINT_A,
@@ -117,12 +113,10 @@ architecture struct of basic_mult is
 			loadACC_BM,
 			loadSUM,
 			loadCNT_BM,
-			-- loadADV_BM,
 			loadRPM,
 			loadOUT,
 			loadINT_A,
 			loadINT_B,
-			-- ADV_BM,
 			CNT_BM
 		);
 		
@@ -136,7 +130,6 @@ architecture struct of basic_mult is
 			selACC_BM,
 			selSUM,
 			selCNT_BM,
-			-- selADV_BM,
 			selRPM,
 			selOUT,
 			selINT_A,
@@ -149,12 +142,10 @@ architecture struct of basic_mult is
 			loadACC_BM,
 			loadSUM,
 			loadCNT_BM,
-			-- loadADV_BM,
 			loadRPM,
 			loadOUT,
 			loadINT_A,
 			loadINT_B,
-			-- ADV_BM,
 			CNT_BM
 		);
 end struct;

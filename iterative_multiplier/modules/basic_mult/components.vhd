@@ -38,7 +38,7 @@ package basic_mult_components_package is
 	end component;
 	
 		
-	component adderNotCOut is
+	component adderN is
 		generic(N 	: integer := 4);
 		port(
 		  A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -93,7 +93,7 @@ use work.constants_components_package.all;
 
 -- adder without carries
 
-entity adderNotCOut is
+entity adderN is
 	generic(N 	: integer := 4);
 	port(
       A, B	: in std_logic_vector(N-1 downto 0); 	-- operands
@@ -101,7 +101,7 @@ entity adderNotCOut is
 	  );
 end entity;
 
-architecture behavior of adderNotCOut is
+architecture behavior of adderN is
 	begin
 		S <= std_logic_vector(unsigned(A) + unsigned(B));
 end behavior;

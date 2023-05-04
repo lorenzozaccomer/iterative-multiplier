@@ -93,6 +93,11 @@ architecture struct of selector32 is
 	
 	begin
 	CTRL: selector32_ctrlunit
+		generic map(
+			N,
+			DIM_CNT,
+			ITERATIONS
+		)
 		port map(CLK, RST, DATAIN, ADV_AM, NW_PRD, DATAOUT, READY,
 			selAM,
 			selBM,
@@ -111,7 +116,12 @@ architecture struct of selector32 is
 			INC_M
 		);
 		
-	DP: selector32_datapath 
+	DP: selector32_datapath
+		generic map(
+			N,
+			DIM_CNT,
+			M
+		)
 		port map(CLK, RST, A_M, B_M, A_BM, B_BM,
 			selAM,
 			selBM,

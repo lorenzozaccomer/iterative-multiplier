@@ -84,6 +84,12 @@ architecture behavior of tb32 is
 	
 	begin
 	DUT: selector32
+		generic map(
+		N => 32,
+		DIM_CNT => 7,
+		ITERATIONS => 64,
+		M => 4
+		)
 		port map(CLK, RST,
 			A_M,
 			B_M,

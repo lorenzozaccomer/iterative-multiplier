@@ -14,8 +14,7 @@ package selector32_ctrlunit_package is
 		generic(
 			N			:	integer := 32;
 			DIM_CNT		:	integer := 7;
-			ITERATIONS	: 	integer := 64;
-			M			:	integer := 4
+			ITERATIONS	: 	integer := 64
 			);
 		port(
 			CLK:			in std_logic;
@@ -57,8 +56,7 @@ entity selector32_ctrlunit is
 	generic(
 		N			:	integer := 32;
 		DIM_CNT		:	integer := 7;
-		ITERATIONS	: 	integer := 64;
-		M			:	integer := 4
+		ITERATIONS	: 	integer := 64
 		);
 	port(
 		CLK:			in std_logic;

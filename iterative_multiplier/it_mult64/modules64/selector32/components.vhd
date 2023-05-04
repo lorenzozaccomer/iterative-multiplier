@@ -76,21 +76,6 @@ end selector32_components_package;
 ----------------------------------------------------------------------
 
 
-
-----------------------------------------------------------------------
-package constants_components_package is
-    constant Tadd           : time := 4 ns;
-    constant Tcomp          : time := 5 ns;
-    constant Tmux           : time := 2 ns;
-    constant TRco           : time := 1 ns;
-    constant TRsu           : time := 1 ns;
-    constant Tshift         : time := 0 ns;
-    constant Tlogic         : time := 0.4 ns;
-end constants_components_package;
-----------------------------------------------------------------------
-
-
-
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;

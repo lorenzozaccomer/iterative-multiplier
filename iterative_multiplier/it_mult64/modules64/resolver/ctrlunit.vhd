@@ -147,7 +147,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT1;
 				
 			when WAIT1 =>
-				if P_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b'11 = 3
+				if P_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b011 = 3, --b1000 = 8
 					nextstate <= WAITSELS;
 				else
 					nextstate <= UP_ADV_AM;
@@ -183,7 +183,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT2;
 				
 			when WAIT2 =>
-				if N_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b11 = 3
+				if N_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b011 = 3, --b1000 = 8
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;

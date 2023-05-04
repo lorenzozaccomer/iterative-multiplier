@@ -14,7 +14,7 @@ package resolver_package is
 			N			: integer := 16;
 			DIM_CNT		: integer := 3;
 			M			: integer := 8;
-			PARTS			: integer := 4
+			REPETITION			: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -47,7 +47,7 @@ entity resolver is
 		N			: integer := 16;
 		DIM_CNT		: integer := 3;
 		M			: integer := 8;
-		PARTS		: integer := 4
+		REPETITION	: integer := 4
 		);
 	port(
 		CLK:			in std_logic;
@@ -99,7 +99,7 @@ architecture struct of resolver is
 		generic map(
 			N => N,
 			DIM_CNT => DIM_CNT,
-			PARTS => PARTS
+			REPETITION => REPETITION
 		)
 		port map(CLK, RST, DATAIN, NW_PRD, ADV_AM, DATAOUT, READY,
 			loadNSHIFT,
@@ -131,8 +131,7 @@ architecture struct of resolver is
 	DP: resolver_datapath
 		generic map(
 			N => N,
-			DIM_CNT => DIM_CNT,
-			PARTS => PARTS
+			DIM_CNT => DIM_CNT
 		)
 		port map(CLK, RST, OUT_BM, RESULT,
 			loadNSHIFT,

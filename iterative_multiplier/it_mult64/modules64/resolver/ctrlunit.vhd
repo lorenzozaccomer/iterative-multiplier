@@ -13,7 +13,7 @@ package resolver_ctrlunit_package is
 		generic(
 			N			: integer := 16;
 			DIM_CNT		: integer := 3;
-			PARTS		: integer := 4
+			REPETITION	: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -63,7 +63,7 @@ entity resolver_ctrlunit is
 	generic(
 		N			: integer := 16;
 		DIM_CNT		: integer := 3;
-		PARTS		: integer := 4
+		REPETITION	: integer := 4
 		);
 	port(
 			CLK:			in std_logic;
@@ -147,7 +147,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT1;
 				
 			when WAIT1 =>
-				if P_SHIFT = std_logic_vector(to_unsigned(PARTS-1, DIM_CNT)) then	-- b'11 = 3
+				if P_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b'11 = 3
 					nextstate <= WAITSELS;
 				else
 					nextstate <= UP_ADV_AM;
@@ -183,7 +183,7 @@ architecture behavior of resolver_ctrlunit is
 				nextstate <= WAIT2;
 				
 			when WAIT2 =>
-				if N_SHIFT = std_logic_vector(to_unsigned(PARTS-1, DIM_CNT)) then	-- b11 = 3
+				if N_SHIFT = std_logic_vector(to_unsigned(REPETITION-1, DIM_CNT)) then	-- b11 = 3
 					nextstate <= ACC3;
 				else
 					nextstate <= DOWN_ADV_AM;

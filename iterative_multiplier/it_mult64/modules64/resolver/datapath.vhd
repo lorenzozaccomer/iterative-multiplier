@@ -14,7 +14,7 @@ package resolver_datapath_package is
 			N		: integer := 16;
 			DIM_CNT	: integer := 3;
 			M		: integer := 8;
-			PARTS	: integer := 4
+			P		: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -66,7 +66,7 @@ entity resolver_datapath is
 		N		: integer := 16;
 		DIM_CNT	: integer := 3;
 		M		: integer := 8;
-		PARTS	: integer := 4
+		P		: integer := 4
 		);
 	port(
 		CLK:			in std_logic;
@@ -121,15 +121,15 @@ architecture struct of resolver_datapath is
 	signal int_in, int_out:					std_logic_vector(2*N-1 downto 0);
 	signal int2_in, int2_out:				std_logic_vector(2*N-1 downto 0);
 	
-	signal adder1_out:						std_logic_vector(M-1 downto 0) := (others=>'0');
-	signal adder2_out:						std_logic_vector(N+PARTS-1 downto 0):= (others=>'0');
+	signal adder1_out:						std_logic_vector(M-1 downto 0)  := (others=>'0');
+	signal adder2_out:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
 	signal shift_rs:						std_logic_vector(2*N-1 downto 0);
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
 	
-	constant zeros8:						std_logic_vector(M-1 downto 0):= (others=>'0');
-	constant zerosMP:						std_logic_vector(M+PARTS-1 downto 0):= (others=>'0');
-	constant zerosNP:						std_logic_vector(N+PARTS-1 downto 0):= (others=>'0');
-	constant zerosMN:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
+	constant zeros8:						std_logic_vector(M-1 downto 0)  := (others=>'0');
+	constant zerosMP:						std_logic_vector(N-P-1 downto 0):= (others=>'0');
+	constant zerosNP:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
+	constant zerosMN:						std_logic_vector(2*N-M-1 downto 0):= (others=>'0');
 	constant zeros2N:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
 	constant nulls2N:						std_logic_vector(2*N-1 downto 0):= (others=>'-');
 	
@@ -158,10 +158,10 @@ architecture struct of resolver_datapath is
 	MUX_N:		mux2N generic map(DIM_CNT) port map(selNSHIFT, zero, n_out, nshift_in);
 	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
-	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto M+N));
-	MUX_S2:		mux2N generic map(N+PARTS) port map(selS2, adder2_out, zerosNP, s2_in(2*N-1 downto M+PARTS));
-	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zerosMN, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
-	MUX_OPT2:	mux2N generic map(M+PARTS) port map(selOPT2, zerosMP, accr_out(M+PARTS-1 downto 0), s2_in(M+PARTS-1 downto 0));
+	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto 2*N-M));
+	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zerosNP, s2_in(2*N-1 downto N-P));
+	MUX_OPT1:	mux2N generic map(2*N-M) port map(selOPT1, zerosMN, int_out(2*N-M-1 downto 0), s1_in(2*N-M-1 downto 0));
+	MUX_OPT2:	mux2N generic map(N-P) port map(selOPT2, zerosMP, accr_out(N-P-1 downto 0), s2_in(N-P-1 downto 0));
 	MUX_ACCR:	mux4N generic map(2*N) port map(selACCR, shift_accr, s2_out, zeros2N, nulls2N, accr_in);
 	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros2N, result_in);
 	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros2N, shift_rs, s1_out, rs_out, rs_in);
@@ -169,18 +169,18 @@ architecture struct of resolver_datapath is
 	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros2N, rs_out, int2_in);
 	
 		-- ADDERS
-	--8 bit: S1 = BM + INT(2N-1,M+N)
-	ADDER1:		adderN generic map(M) port map(bm_out, int_out(2*N-1 downto M+N), adder1_out);
-	--20 bit: S2 = ACCR(2N-1,M+PARTS) + INT2(2N-1,M+PARTS)
-	ADDER2:		adderN generic map(N+PARTS) port map(accr_out(2*N-1 downto M+PARTS), int2_out(2*N-1 downto M+PARTS), adder2_out);
+	--8 bit: S1 = BM + INT(2N-1,2N-M)
+	ADDER1:		adderN generic map(M) port map(bm_out, int_out(2*N-1 downto 2*N-M), adder1_out);
+	--20 bit: S2 = ACCR(2N-1,N-P) + INT2(2N-1,N-P)
+	ADDER2:		adderN generic map(N+P) port map(accr_out(2*N-1 downto N-P), int2_out(2*N-1 downto N-P), adder2_out);
 	
 	-- increment PSHIFT and NSHIFT
 	INC_P:		adderN generic map(DIM_CNT) port map(pshift_out, one, p_out);
 	INC_N:		adderN generic map(DIM_CNT) port map(nshift_out, one, n_out);
 	
 		-- SHIFTERS
-	SHIFTER1:	rightshiftN generic map(2*N,PARTS) port map(rs_out, shift_rs);
-	SHIFTER2:	rightshiftN generic map(2*N,PARTS) port map(accr_out, shift_accr);
+	SHIFTER1:	rightshiftN generic map(2*N,P) port map(rs_out, shift_rs);
+	SHIFTER2:	rightshiftN generic map(2*N,P) port map(accr_out, shift_accr);
 	
 		-- status signals
 	P_SHIFT <= pshift_out;

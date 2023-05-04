@@ -1,5 +1,5 @@
 
--- selector32.vhdl
+-- selector.vhdl
 
 
 ----------------------------------------------------------------------
@@ -7,8 +7,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package selector32_package is
-	component selector32 is
+package selector_package is
+	component selector is
 		generic(
 			N			:	integer := 32;
 			DIM_CNT		:	integer := 7;
@@ -33,7 +33,7 @@ package selector32_package is
 			READY:			out std_logic	-- m_sel can accept new data input
 		);
 	end component;
-end selector32_package;
+end selector_package;
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -41,10 +41,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.selector32_datapath_package.all;
-use work.selector32_ctrlunit_package.all;
+use work.selector_datapath_package.all;
+use work.selector_ctrlunit_package.all;
 
-entity selector32 is
+entity selector is
 	generic(
 		N			:	integer := 32;
 		DIM_CNT		:	integer := 7;
@@ -70,7 +70,7 @@ entity selector32 is
 	);
 end entity;
 
-architecture struct of selector32 is
+architecture struct of selector is
 
 			-- control signal to datapath
 	signal selAM:			std_logic_vector (1 downto 0);
@@ -92,7 +92,7 @@ architecture struct of selector32 is
 	signal INC_M:			std_logic_vector(DIM_CNT-1 downto 0);
 	
 	begin
-	CTRL: selector32_ctrlunit
+	CTRL: selector_ctrlunit
 		generic map(
 			N,
 			DIM_CNT,
@@ -116,7 +116,7 @@ architecture struct of selector32 is
 			INC_M
 		);
 		
-	DP: selector32_datapath
+	DP: selector_datapath
 		generic map(
 			N,
 			DIM_CNT,

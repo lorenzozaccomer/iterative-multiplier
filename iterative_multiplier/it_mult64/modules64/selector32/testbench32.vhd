@@ -56,7 +56,7 @@ architecture behavior of tb32 is
 										   );
 	
 		-- DUT declaration
-	component selector32 is
+	component selector is
 		generic(
 			N			:	integer := 32;
 			DIM_CNT		:	integer := 7;
@@ -83,12 +83,10 @@ architecture behavior of tb32 is
 	end component;
 	
 	begin
-	DUT: selector32
+	DUT: selector
 		generic map(
 		N => 32,
-		DIM_CNT => 7,
-		ITERATIONS => 64,
-		M => 4
+		ITERATIONS => 64
 		)
 		port map(CLK, RST,
 			A_M,

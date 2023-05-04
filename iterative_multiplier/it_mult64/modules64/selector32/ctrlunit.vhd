@@ -9,8 +9,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package selector32_ctrlunit_package is
-	component selector32_ctrlunit is
+package selector_ctrlunit_package is
+	component selector_ctrlunit is
 		generic(
 			N			:	integer := 32;
 			DIM_CNT		:	integer := 7;
@@ -45,14 +45,14 @@ package selector32_ctrlunit_package is
 			INC_M:			in std_logic_vector(DIM_CNT-1 downto 0)
 		);
 	end component;
-end selector32_ctrlunit_package;
+end selector_ctrlunit_package;
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-entity selector32_ctrlunit is
+entity selector_ctrlunit is
 	generic(
 		N			:	integer := 32;
 		DIM_CNT		:	integer := 7;
@@ -89,7 +89,7 @@ entity selector32_ctrlunit is
 end entity;
 
 
-architecture behavior of selector32_ctrlunit is
+architecture behavior of selector_ctrlunit is
 
 
 	type statetype is (INIT, LOAD_INTERNALS, SAVE_OPS, SHIFT_AM, NEW_PRODUCT,

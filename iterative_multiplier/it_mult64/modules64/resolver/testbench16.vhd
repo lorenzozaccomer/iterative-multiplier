@@ -15,8 +15,7 @@ use ieee.std_logic_textio.all;
 entity tb16 is
 	generic(
 		N	: integer := 16;
-		M	: integer := 8;
-		P	: integer := 4
+		M	: integer := 8
 		);
 end tb16;
 
@@ -47,9 +46,10 @@ architecture behavior of tb16 is
 				
 	component resolver is
 	generic(
-		N	: integer := 16;
-		M	: integer := 8;
-		P	: integer := 4
+		N			: integer := 16;
+		DIM_CNT		: integer := 3;
+		M			: integer := 8;
+		ITERATIONS	: integer := 4
 		);
 		port(
 			CLK:			in std_logic;

@@ -127,11 +127,11 @@ architecture struct of resolver_datapath is
 	signal shift_accr:						std_logic_vector(2*N-1 downto 0);
 	
 	constant zeros8:						std_logic_vector(M-1 downto 0):= (others=>'0');
-	constant zeros12:						std_logic_vector(M+P-1 downto 0):= (others=>'0');
-	constant zeros20:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
-	constant zeros24:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
-	constant zeros32:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
-	constant nulls32:						std_logic_vector(2*N-1 downto 0):= (others=>'-');
+	constant zerosMP:						std_logic_vector(M+P-1 downto 0):= (others=>'0');
+	constant zerosNP:						std_logic_vector(N+P-1 downto 0):= (others=>'0');
+	constant zerosMN:						std_logic_vector(M+N-1 downto 0):= (others=>'0');
+	constant zeros2N:						std_logic_vector(2*N-1 downto 0):= (others=>'0');
+	constant nulls2N:						std_logic_vector(2*N-1 downto 0):= (others=>'-');
 	
 	constant zero:							std_logic_vector(DIM_CNT-1 downto 0)  := std_logic_vector(to_unsigned(0, DIM_CNT));
 	constant one:							std_logic_vector(DIM_CNT-1 downto 0)  := std_logic_vector(to_unsigned(1, DIM_CNT));
@@ -159,14 +159,14 @@ architecture struct of resolver_datapath is
 	MUX_BM:		mux2N generic map(M) port map(selOUTBM, OUT_BM, bm_out, bm_in);
 	
 	MUX_S1:		mux2N generic map(M) port map(selS1, adder1_out, zeros8, s1_in(2*N-1 downto M+N));
-	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zeros20, s2_in(2*N-1 downto M+P));
-	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zeros24, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
-	MUX_OPT2:	mux2N generic map(M+P) port map(selOPT2, zeros12, accr_out(M+P-1 downto 0), s2_in(M+P-1 downto 0));
-	MUX_ACCR:	mux4N generic map(2*N) port map(selACCR, shift_accr, s2_out, zeros32, nulls32, accr_in);
-	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros32, result_in);
-	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros32, shift_rs, s1_out, rs_out, rs_in);
-	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros32, rs_out, int_in);
-	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros32, rs_out, int2_in);
+	MUX_S2:		mux2N generic map(N+P) port map(selS2, adder2_out, zerosNP, s2_in(2*N-1 downto M+P));
+	MUX_OPT1:	mux2N generic map(M+N) port map(selOPT1, zerosMN, int_out(M+N-1 downto 0), s1_in(M+N-1 downto 0));
+	MUX_OPT2:	mux2N generic map(M+P) port map(selOPT2, zerosMP, accr_out(M+P-1 downto 0), s2_in(M+P-1 downto 0));
+	MUX_ACCR:	mux4N generic map(2*N) port map(selACCR, shift_accr, s2_out, zeros2N, nulls2N, accr_in);
+	MUX_RESULT:	mux2N generic map(2*N) port map(selRESULT, accr_out, zeros2N, result_in);
+	MUX_RS:		mux4N generic map(2*N) port map(selRS, zeros2N, shift_rs, s1_out, rs_out, rs_in);
+	MUX_INT:	mux2N generic map(2*N) port map(selINT, zeros2N, rs_out, int_in);
+	MUX_INT2:	mux2N generic map(2*N) port map(selINT2, zeros2N, rs_out, int2_in);
 	
 		-- ADDERS
 	--8 bit: S1 = BM + INT(2N-1,M+N)

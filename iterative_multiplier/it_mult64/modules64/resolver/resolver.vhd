@@ -11,10 +11,10 @@ use ieee.numeric_std.all;
 package resolver_package is
 	component resolver is
 		generic(
-			N		: integer := 16;
-			DIM_CNT	: integer := 3;
-			M		: integer := 8;
-			P		: integer := 4
+			N			: integer := 16;
+			DIM_CNT		: integer := 3;
+			M			: integer := 8;
+			ITERATIONS	: integer := 4
 			);
 		port(
 			CLK:			in std_logic;
@@ -44,10 +44,10 @@ use work.resolver_ctrlunit_package.all;
 
 entity resolver is
 	generic(
-		N		: integer := 16;
-		DIM_CNT	: integer := 3;
-		M		: integer := 8;
-		P		: integer := 4
+		N			: integer := 16;
+		DIM_CNT		: integer := 3;
+		M			: integer := 8;
+		ITERATIONS	: integer := 4
 		);
 	port(
 		CLK:			in std_logic;

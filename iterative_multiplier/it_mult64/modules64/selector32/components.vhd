@@ -69,7 +69,7 @@ end selector_components_package;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
+
 
 -- adder without carries
 
@@ -93,7 +93,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
+
 
 
 entity mux2N is
@@ -120,7 +120,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
+
 
 
 entity rightshiftN is
@@ -145,7 +145,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
+
 
 
 entity regN is
@@ -177,7 +177,7 @@ end behavior;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_components_package.all;
+
 
 
 entity mux4N is
@@ -207,7 +207,7 @@ end behavior;
 -- library ieee;
 -- use ieee.std_logic_1164.all;
 -- use ieee.numeric_std.all;
--- use work.constants_components_package.all;
+-- 
 
 
 -- ----------------------------------------------------------------------

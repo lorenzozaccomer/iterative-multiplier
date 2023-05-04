@@ -119,8 +119,7 @@ architecture struct of selector is
 	DP: selector_datapath
 		generic map(
 			N,
-			DIM_CNT,
-			M
+			DIM_CNT
 		)
 		port map(CLK, RST, A_M, B_M, A_BM, B_BM,
 			selAM,

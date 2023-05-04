@@ -1,5 +1,5 @@
 
--- testbench.vhd
+-- testbench16.vhd
 
 -- for multilplier resolver module
 
@@ -12,28 +12,28 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 
-entity tb is
+entity tb16 is
 	generic(
 		N	: integer := 16;
 		M	: integer := 8;
 		P	: integer := 4
 		);
-end tb;
+end tb16;
 
-architecture behavior of tb is
+architecture behavior of tb16 is
 
 	constant CLK_SEMIPERIOD0: 	time := 25 ns;
 	constant CLK_SEMIPERIOD1: 	time := 25 ns;
 	constant CLK_PERIOD: 		time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	constant RESET_TIME:		time := 3*CLK_PERIOD + 9 ns;
 	
-		-- signals for debugging and tb control
-	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_count: 			integer := 0;
-	signal start: 				integer := 0;
-	signal done: 				integer := 0;
-	signal counter_data: 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
-	signal int_counter_data: 	integer := 0;
+		-- signals for debugging and tb16 control
+	signal count: 				std_logic_vector(2*M-1 downto 0) 	:= (others=> '0');
+	signal int_count: 			integer 							:= 0;
+	signal start: 				integer 							:= 0;
+	signal done: 				integer 							:= 0;
+	signal counter_data: 		std_logic_vector(2*M-1 downto 0) 	:= (others=> '0');
+	signal int_counter_data: 	integer 							:= 0;
 	 
 		-- signals for DUT
 	signal CLK, RST: 			std_logic;
@@ -44,9 +44,7 @@ architecture behavior of tb is
 	signal NW_PRD:				std_logic							:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
-			
-	type seq_array is array (natural range <>) of std_logic_vector(1 downto 0);
-	
+				
 	component resolver is
 	generic(
 		N	: integer := 16;
@@ -61,11 +59,11 @@ architecture behavior of tb is
 				-- data outputs
 			RESULT:			out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
-			DATAIN:			in std_logic;	-- new data to manipulate
+			DATAIN:			in std_logic;
 			NW_PRD:			in std_logic;
-			ADV_AM:			out std_logic_vector (1 downto 0);	-- new 4bits of A
-			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
-			READY:			out std_logic	-- m_sel can accept new data input
+			ADV_AM:			out std_logic_vector (1 downto 0);
+			DATAOUT:		out std_logic;
+			READY:			out std_logic
 		);
 	end component;
 	
@@ -108,6 +106,22 @@ architecture behavior of tb is
 			NW_PRD <= '1';
 		end if;
 		
+	end process;
+	
+	
+	
+	-- write result on output file
+	write_result_process: process(CLK)
+		file outputfile:			TEXT open WRITE_MODE is 
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\modules64\resolver\result.txt";
+		variable inputline: 	LINE;
+		variable in_RESULT:		bit_vector(RESULT'range);
+	begin
+		if (CLK = '0') and (DATAOUT = '1') then
+		-- write result
+				write(inputline, RESULT);
+				writeline(outputfile, inputline);
+		end if;
 	end process;
 	
 	-- terminate the simulation when there are no more data in datafile

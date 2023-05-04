@@ -29,7 +29,6 @@ package basic_mult_ctrlunit_package is
 			selACC_BM:			out std_logic_vector(Q-1 downto 0);
 			selSUM:				out std_logic;
 			selCNT_BM:			out std_logic;
-			-- selADV_BM:			out std_logic;
 			selRPM:				out std_logic;
 			selOUT:				out std_logic;
 			selINT_A:			out std_logic;
@@ -43,13 +42,11 @@ package basic_mult_ctrlunit_package is
 			loadACC_BM:			out std_logic;
 			loadSUM:			out std_logic;
 			loadCNT_BM:			out std_logic;
-			-- loadADV_BM:			out std_logic;
 			loadRPM:			out std_logic;
 			loadOUT:			out std_logic;
 			loadINT_A:			out std_logic;
 			loadINT_B:			out std_logic;
-				-- status signals from datapath
-			-- ADV_BM:				in std_logic;				
+				-- status signals from datapath			
 			CNT_BM:				in std_logic_vector(Q downto 0)
 			);
 	end component;
@@ -82,7 +79,6 @@ entity basic_mult_ctrlunit is
 		selACC_BM:			out std_logic_vector(Q-1 downto 0);
 		selSUM:				out std_logic;
 		selCNT_BM:			out std_logic;
-		-- selADV_BM:			out std_logic;
 		selRPM:				out std_logic;
 		selOUT:				out std_logic;
 		selINT_A:			out std_logic;
@@ -96,13 +92,11 @@ entity basic_mult_ctrlunit is
 		loadACC_BM:			out std_logic;
 		loadSUM:			out std_logic;
 		loadCNT_BM:			out std_logic;
-		-- loadADV_BM:			out std_logic;
 		loadRPM:			out std_logic;
 		loadOUT:			out std_logic;
 		loadINT_A:			out std_logic;
 		loadINT_B:			out std_logic;
 			-- status signals from datapath
-		-- ADV_BM:				in std_logic;				
 		CNT_BM:				in std_logic_vector(Q downto 0)
 		);
 end basic_mult_ctrlunit;
@@ -241,12 +235,6 @@ architecture behavior of basic_mult_ctrlunit is
 						'0';
 		selCNT_BM	<= 	'1'  when state=INC_CNT else
 						'0';
-		
-		-- loadADV_BM	<= 	'1'  when state=ADV or 
-							 -- state=RESET_BM else 
-						-- '0';
-		-- selADV_BM	<= 	'0'  when state=RESET_BM else
-						-- '1'  when state=ADV;
 		
 		loadRPM		<= 	'1'  when state=NEW_PRODUCT_BM else 
 						'0';

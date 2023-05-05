@@ -14,7 +14,7 @@ package resolver_package is
 			N			: integer := 16;
 			DIM_CNT		: integer := 3;
 			M			: integer := 8;
-			REPETITION			: integer := 4
+			REPETITION	: integer := 4
 			);
 		port(
 			CLK:			in std_logic;

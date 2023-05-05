@@ -9,13 +9,8 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 
-package it_mult16_ctrlunit_package is
-	component it_mult16_ctrlunit is
-		generic(
-			N	: integer := 16;
-			M	: integer := 8;
-			P	: integer := 4
-			);
+package it_mult64_ctrlunit_package is
+	component it_mult64_ctrlunit is
 		port(
 			CLK:			in std_logic;
 			RST:			in std_logic;
@@ -49,19 +44,14 @@ package it_mult16_ctrlunit_package is
 			DATAOUT_RES:	in std_logic
 		);
 	end component;
-end it_mult16_ctrlunit_package;
+end it_mult64_ctrlunit_package;
 ----------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 	-- interface
-entity it_mult16_ctrlunit is
-	generic(
-		N	: integer := 16;
-		M	: integer := 8;
-		P	: integer := 4
-		);
+entity it_mult64_ctrlunit is
 	port(
 			CLK:			in std_logic;
 			RST:			in std_logic;
@@ -98,7 +88,7 @@ end entity;
 
 
 
-architecture behavior of it_mult16_ctrlunit is
+architecture behavior of it_mult64_ctrlunit is
 
 
 	type statetype is (INIT, LOAD_OPERANDS, ENABLE_SEL, EXEC_SEL,
@@ -128,8 +118,6 @@ architecture behavior of it_mult16_ctrlunit is
 					nextstate <= ENABLE_SEL;
 			when ENABLE_SEL =>
 					nextstate <= EXEC_SEL;
-			-- when EXEC_SEL =>
-					-- nextstate <= LOW_ENABLE1;
 			when EXEC_SEL =>
 				if DATAOUT_SEL = '1' then
 					nextstate <= SAVE_OPS_BM;
@@ -142,8 +130,6 @@ architecture behavior of it_mult16_ctrlunit is
 				nextstate <= ENABLE_BM;
 			when ENABLE_BM =>
 				nextstate <= EXEC_BM;
-			-- when EXEC_BM =>
-				-- nextstate <= LOW_ENABLE2;
 			when EXEC_BM =>
 				if DATAOUT_BM = '1' then
 					nextstate <= SAVE_OP_RES;
@@ -166,12 +152,6 @@ architecture behavior of it_mult16_ctrlunit is
 						nextstate <= EXEC_RES;
 					end if;
 				end if;
-			-- when LOW_ENABLE3 =>
-				-- if DATAOUT_RES = '1' then
-					-- nextstate <= SAVE_OUT;
-				-- else
-					-- nextstate <= EXEC_RES;
-				-- end if;
 					
 				-- SAVE RESULT
 			when SAVE_OUT =>

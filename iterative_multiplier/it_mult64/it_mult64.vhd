@@ -12,9 +12,12 @@ use ieee.numeric_std.all;
 package it_mult64_package is
 	component it_mult64 is
 		generic(
-			N	: integer := 32;
-			M	: integer := 8;
-			P	: integer := 4
+			N			: integer := 32;
+			DIM_CNT		: integer := 7;		-- both units
+			ITERATIONS	: integer := 64;	-- for selector unit
+			REPETITION	: integer := 8;		-- for resolver unit
+			M			: integer := 8;		-- fixed
+			P			: integer := 4		-- fixed
 			);
 		port(
 			CLK:			in std_logic;
@@ -23,7 +26,7 @@ package it_mult64_package is
 			A_M:			in std_logic_vector(N-1 downto 0);
 			B_M:			in std_logic_vector(N-1 downto 0);
 				-- data outputs
-			OUT_MULT16:		out std_logic_vector(2*N-1 downto 0);
+			OUT_MULT:		out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
 			DATAIN:			in std_logic;	-- new data to manipulate
 			DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -44,9 +47,12 @@ use work.it_mult64_ctrlunit_package.all;
 
 entity it_mult64 is
 	generic(
-		N	: integer := 32;
-		M	: integer := 8;
-		P	: integer := 4
+		N			: integer := 32;
+		DIM_CNT		: integer := 7;		-- both units
+		ITERATIONS	: integer := 64;	-- for selector unit
+		REPETITION	: integer := 8;		-- for resolver unit
+		M			: integer := 8;		-- fixed
+		P			: integer := 4		-- fixed
 		);
 	port(
 		CLK:			in std_logic;
@@ -55,7 +61,7 @@ entity it_mult64 is
 		A:				in std_logic_vector(N-1 downto 0);
 		B:				in std_logic_vector(N-1 downto 0);
 			-- data outputs
-		OUT_MULT16:		out std_logic_vector(2*N-1 downto 0);
+		OUT_MULT:		out std_logic_vector(2*N-1 downto 0);
 			-- control signal to/from extern
 		DATAIN:			in std_logic;	-- new data to manipulate
 		DATAOUT:		out std_logic;	-- new data for bm_sel are ready to used it
@@ -85,10 +91,10 @@ architecture struct of it_mult64 is
 	signal selOUT16:	std_logic;
 	signal loadOUT16:	std_logic;
 				-- status signals from datapath
-	signal	ADV_BM:			std_logic_vector(1 downto 0);
-	signal	DATAOUT_SEL:	std_logic;
-	signal	DATAOUT_BM:		std_logic;
-	signal	DATAOUT_RES:	std_logic;
+	signal ADV_BM:		std_logic_vector(1 downto 0);
+	signal DATAOUT_SEL:	std_logic;
+	signal DATAOUT_BM:	std_logic;
+	signal DATAOUT_RES:	std_logic;
 	
 	begin
 	CTRL: it_mult64_ctrlunit
@@ -119,7 +125,13 @@ architecture struct of it_mult64 is
 
 	
 	DP: it_mult64_datapath
-		port map(CLK, RST, A, B, OUT_MULT16,
+		generic map(
+			N => N,
+			DIM_CNT => DIM_CNT,
+			REPETITION => REPETITION,
+			ITERATIONS => ITERATIONS
+		)
+		port map(CLK, RST, A, B, OUT_MULT,
 			loadA,
 			selA,
 			loadB,

@@ -12,7 +12,10 @@ use ieee.numeric_std.all;
 package it_mult64_datapath_package is
 	component it_mult64_datapath is
 		generic(
-			N	: integer := 32;
+			N			: integer := 32;
+			DIM_CNT		: integer := 7;	-- both units
+			ITERATIONS	: integer := 64;	-- for selector unit
+			REPETITION	: integer := 8;		-- for resolver unit
 			M	: integer := 8;
 			P	: integer := 4
 			);
@@ -23,7 +26,7 @@ package it_mult64_datapath_package is
 			A:				in std_logic_vector(N-1 downto 0);
 			B:				in std_logic_vector(N-1 downto 0);
 				-- data outputs
-			OUT_MULT32:		out std_logic_vector(2*N-1 downto 0);
+			OUT_MULT:		out std_logic_vector(2*N-1 downto 0);
 				-- control signal to datapath
 			loadA:			in std_logic;
 			selA:			in std_logic;
@@ -67,7 +70,10 @@ use work.resolver_package.all;
 	-- interface
 entity it_mult64_datapath is
 	generic(
-		N	: integer := 32;
+		N			: integer := 32;
+		DIM_CNT		: integer := 7;		-- both units
+		ITERATIONS	: integer := 64;	-- for selector unit
+		REPETITION	: integer := 8;		-- for resolver unit
 		M	: integer := 8;
 		P	: integer := 4
 		);
@@ -78,7 +84,7 @@ entity it_mult64_datapath is
 		A:				in std_logic_vector(N-1 downto 0);
 		B:				in std_logic_vector(N-1 downto 0);
 			-- data outputs
-		OUT_MULT32:		out std_logic_vector(2*N-1 downto 0);
+		OUT_MULT:		out std_logic_vector(2*N-1 downto 0);
 			-- control signal to datapath
 		loadA:			in std_logic;
 		selA:			in std_logic;
@@ -166,13 +172,17 @@ architecture struct of it_mult64_datapath is
 	MUX_OUT32:	mux2N generic map(2*N) port map(selOUT32, out_32_out, result_out, out32_in);
 	
 		-- SELECTOR
-	SEL1: selector port map(CLK, RST, a32_out, b32_out, a_sel, b_sel, datain1, advance_bm, new_product, dataout1, ready_sel);
+	SEL1: selector 	
+		generic map(N => N, ITERATIONS => ITERATIONS)	
+		port map(CLK, RST, a32_out, b32_out, a_sel, b_sel, datain1, advance_bm, new_product, dataout1, ready_sel);
 		
 		-- BASIC_MULT
 	BM1: basic_mult port map(CLK, RST, opa_out, opb_out, outbm, datain2, dataout2, ready_bm);		
 	
 		-- RESOLVER
-	RES1: resolver port map(CLK, RST, bm_out, result_out, datain3, new_product, advance_bm, dataout3, ready_res);
+	RES1: resolver 	
+		generic map(N => N, REPETITION => REPETITION)
+		port map(CLK, RST, bm_out, result_out, datain3, new_product, advance_bm, dataout3, ready_res);
 
 		-- status signals
 
@@ -182,6 +192,6 @@ architecture struct of it_mult64_datapath is
 	DATAOUT_BM 	<= dataout2;
 	DATAOUT_RES <= dataout3;
 	
-	OUT_MULT32 	<= out_32_out;
+	OUT_MULT 	<= out_32_out;
 	
 end struct;

@@ -39,7 +39,7 @@ architecture behavior of tb is
 	signal CLK, RST: 			std_logic;
 	signal A:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
 	signal B:					std_logic_vector(N-1 downto 0)	:= (others=>'0');
-	signal OUT_MULT32:			std_logic_vector(2*N-1 downto 0):= (others=>'0');
+	signal OUT_MULT:			std_logic_vector(2*N-1 downto 0):= (others=>'0');
 	signal DATAIN:				std_logic	:= '0';
 	signal DATAOUT:				std_logic;
 	signal READY:				std_logic;
@@ -58,7 +58,7 @@ architecture behavior of tb is
 			A:				in std_logic_vector(N-1 downto 0);
 			B:				in std_logic_vector(N-1 downto 0);
 				-- data outputs
-			OUT_MULT32:		out std_logic_vector(2*N-1 downto 0);
+			OUT_MULT:		out std_logic_vector(2*N-1 downto 0);
 				-- control signal to/from extern
 			DATAIN:			in std_logic;
 			DATAOUT:		out std_logic;
@@ -71,7 +71,7 @@ architecture behavior of tb is
 		port map(CLK, RST,
 			A,
 			B,
-			OUT_MULT32,
+			OUT_MULT,
 			DATAIN,
 			DATAOUT,
 			READY
@@ -110,7 +110,7 @@ architecture behavior of tb is
 		file outputfile:			TEXT open WRITE_MODE is 
 		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\iterative_multiplier\it_mult64\outputdata32.txt";
 		variable inputline: 	LINE;
-		variable in_RESULT:		bit_vector(OUT_MULT32'range);
+		variable in_RESULT:		bit_vector(OUT_MULT'range);
 	begin
 		if (CLK = '0') and (DATAOUT = '1') then
 		-- write result
@@ -118,7 +118,7 @@ architecture behavior of tb is
 				writeline(outputfile, inputline);
 				write(inputline, B);
 				writeline(outputfile, inputline);
-				write(inputline, OUT_MULT32);
+				write(inputline, OUT_MULT);
 				writeline(outputfile, inputline);
 		end if;
 	end process;

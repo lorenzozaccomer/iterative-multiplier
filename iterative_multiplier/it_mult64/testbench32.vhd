@@ -131,7 +131,7 @@ architecture behavior of tb is
 		if (done=1) then
 			write(outputline, string'("End simulation - "));
 			write(outputline, string'("cycle counter is "));
-			write(outputline, int_count);
+			write(outputline, int_counter_data);
 			writeline(output, outputline);
 		assert false
 			report "NONE. End of simulation."

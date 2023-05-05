@@ -10,9 +10,9 @@ use ieee.numeric_std.all;
 package selector_package is
 	component selector is
 		generic(
-			N			:	integer := 32;
+			N			:	integer := 16;
 			DIM_CNT		:	integer := 7;
-			ITERATIONS	: 	integer := 64;
+			ITERATIONS	: 	integer := 16;
 			M			:	integer := 4
 			);
 		port(

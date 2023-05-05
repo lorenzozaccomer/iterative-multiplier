@@ -11,7 +11,7 @@ use ieee.numeric_std.all;
 package selector_datapath_package is
 	component selector_datapath is
 		generic(
-			N			:	integer := 32;
+			N			:	integer := 16;
 			DIM_CNT		:	integer := 7;
 			M			:	integer := 4
 			);
@@ -55,7 +55,7 @@ use work.selector_components_package.all;
 	-- interface
 entity selector_datapath is
 	generic(
-		N			:	integer := 32;
+		N			:	integer := 16;
 		DIM_CNT		:	integer := 7;
 		M			:	integer := 4
 		);
@@ -105,7 +105,7 @@ architecture struct of selector_datapath is
 	signal bm_in, bm_out:				std_logic_vector(N-1 downto 0);
 	
 	-- internal signals
-	constant nulls32:					std_logic_vector(N-1 downto 0)	:= (others=>'-');
+	constant nullsN:					std_logic_vector(N-1 downto 0)	:= (others=>'-');
 	constant zeros:						std_logic_vector(DIM_CNT-1 downto 0)  := (others=>'0');
 	constant one:						std_logic_vector(DIM_CNT-1 downto 0)  := std_logic_vector(to_unsigned(1, DIM_CNT));
 		
@@ -129,8 +129,8 @@ architecture struct of selector_datapath is
 	
 	MUX_INTA:	mux2N generic map(N) port map(selINT_A, a_out, A_M, a_in);
 	MUX_INTB:	mux2N generic map(N) port map(selINT_B, b_out, B_M, b_in);
-	MUX_AM:		mux4N generic map(N) port map(selAM, A_M, shift_am, am_out, nulls32, am_in);
-	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nulls32, bm_in);
+	MUX_AM:		mux4N generic map(N) port map(selAM, A_M, shift_am, am_out, nullsN, am_in);
+	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nullsN, bm_in);
 		
 		-- ADDERS
 	ADD_INC_M:	adderN generic map(DIM_CNT) port map(inc_m_out, one, add_inc_m_out);

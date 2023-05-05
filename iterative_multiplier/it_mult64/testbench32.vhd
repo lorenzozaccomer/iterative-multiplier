@@ -12,22 +12,22 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 
-entity tb is
+entity tb32 is
 	generic(
 		N	: integer := 32;
 		M	: integer := 8;
 		P	: integer := 4
 		);
-end tb;
+end tb32;
 
-architecture behavior of tb is
+architecture behavior of tb32 is
 
 	constant CLK_SEMIPERIOD0: 	time := 25 ns;
 	constant CLK_SEMIPERIOD1: 	time := 25 ns;
 	constant CLK_PERIOD: 		time := CLK_SEMIPERIOD0+CLK_SEMIPERIOD1;
 	constant RESET_TIME:		time := 3*CLK_PERIOD + 9 ns;
 	
-		-- signals for debugging and tb control
+		-- signals for debugging and tb32 control
 	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
 	signal int_count: 			integer := 0;
 	signal start: 				integer := 0;
@@ -46,11 +46,14 @@ architecture behavior of tb is
 		
 		
 	component it_mult64 is
-	generic(
-		N	: integer := 32;
-		M	: integer := 8;
-		P	: integer := 4
-		);
+		generic(
+			N			: integer := 32;
+			DIM_CNT		: integer := 7;		-- both units
+			ITERATIONS	: integer := 64;	-- for selector unit
+			REPETITION	: integer := 8;		-- for resolver unit
+			M			: integer := 8;		-- fixed
+			P			: integer := 4		-- fixed
+			);
 		port(
 			CLK:			in std_logic;
 			RST:			in std_logic;
@@ -68,6 +71,11 @@ architecture behavior of tb is
 	
 	begin
 	DUT: it_mult64
+		generic map(
+			N => 32,
+			ITERATIONS => 64,
+			REPETITION => 8
+			)
 		port map(CLK, RST,
 			A,
 			B,

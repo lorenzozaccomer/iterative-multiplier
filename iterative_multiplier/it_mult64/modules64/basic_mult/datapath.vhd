@@ -132,7 +132,7 @@ architecture struct of basic_mult_datapath is
 	constant zeros8:					std_logic_vector(2*M-1 downto 0):= (others=>'0');
 	
 	constant nulls4:					std_logic_vector(M-1 downto 0)	:= (others=>'-');
-	constant one:						std_logic_vector(Q downto 0)  := std_logic_vector(to_unsigned(1, Q+1));
+	constant one:						std_logic_vector(Q downto 0)    := std_logic_vector(to_unsigned(1, Q+1));
 	
 	begin
 		

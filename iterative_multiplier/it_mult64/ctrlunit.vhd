@@ -94,7 +94,7 @@ architecture behavior of it_mult64_ctrlunit is
 	type statetype is (INIT, LOAD_OPERANDS, ENABLE_SEL, EXEC_SEL,
 						SAVE_OPS_BM, ENABLE_BM, EXEC_BM,
 						SAVE_OP_RES, ENABLE_RES, EXEC_RES, SAVE_OUT, 
-						OUTSTATE, LOW_ENABLE1, LOW_ENABLE2, LOW_ENABLE3);
+						OUTSTATE);
 	signal state, nextstate : statetype;
 	
 	begin

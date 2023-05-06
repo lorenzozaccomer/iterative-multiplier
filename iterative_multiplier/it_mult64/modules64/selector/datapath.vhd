@@ -129,8 +129,8 @@ architecture struct of selector_datapath is
 	
 	MUX_INTA:	mux2N generic map(N) port map(selINT_A, a_out, A_M, a_in);
 	MUX_INTB:	mux2N generic map(N) port map(selINT_B, b_out, B_M, b_in);
-	MUX_AM:		mux4N generic map(N) port map(selAM, A_M, shift_am, am_out, nullsN, am_in);
-	MUX_BM:		mux4N generic map(N) port map(selBM, B_M, shift_bm, bm_out, nullsN, bm_in);
+	MUX_AM:		mux4N generic map(N) port map(selAM, a_out, shift_am, am_out, nullsN, am_in);
+	MUX_BM:		mux4N generic map(N) port map(selBM, b_out, shift_bm, bm_out, nullsN, bm_in);
 		
 		-- ADDERS
 	ADD_INC_M:	adderN generic map(DIM_CNT) port map(inc_m_out, one, add_inc_m_out);

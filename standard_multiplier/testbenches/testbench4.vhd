@@ -1,5 +1,5 @@
 
--- testbench.vhdl for mult8
+-- testbench.vhdl for standard_multiplier
 
 -- libraries
 library ieee;
@@ -10,18 +10,18 @@ use ieee.std_logic_textio.all;
 
 
 -- interface
-entity tb is
+entity tb4 is
 	generic(
 		M	: integer := 8;
 		N 	: integer := 4
 	);
-end tb;
+end tb4;
 
 
 -- architecture
-architecture behavior of tb is
+architecture behavior of tb4 is
 	
-		-- signals for debugging and tb control
+		-- signals for debugging and tb4 control
 	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
 	signal done: 				integer := 0;
 	signal counter_data: 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
@@ -33,7 +33,7 @@ architecture behavior of tb is
 	signal B: std_logic_vector(N-1 downto 0);
 	signal P: std_logic_vector(2*N-1 downto 0);
 
-	component mult8 is
+	component standard_multiplier is
 		generic(
 		  N 	: integer := 4);
 		port( 
@@ -45,7 +45,10 @@ architecture behavior of tb is
       
 	begin
   
-	DUT : mult8
+	DUT : standard_multiplier
+	generic map(
+		N => 4
+	)
 	port map(
 		A, 
 		B, 
@@ -56,7 +59,7 @@ architecture behavior of tb is
 	-- read from datafile
 	read_process: process is
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\tester\mult8\inputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\testbenches\inputdata4.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A'range);
 		variable in_B:			bit_vector(B'range);
@@ -64,7 +67,7 @@ architecture behavior of tb is
 		
 		--
 		file outputfile:	TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\tester\mult8\result.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\results\result4.txt";
 		variable outputline: 	LINE;
 		
 		begin

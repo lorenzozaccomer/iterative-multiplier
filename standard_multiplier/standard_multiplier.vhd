@@ -1,11 +1,11 @@
 
--- mult64.vhdl
+-- standard_multiplier.vhdl
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity mult64 is
+entity standard_multiplier is
 	generic(
 	  N 	: integer := 32);
 	port(
@@ -16,7 +16,7 @@ entity mult64 is
 end entity;
 
 
-architecture struct of mult64 is
+architecture struct of standard_multiplier is
   begin
 		P <= std_logic_vector(unsigned(A) * unsigned(B));
 end struct;

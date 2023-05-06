@@ -1,5 +1,5 @@
 
--- testbench.vhdl for mult16
+-- testbench.vhdl for standard_multiplier
 
 -- libraries
 library ieee;
@@ -10,18 +10,18 @@ use ieee.std_logic_textio.all;
 
 
 -- interface
-entity tb is
+entity tb32 is
 	generic(
 		M	: integer := 8;
-		N 	: integer := 16
+		N 	: integer := 32
 	);
-end tb;
+end tb32;
 
 
 -- architecture
-architecture behavior of tb is
+architecture behavior of tb32 is
 	
-		-- signals for debugging and tb control
+		-- signals for debugging and tb32 control
 	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
 	signal done: 				integer := 0;
 	signal counter_data: 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
@@ -33,9 +33,9 @@ architecture behavior of tb is
 	signal B: std_logic_vector(N-1 downto 0);
 	signal P: std_logic_vector(2*N-1 downto 0);
 
-	component mult16 is
+	component standard_multiplier is
 		generic(
-		  N 	: integer := 16);
+		  N 	: integer := 32);
 		port( 
 		  A   		: in std_logic_vector(N-1 downto 0);
 		  B   		: in std_logic_vector(N-1 downto 0);
@@ -45,7 +45,10 @@ architecture behavior of tb is
       
 	begin
   
-	DUT : mult16
+	DUT : standard_multiplier
+	generic map(
+		N => 32
+	)
 	port map(
 		A, 
 		B, 
@@ -56,7 +59,7 @@ architecture behavior of tb is
 	-- read from datafile
 	read_process: process is
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\tester\mult16\inputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\testbenches\inputdata32.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A'range);
 		variable in_B:			bit_vector(B'range);
@@ -64,7 +67,7 @@ architecture behavior of tb is
 		
 		--
 		file outputfile:	TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\tester\mult16\result.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\results\result32.txt";
 		variable outputline: 	LINE;
 		
 		begin

@@ -1,0 +1,1 @@
+YOUR_PATH\calcolatori-elettronici\iterative_multiplier\modules\basic_mult\inputdata.txt

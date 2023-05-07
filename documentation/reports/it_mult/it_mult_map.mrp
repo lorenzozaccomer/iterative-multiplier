@@ -1,16 +1,16 @@
 Release 14.7 Map P.20131013 (lin64)
-Xilinx Mapping Report File for Design 'it_mult64'
+Xilinx Mapping Report File for Design 'it_mult'
 
 Design Information
 ------------------
 Command Line   : map -intstyle ise -p xc6slx45t-fgg484-3 -w -logic_opt off -ol
 high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
--pr off -lc off -power off -o it_mult64_map.ncd it_mult64.ngd it_mult64.pcf 
+-pr off -lc off -power off -o it_mult_map.ncd it_mult.ngd it_mult.pcf 
 Target Device  : xc6slx45t
 Target Package : fgg484
 Target Speed   : -3
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Sat May  6 15:00:27 2023
+Mapped Date    : Sat May  6 16:57:50 2023
 
 Design Summary
 --------------
@@ -84,8 +84,8 @@ Specific Feature Utilization:
 Average Fanout of Non-Clock Nets:                4.16
 
 Peak Memory Usage:  863 MB
-Total REAL time to MAP completion:  29 secs 
-Total CPU time to MAP completion:   26 secs 
+Total REAL time to MAP completion:  28 secs 
+Total CPU time to MAP completion:   25 secs 
 
 Table of Contents
 -----------------

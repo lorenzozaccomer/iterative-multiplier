@@ -104,7 +104,7 @@ architecture behavior of tb32 is
 	-- read from datafile
 	read_file_process: process(CLK)
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\code\modules\selector\inputdata32.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\modules\selector\inputdata32.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_M'range);
 		variable in_B: 			bit_vector(B_M'range);

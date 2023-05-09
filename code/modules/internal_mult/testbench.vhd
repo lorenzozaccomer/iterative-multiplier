@@ -73,7 +73,7 @@ architecture behavior of tb is
 	-- read from datafile
 	read_file_process: process(CLK)
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\code\modules\internal_mult\inputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\modules\internal_mult\inputdata.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A_BM'range);
 		variable in_B: 			bit_vector(B_BM'range);
@@ -100,7 +100,7 @@ architecture behavior of tb is
 		-- write result on output file
 	write_result_process: process(CLK)
 		file outputfile:			TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\code\modules\internal_mult\outputdata.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\modules\internal_mult\outputdata.txt";
 		variable inputline: 	LINE;
 	begin
 		if (CLK = '0') and (DATAOUT = '1') then

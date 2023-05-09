@@ -87,7 +87,7 @@ architecture behavior of tb32 is
 	-- read from datafile
 	read_file_process: process(CLK)
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\code\modules\resolver\inputdata32.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\modules\resolver\inputdata32.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(OUT_BM'range);
 		variable in_DATAIN: 	bit;
@@ -117,7 +117,7 @@ architecture behavior of tb32 is
 	-- write result on output file
 	write_result_process: process(CLK)
 		file outputfile:			TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\code\modules\resolver\output32.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\modules\resolver\output32.txt";
 		variable inputline: 	LINE;
 		variable in_RESULT:		bit_vector(RESULT'range);
 	begin

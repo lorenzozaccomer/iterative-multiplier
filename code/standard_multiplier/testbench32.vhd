@@ -59,7 +59,7 @@ architecture behavior of tb32 is
 	-- read from datafile
 	read_process: process is
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\testbenches\inputdata32.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\standard_multiplier\inputdata32.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A'range);
 		variable in_B:			bit_vector(B'range);
@@ -67,7 +67,7 @@ architecture behavior of tb32 is
 		
 		--
 		file outputfile:	TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\results\result32.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\standard_multiplier\result32.txt";
 		variable outputline: 	LINE;
 		
 		begin

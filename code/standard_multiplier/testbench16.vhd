@@ -10,18 +10,18 @@ use ieee.std_logic_textio.all;
 
 
 -- interface
-entity tb4 is
+entity tb16 is
 	generic(
 		M	: integer := 8;
-		N 	: integer := 4
+		N 	: integer := 16
 	);
-end tb4;
+end tb16;
 
 
 -- architecture
-architecture behavior of tb4 is
+architecture behavior of tb16 is
 	
-		-- signals for debugging and tb4 control
+		-- signals for debugging and tb16 control
 	signal count: 				std_logic_vector(2*M-1 downto 0) := (others=> '0');
 	signal done: 				integer := 0;
 	signal counter_data: 		std_logic_vector(2*M-1 downto 0) := (others=> '0');
@@ -35,7 +35,7 @@ architecture behavior of tb4 is
 
 	component standard_multiplier is
 		generic(
-		  N 	: integer := 4);
+		  N 	: integer := 16);
 		port( 
 		  A   		: in std_logic_vector(N-1 downto 0);
 		  B   		: in std_logic_vector(N-1 downto 0);
@@ -47,7 +47,7 @@ architecture behavior of tb4 is
   
 	DUT : standard_multiplier
 	generic map(
-		N => 4
+		N => 16
 	)
 	port map(
 		A, 
@@ -59,7 +59,7 @@ architecture behavior of tb4 is
 	-- read from datafile
 	read_process: process is
 		file infile: 			TEXT open READ_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\testbenches\inputdata4.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\standard_multiplier\inputdata16.txt";
 		variable inputline: 	LINE;
 		variable in_A:			bit_vector(A'range);
 		variable in_B:			bit_vector(B'range);
@@ -67,7 +67,7 @@ architecture behavior of tb4 is
 		
 		--
 		file outputfile:	TEXT open WRITE_MODE is 
-		"C:\Users\lorenzo uni\Desktop\repositories\calcolatori-elettronici\standard_multiplier\results\result4.txt";
+		"C:\Users\lorenzo uni\Desktop\repositories\iterative-multiplier\code\standard_multiplier\result16.txt";
 		variable outputline: 	LINE;
 		
 		begin

@@ -1,6 +1,6 @@
 # Iterative Multiplier
 
-Project for Calcolatori Elettronici course.
+Project for Electronic Calculators course.
 
 ### Documentation
 

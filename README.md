@@ -17,5 +17,5 @@ Folders:
 Files:
   - all the file for the iterative multiplier
 Folders:
-  - modules: all the module's ile
+  - modules: all the module's for the iterative multiplier
   - standard multiplier: simple multiplier loaded via ModelSim used to test the result of the iterative multiplier

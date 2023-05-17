@@ -6,11 +6,10 @@ The objective was to design an iterative multiplier with two inputs, described i
 
 ### Documentation
 
-Files:
-- Iterative_Multiplier__SOFTWARE.pdf
-- (folder) images: some screen about the simulation with ModelSim
-- (folder) report: reports generated via Xilinx ISE  
-- (folder) software: advice to install Xilinx ISE on your computer
+Folders:
+- images: some screen about the simulation with ModelSim
+- report: reports generated via Xilinx ISE  
+- software: advice to install Xilinx ISE on your computer
 
 ### Code
 

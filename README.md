@@ -10,7 +10,7 @@ Folders:
 - images: some screen about the simulation with ModelSim
 - report: reports generated via Xilinx ISE  
 - software: advice to install Xilinx ISE on your computer
-- asm chart
+- asm chart: contain all the execution graph
 
 ### Code
 

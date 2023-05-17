@@ -13,7 +13,6 @@ Files:
 
 ### Code
 
-All the file for the iterative multiplier
-Folders:
-  - modules: all the module's for the iterative multiplier
-  - standard multiplier: simple multiplier loaded via ModelSim used to test the result of the iterative multiplier
+Contain all the file for the iterative multiplier
+- (folder) modules: all the module's for the iterative multiplier
+- (folder) standard multiplier: simple multiplier loaded via ModelSim used to test the result of the iterative multiplier

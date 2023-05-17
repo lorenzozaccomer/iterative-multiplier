@@ -2,7 +2,7 @@
 
 Project for Electronic Calculators course.
 
-The objective was the design of an iterative multiplier, described in VHDL language; this having a 2-bit multiplier automatically synthesised by the synthesis tool, and exploiting it to obtain the desired multiplier, first a 16-bit output unit, and then a 64-bit unit, by parametrization.
+The objective was to design an iterative multiplier with two inputs, described in the VHDL language, with a 2-bit multiplier automatically synthesised by the synthesis tool and used to obtain the desired multiplier, first a 16-bit output unit and then a 64-bit unit, by parameterisation.
 
 ### Documentation
 

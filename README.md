@@ -6,7 +6,6 @@ Project for Electronic Calculators course.
 
 Files:
 - Iterative_Multiplier__SOFTWARE.pdf
-Folders:
 - images: some screen about the simulation with ModelSim
 - report: reports generated via Xilinx ISE  
 - software: advice to install Xilinx ISE on your computer

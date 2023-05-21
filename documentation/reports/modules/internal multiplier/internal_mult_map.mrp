@@ -3,15 +3,15 @@ Xilinx Mapping Report File for Design 'internal_mult'
 
 Design Information
 ------------------
-Command Line   : map -intstyle ise -p xc6slx45t-fgg484-3 -w -logic_opt off -ol
+Command Line   : map -intstyle ise -p xc6slx45-csg324-3 -w -logic_opt off -ol
 high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
 -pr off -lc off -power off -o internal_mult_map.ncd internal_mult.ngd
 internal_mult.pcf 
-Target Device  : xc6slx45t
-Target Package : fgg484
+Target Device  : xc6slx45
+Target Package : csg324
 Target Speed   : -3
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Sat May  6 16:51:07 2023
+Mapped Date    : Sun May 14 18:13:47 2023
 
 Design Summary
 --------------
@@ -36,12 +36,12 @@ Slice Logic Utilization:
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    25 out of   6,822    1%
+  Number of occupied Slices:                    27 out of   6,822    1%
   Number of MUXCYs used:                        16 out of  13,644    1%
-  Number of LUT Flip Flop pairs used:           89
-    Number with an unused Flip Flop:            22 out of      89   24%
-    Number with an unused LUT:                   0 out of      89    0%
-    Number of fully used LUT-FF pairs:          67 out of      89   75%
+  Number of LUT Flip Flop pairs used:           93
+    Number with an unused Flip Flop:            26 out of      93   27%
+    Number with an unused LUT:                   4 out of      93    4%
+    Number of fully used LUT-FF pairs:          63 out of      93   67%
     Number of unique control sets:              12
     Number of slice register sites lost
       to control set restrictions:              30 out of  54,576    1%
@@ -53,7 +53,7 @@ Slice Logic Distribution:
   over-mapped for a non-slice resource or if Placement fails.
 
 IO Utilization:
-  Number of bonded IOBs:                        21 out of     296    7%
+  Number of bonded IOBs:                        21 out of     218    9%
 
 Specific Feature Utilization:
   Number of RAMB16BWERs:                         0 out of     116    0%
@@ -72,10 +72,8 @@ Specific Feature Utilization:
   Number of BUFPLLs:                             0 out of       8    0%
   Number of BUFPLL_MCBs:                         0 out of       4    0%
   Number of DSP48A1s:                            0 out of      58    0%
-  Number of GTPA1_DUALs:                         0 out of       2    0%
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
-  Number of PCIE_A1s:                            0 out of       1    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
   Number of PLL_ADVs:                            0 out of       4    0%
   Number of PMVs:                                0 out of       1    0%
@@ -84,7 +82,7 @@ Specific Feature Utilization:
 
 Average Fanout of Non-Clock Nets:                4.02
 
-Peak Memory Usage:  848 MB
+Peak Memory Usage:  845 MB
 Total REAL time to MAP completion:  13 secs 
 Total CPU time to MAP completion:   11 secs 
 

@@ -3,14 +3,14 @@ Xilinx Mapping Report File for Design 'selector'
 
 Design Information
 ------------------
-Command Line   : map -intstyle ise -p xc6slx45t-fgg484-3 -w -logic_opt off -ol
+Command Line   : map -intstyle ise -p xc6slx45-csg324-3 -w -logic_opt off -ol
 high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
 -pr off -lc off -power off -o selector_map.ncd selector.ngd selector.pcf 
-Target Device  : xc6slx45t
-Target Package : fgg484
+Target Device  : xc6slx45
+Target Package : csg324
 Target Speed   : -3
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Sat May  6 11:34:42 2023
+Mapped Date    : Sun May 14 18:32:41 2023
 
 Design Summary
 --------------
@@ -48,7 +48,7 @@ Slice Logic Distribution:
   over-mapped for a non-slice resource or if Placement fails.
 
 IO Utilization:
-  Number of bonded IOBs:                        80 out of     296   27%
+  Number of bonded IOBs:                        80 out of     218   36%
 
 Specific Feature Utilization:
   Number of RAMB16BWERs:                         0 out of     116    0%
@@ -67,10 +67,8 @@ Specific Feature Utilization:
   Number of BUFPLLs:                             0 out of       8    0%
   Number of BUFPLL_MCBs:                         0 out of       4    0%
   Number of DSP48A1s:                            0 out of      58    0%
-  Number of GTPA1_DUALs:                         0 out of       2    0%
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
-  Number of PCIE_A1s:                            0 out of       1    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
   Number of PLL_ADVs:                            0 out of       4    0%
   Number of PMVs:                                0 out of       1    0%
@@ -79,9 +77,9 @@ Specific Feature Utilization:
 
 Average Fanout of Non-Clock Nets:                4.01
 
-Peak Memory Usage:  849 MB
+Peak Memory Usage:  845 MB
 Total REAL time to MAP completion:  12 secs 
-Total CPU time to MAP completion:   11 secs 
+Total CPU time to MAP completion:   12 secs 
 
 Table of Contents
 -----------------

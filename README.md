@@ -4,6 +4,8 @@ Project for Electronic Calculators course.
 
 The goal was to design an iterative multiplier with two inputs, described in the VHDL language, with a 2-bit multiplier automatically synthesised by the synthesis tool and used to obtain the desired multiplier, first a 16-bit output unit and then a 64-bit unit, by parameterisation.
 
+![iterative-multiplier](https://github.com/lorenzozaccomer/iterative-multiplier/assets/80517436/99e97f81-8672-4bf6-ab7a-e2cc857e2151)
+
 ### Documentation
 
 Folders:
